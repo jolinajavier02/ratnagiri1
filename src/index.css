@@ -2315,8 +2315,8 @@ body {
 }
 
 .hero-content {
-  width: min(850px, 54%);
-  margin-top: 12vh;
+  width: min(760px, 46%);
+  margin-top: 9vh;
   padding-left: 0;
 }
 
@@ -2329,7 +2329,7 @@ body {
 .hero-title {
   color: #ffffff;
   font-family: var(--sans);
-  font-size: clamp(5rem, 10vw, 9.6rem);
+  font-size: clamp(4.6rem, 8.8vw, 8.8rem);
   font-weight: 900;
   line-height: 0.82;
   margin-bottom: 1.25rem;
@@ -2345,7 +2345,7 @@ body {
 }
 
 .hero-description {
-  max-width: 760px;
+  max-width: 620px;
   color: rgba(255, 247, 237, 0.9);
   font-size: 0.92rem;
   line-height: 1.58;
@@ -2423,17 +2423,17 @@ body {
 }
 
 .hero-carousel-panel {
-  left: 16%;
+  left: 50.5%;
   right: auto;
-  top: 29%;
+  top: 28%;
   transform: none;
-  width: 92vw;
+  width: 58vw;
   z-index: 5;
   pointer-events: none;
 }
 
 .carousel-cards-container {
-  gap: 2rem;
+  gap: 1.45rem;
   align-items: center;
   overflow: visible;
   pointer-events: auto;
@@ -2441,14 +2441,14 @@ body {
 
 .hero-preview-item {
   display: flex;
-  flex: 0 0 clamp(220px, 18vw, 350px);
+  flex: 0 0 clamp(190px, 15vw, 290px);
   flex-direction: column;
 }
 
 .carousel-card {
   flex: none;
   width: 100%;
-  height: clamp(330px, 32vw, 520px);
+  height: clamp(300px, 27vw, 460px);
   border-radius: 8px;
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 28px 54px rgba(0, 0, 0, 0.28);
@@ -2547,6 +2547,10 @@ body {
     transform: none;
     right: auto;
     left: auto;
+    width: 100%;
+  }
+
+  .hero-content {
     width: 100%;
   }
 
