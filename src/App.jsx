@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play, Pause, ChevronLeft, ChevronRight, MapPin, Star, Calendar,
-  Clock, Compass, Shield, Award, Users, Heart, ArrowRight, Plane,
-  Train, Hotel, Filter, Utensils, Sparkles, BookOpen, Coffee, Music,
-  Search, Globe, ChevronDown, Check, Info, ArrowUpRight, DollarSign
+  Compass, Award, Users, ArrowRight, Plane,
+  Train, Hotel, Filter, Utensils, Sparkles,
+  Search, Globe, Check, Info
 } from 'lucide-react';
 import './App.css';
+import heroCover from './assets/hero.png';
 
 // Slide categories matching user requests
 const slides = [
@@ -14,77 +15,66 @@ const slides = [
     id: 'cover',
     category: 'Cover',
     location: 'Pratik Patil - Maharashtra India',
-    title: 'VALLEY GREEN HILLS',
+    title: 'INDIA',
     subtitle: 'Malshej Ghat',
     description: 'Diwanpada is a scenic, offbeat village in the Malshej Ghat region of Maharashtra, India, famed for the majestic Kalu Waterfall. During the monsoon season, the landscape transforms into a vibrant paradise with lush, green valleys, rolling misty hills, cascading waterfalls, and dramatic, cloud-filled skies.',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-scenic-view-of-a-mountain-river-and-forest-42220-large.mp4',
-    thumbnail: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80',
+    imageUrl: heroCover,
+    thumbnail: heroCover,
     link: '#/'
   },
   {
     id: 'destinations',
     category: 'Destinations',
-    location: 'Rudra Gupta - Rishikesh India',
-    title: 'ARIEL TOWN VIEW',
-    subtitle: 'Sacred Himalayan Valleys',
-    description: 'Rishikesh, nestled in the foothills of the grand Himalayas beside the Ganges River, is renowned globally as the capital of yoga and meditation. The town offers a stunning aerial panorama of forested hills, holy temples, and suspension bridges spanning the turquoise waters of the sacred river.',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-beautiful-aerial-shot-of-a-green-mountain-41527-large.mp4',
-    thumbnail: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80',
+    location: 'Agra - Uttar Pradesh India',
+    title: 'DESTINATIONS',
+    subtitle: 'Golden Heritage Icons',
+    description: 'Explore India through unforgettable places: marble monuments glowing at sunrise, sacred rivers, forts, desert cities, tea hills, coastal lagoons, and living heritage streets shaped by centuries of travel stories.',
+    imageUrl: '/generated/destinations-india-cover.png',
+    thumbnail: '/generated/destinations-india-cover.png',
     link: '#/destinations'
   },
   {
     id: 'tours',
     category: 'Tours',
-    location: 'Daniel Joshua - Kovalam Beach India',
-    title: 'SEASHORE GOLDEN HOUR',
-    subtitle: 'Tropical Paradise Coastlines',
-    description: 'Experience the magic of Kerala’s coastal serenity. Watch the sunset paint the sky in deep shades of gold, saffron, and purple over the warm Arabian Sea. Shimmering sands, swaying coconut palms, and gentle surf make Kovalam one of the most iconic seaside escapes in Southern India.',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-beach-with-turquoise-water-43343-large.mp4',
-    thumbnail: 'https://images.unsplash.com/photo-1547983699-121697287625?auto=format&fit=crop&w=600&q=80',
+    location: 'Jaipur - Rajasthan India',
+    title: 'TOURS',
+    subtitle: 'Guided Royal Routes',
+    description: 'Move through India with expert local hosts, palace walks, food trails, cultural performances, and carefully paced journeys that make every fort, temple, market, and sunset feel close and personal.',
+    imageUrl: '/generated/tours-india-cover.png',
+    thumbnail: '/generated/tours-india-cover.png',
     link: '#/tours'
-  },
-  {
-    id: 'accommodation',
-    category: 'Accommodation',
-    location: 'Curated Luxury - Varanasi India',
-    title: 'BOAT PARKED GANGA RIVER',
-    subtitle: 'Sacred Waterside Heritage',
-    description: 'Witness the spiritual heart of India along the ancient ghats of Varanasi. In the early morning mist, wooden boats rest quietly against the backdrop of historic palaces and temples, as the gentle currents of the sacred Ganges whisper stories of three thousand years of continuous heritage.',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-luxury-resort-with-swimming-pool-and-palm-trees-31299-large.mp4',
-    thumbnail: 'https://images.unsplash.com/photo-1561361046-c22208a2df5f?auto=format&fit=crop&w=600&q=80',
-    link: '#/booking'
   },
   {
     id: 'booking',
     category: 'Booking',
-    location: 'Royal Escapes - Rajasthan India',
-    title: 'PALACE ROYAL HERITAGE',
-    subtitle: 'Splendors of Maharajas Land',
-    description: 'Plan your ultimate journey into the land of regal luxury. Book exclusive packages at palace hotels, heritage properties, luxury eco-lodges, and desert camps. Experience personalized royal hospitality, curated culinary journeys, and guided private safaris.',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-driving-in-the-mountains-under-a-clear-blue-sky-40019-large.mp4',
-    thumbnail: 'https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=600&q=80',
+    location: 'Udaipur - Rajasthan India',
+    title: 'BOOKING',
+    subtitle: 'Palace Stays & Concierge',
+    description: 'Reserve flights, trains, palace hotels, lake resorts, and custom routes with a premium travel desk built for seamless planning, comfort, and memorable arrivals across India.',
+    imageUrl: '/generated/booking-india-cover.png',
+    thumbnail: '/generated/booking-india-cover.png',
     link: '#/booking'
   },
   {
     id: 'foods',
     category: 'Foods',
     location: 'Spices Trail - Old Delhi India',
-    title: 'TRADITIONAL SPICY FEASTS',
+    title: 'FOODS',
     subtitle: 'Regional Gastronomic Map',
     description: 'Embark on a culinary odyssey through India’s rich gastronomic map. From the fiery, flavorful street food stalls of Old Delhi to aromatic slow-cooked biryanis and coastal seafood curries, Indian cuisine is an explosion of hand-ground spices, heritage recipes, and textures.',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-pouring-tea-from-a-kettle-into-a-cup-43105-large.mp4',
-    thumbnail: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=600&q=80',
+    imageUrl: '/generated/foods-india-cover.png',
+    thumbnail: '/generated/foods-india-cover.png',
     link: '#/foods'
   },
   {
     id: 'tradition',
     category: 'Tradition',
     location: 'Cultural Beats - Kerala India',
-    title: 'FESTIVALS & ROYAL RITUALS',
+    title: 'TRADITIONS',
     subtitle: 'Vibrant Colors of Heritage',
     description: 'Immerse yourself in the soulful traditions of India. Experience the spectacular Kathakali dance, the thunderous beats of temple drums, the colorful expressions of Holi, and the spiritual radiance of Diwali. Explore a culture where ancient rituals thrive seamlessly in modern times.',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-dancing-in-traditional-dress-41617-large.mp4',
-    thumbnail: 'https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=600&q=80',
+    imageUrl: '/generated/traditions-india-cover.png',
+    thumbnail: '/generated/traditions-india-cover.png',
     link: '#/tradition'
   }
 ];
@@ -128,12 +118,14 @@ const districtList = [
   'Washim',
   'Yavatmal'
 ];
-{ id: 1, title: 'Taj Mahal, Agra', state: 'Uttar Pradesh', region: 'North', category: 'Heritage', rating: 4.9, reviews: 45200, price: 45, img: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80', desc: 'The world\'s most famous monument of love, built in stunning white marble along the Yamuna River.' },
-{ id: 2, title: 'Munnar Tea Hills', state: 'Kerala', region: 'South', category: 'Nature', rating: 4.8, reviews: 12400, price: 30, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80', desc: 'Rolling tea gardens, pristine mist, and exotic flora nestled in the Western Ghats of Southern India.' },
-{ id: 3, title: 'Hampi Ruins', state: 'Karnataka', region: 'South', category: 'Heritage', rating: 4.9, reviews: 9800, price: 35, img: 'https://images.unsplash.com/photo-1600100397608-f010e42ed182?auto=format&fit=crop&w=600&q=80', desc: 'An awe-inspiring open-air museum showcasing the grand ruins of the historic Vijayanagara Empire.' },
-{ id: 4, title: 'Leh Ladakh Passes', state: 'Jammu & Kashmir', region: 'North', category: 'Adventure', rating: 4.9, reviews: 8500, price: 80, img: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80', desc: 'Rugged mountains, deep blue high-altitude lakes, and some of the world\'s highest motorable passes.' },
-{ id: 5, title: 'Jaisalmer Desert Dunes', state: 'Rajasthan', region: 'West', category: 'Adventure', rating: 4.7, reviews: 7100, price: 50, img: 'https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=600&q=80', desc: 'Golden sandstone forts, desert safaris under starry skies, and rich Rajasthani traditional performances.' },
-{ id: 6, title: 'Sundarbans Mangrove', state: 'West Bengal', region: 'East', category: 'Nature', rating: 4.6, reviews: 5400, price: 40, img: 'https://images.unsplash.com/photo-1561361046-c22208a2df5f?auto=format&fit=crop&w=600&q=80', desc: 'The largest mangrove forest in the world, home to the elusive Royal Bengal Tiger.' },
+
+const mockDestinations = [
+  { id: 1, title: 'Taj Mahal, Agra', state: 'Uttar Pradesh', region: 'North', category: 'Heritage', rating: 4.9, reviews: 45200, price: 45, img: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80', desc: 'The world\'s most famous monument of love, built in stunning white marble along the Yamuna River.' },
+  { id: 2, title: 'Munnar Tea Hills', state: 'Kerala', region: 'South', category: 'Nature', rating: 4.8, reviews: 12400, price: 30, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80', desc: 'Rolling tea gardens, pristine mist, and exotic flora nestled in the Western Ghats of Southern India.' },
+  { id: 3, title: 'Hampi Ruins', state: 'Karnataka', region: 'South', category: 'Heritage', rating: 4.9, reviews: 9800, price: 35, img: 'https://images.unsplash.com/photo-1600100397608-f010e42ed182?auto=format&fit=crop&w=600&q=80', desc: 'An awe-inspiring open-air museum showcasing the grand ruins of the historic Vijayanagara Empire.' },
+  { id: 4, title: 'Leh Ladakh Passes', state: 'Jammu & Kashmir', region: 'North', category: 'Adventure', rating: 4.9, reviews: 8500, price: 80, img: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80', desc: 'Rugged mountains, deep blue high-altitude lakes, and some of the world\'s highest motorable passes.' },
+  { id: 5, title: 'Jaisalmer Desert Dunes', state: 'Rajasthan', region: 'West', category: 'Adventure', rating: 4.7, reviews: 7100, price: 50, img: 'https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=600&q=80', desc: 'Golden sandstone forts, desert safaris under starry skies, and rich Rajasthani traditional performances.' },
+  { id: 6, title: 'Sundarbans Mangrove', state: 'West Bengal', region: 'East', category: 'Nature', rating: 4.6, reviews: 5400, price: 40, img: 'https://images.unsplash.com/photo-1561361046-c22208a2df5f?auto=format&fit=crop&w=600&q=80', desc: 'The largest mangrove forest in the world, home to the elusive Royal Bengal Tiger.' },
 ];
 
 const mockTours = [
@@ -275,10 +267,10 @@ function App() {
     setProgress(0);
   };
 
-  // Get Next 4 slides for Right Carousel
+  // Get all other slides for the right-side rotating feature preview.
   const getNextSlides = () => {
     const list = [];
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i < slides.length; i++) {
       const idx = (activeSlide + i) % slides.length;
       list.push({ ...slides[idx], originalIndex: idx });
     }
@@ -288,9 +280,9 @@ function App() {
   // Dynamic Trip Planner Function
   const calculatePlan = (e) => {
     e.preventDefault();
-    let hotelChoice = luxuryHotels[2];
-    let routeDesc = '';
-    let cost = 0;
+    let hotelChoice;
+    let routeDesc;
+    let cost;
 
     if (plannerBudget === 'luxury') {
       hotelChoice = luxuryHotels[0];
@@ -381,22 +373,28 @@ function App() {
         <>
           {/* HERO SECTION CONTAINER */}
           <section className="hero-container">
-            {/* Edge-to-edge Video loops with fade-in crossfade */}
+            {/* Edge-to-edge image covers with fade-in crossfade */}
             <div className="hero-video-wrapper">
               {slides.map((slide, idx) => (
-                <video
+                <img
                   key={slide.id}
-                  src={slide.videoUrl}
+                  src={slide.imageUrl}
+                  alt={`${slide.title} tourism cover`}
                   className={`hero-video ${idx === activeSlide ? 'active' : ''}`}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
                 />
               ))}
             </div>
 
             <div className="hero-overlay" />
+
+            <div className="hero-rail" aria-hidden="true">
+              <span>01</span>
+              <div className="hero-rail-line">
+                <i style={{ height: `${Math.max(progress, 8)}%` }} />
+                <b>{activeSlide + 1}</b>
+              </div>
+              <span>{String(activeSlide + 1).padStart(2, '0')}/{String(slides.length).padStart(2, '0')}</span>
+            </div>
 
             {/* Slide Typography Left Content */}
             <div className="hero-content">
@@ -410,6 +408,7 @@ function App() {
                 >
                   <span className="hero-location-badge">{slides[activeSlide].location}</span>
                   <h1 className="hero-title">{slides[activeSlide].title}</h1>
+                  <h2 className="hero-active-place">{slides[activeSlide].subtitle}</h2>
                   <p className="hero-description">{slides[activeSlide].description}</p>
 
                   <div className="hero-cta-wrapper">
@@ -426,18 +425,18 @@ function App() {
 
             {/* Next 4 Upcoming Slide Cards Carousel Right */}
             <div className="hero-carousel-panel">
-              <span className="carousel-section-title">Upcoming Explorations</span>
               <div className="carousel-cards-container">
                 {getNextSlides().map((card) => (
-                  <div
-                    key={card.id}
-                    className="carousel-card"
-                    onClick={() => selectSlide(card.originalIndex)}
-                  >
-                    <img src={card.thumbnail} alt={card.title} className="carousel-card-img" />
-                    <div className="carousel-card-overlay">
-                      <span className="carousel-card-location">{card.category}</span>
-                      <h4 className="carousel-card-title">{card.title}</h4>
+                  <div className="hero-preview-item" key={card.id}>
+                    <div
+                      className="carousel-card"
+                      onClick={() => selectSlide(card.originalIndex)}
+                    >
+                      <img src={card.thumbnail} alt={card.title} className="carousel-card-img" />
+                      <div className="carousel-card-overlay">
+                        <span className="carousel-card-location">{card.location}</span>
+                        <h4 className="carousel-card-title">{card.title}</h4>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -448,10 +447,13 @@ function App() {
             <div className="hero-bottom-controls">
               {/* Social Media Links left */}
               <div className="social-links">
-                <a href="https://facebook.com" className="social-icon" target="_blank" rel="noreferrer"><Users size={16} /></a>
-                <a href="https://twitter.com" className="social-icon" target="_blank" rel="noreferrer"><Compass size={16} /></a>
-                <a href="https://instagram.com" className="social-icon" target="_blank" rel="noreferrer"><Heart size={16} /></a>
-                <a href="https://youtube.com" className="social-icon" target="_blank" rel="noreferrer"><Music size={16} /></a>
+                <a href="https://facebook.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
+                <a href="https://twitter.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="X">X</a>
+                <a href="https://instagram.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a>
+                <a href="https://youtube.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="YouTube">YT</a>
+                <a href="https://whatsapp.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="WhatsApp">WA</a>
+                <a href="https://pinterest.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Pinterest">P</a>
+                <a href="https://linkedin.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
               </div>
 
               {/* Prev/Play-Pause/Next buttons center */}
@@ -795,7 +797,7 @@ function App() {
 
           <div className="page-container">
             <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '4rem' }}>
-              {mockTours.map((tour, index) => (
+              {mockTours.map((tour) => (
                 <div key={tour.id} className="tour-card" style={{ display: 'flex', flexDirection: 'row', minHeight: '380px' }}>
                   <div className="tour-img-wrapper" style={{ width: '45%' }}>
                     <img src={tour.img} alt={tour.title} className="tour-img" style={{ height: '100%' }} />
@@ -880,7 +882,7 @@ function App() {
                     <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(76, 175, 80, 0.1)', color: '#4CAF50', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem auto' }}>
                       <Check size={40} />
                     </div>
-                    <h2 style={{ fontFamily: 'var(--serif)', color: '#FFFFFF', marginBottom: '0.8rem' }}>Reservation Request Received!</h2>
+                    <h2 style={{ fontFamily: 'var(--serif)', color: 'var(--text-primary)', marginBottom: '0.8rem' }}>Reservation Request Received!</h2>
                     <p style={{ color: 'var(--text-muted)', maxWidth: '450px', margin: '0 auto' }}>
                       Our luxury concierge team is verifying seat and suite availability. A customized voucher has been sent to your registered email address.
                     </p>
@@ -962,7 +964,7 @@ function App() {
               {/* Luxury accommodation catalog & interactive trip planner right */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
                 <div>
-                  <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.4rem', color: '#FFFFFF', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.4rem', color: 'var(--text-primary)', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Sparkles size={20} style={{ color: 'var(--saffron)' }} />
                     Heritage Palace Showcase
                   </h3>
@@ -987,7 +989,7 @@ function App() {
 
                 {/* TRIP PLANNER WIDGET */}
                 <div style={{ backgroundColor: 'var(--obsidian-card)', border: '1px dashed var(--saffron)', borderRadius: '20px', padding: '1.8rem' }}>
-                  <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.25rem', color: '#FFFFFF', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.25rem', color: 'var(--text-primary)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Compass size={18} style={{ color: 'var(--saffron)' }} />
                     AI-Driven Trip Planner
                   </h3>
@@ -1055,7 +1057,7 @@ function App() {
                           {plannedItinerary.totalCost} Est.
                         </span>
                       </div>
-                      <h4 style={{ color: '#FFFFFF', fontSize: '0.95rem', fontFamily: 'var(--serif)', marginBottom: '0.4rem' }}>
+                      <h4 style={{ color: 'var(--text-primary)', fontSize: '0.95rem', fontFamily: 'var(--serif)', marginBottom: '0.4rem' }}>
                         {plannedItinerary.hotel.name}
                       </h4>
                       <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
@@ -1110,7 +1112,7 @@ function App() {
 
             <div style={{ marginTop: '5rem', backgroundColor: 'var(--obsidian-card)', borderRadius: '24px', padding: '3rem', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
               <Utensils size={36} style={{ color: 'var(--saffron)', marginBottom: '1.2rem' }} />
-              <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.8rem', color: '#FFFFFF', marginBottom: '0.8rem' }}>Curated Regional Food Trails</h3>
+              <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.8rem', color: 'var(--text-primary)', marginBottom: '0.8rem' }}>Curated Regional Food Trails</h3>
               <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto 2rem auto', lineHeight: '1.6' }}>
                 Join local celebrity chefs on multi-day journeys, wandering into traditional spice gardens, private royal chef kitchens, and high-energy street food walks in old heritage lanes.
               </p>
@@ -1137,7 +1139,7 @@ function App() {
             </p>
 
             <div className="festivals-timeline">
-              {mockTraditions.map((t, idx) => (
+              {mockTraditions.map((t) => (
                 <div key={t.id} className="timeline-item">
                   <div className="timeline-dot" />
                   <div className="timeline-content">
@@ -1153,7 +1155,7 @@ function App() {
             <div style={{ marginTop: '6rem', background: 'linear-gradient(135deg, #1A120B 0%, var(--obsidian-card) 100%)', borderRadius: '24px', padding: '3.5rem 4%', border: '1px solid rgba(255, 111, 0, 0.15)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center' }}>
               <div style={{ textAlign: 'left' }}>
                 <span className="section-tag" style={{ textAlign: 'left' }}>Royal Heritage Walks</span>
-                <h3 style={{ fontFamily: 'var(--serif)', fontSize: '2rem', color: '#FFFFFF', marginBottom: '1.2rem', lineHeight: '1.2' }}>
+                <h3 style={{ fontFamily: 'var(--serif)', fontSize: '2rem', color: 'var(--text-primary)', marginBottom: '1.2rem', lineHeight: '1.2' }}>
                   Uncover Ancient Monolithic Temple Sculptures
                 </h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.8rem' }}>
@@ -1191,10 +1193,13 @@ function App() {
               Promoting responsible, luxury, and sustainable tourism across the rich states of India. Discover heritage sites, palaces, cuisines, and beaches in high-fidelity comfort.
             </p>
             <div className="footer-socials">
-              <a href="https://facebook.com" className="social-icon" target="_blank" rel="noreferrer"><Users size={16} /></a>
-              <a href="https://twitter.com" className="social-icon" target="_blank" rel="noreferrer"><Compass size={16} /></a>
-              <a href="https://instagram.com" className="social-icon" target="_blank" rel="noreferrer"><Heart size={16} /></a>
-              <a href="https://youtube.com" className="social-icon" target="_blank" rel="noreferrer"><Music size={16} /></a>
+              <a href="https://facebook.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
+              <a href="https://twitter.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="X">X</a>
+              <a href="https://instagram.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a>
+              <a href="https://youtube.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="YouTube">YT</a>
+              <a href="https://whatsapp.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="WhatsApp">WA</a>
+              <a href="https://pinterest.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Pinterest">P</a>
+              <a href="https://linkedin.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
             </div>
           </div>
 
@@ -1250,4 +1255,3 @@ function App() {
 }
 
 export default App;
-
