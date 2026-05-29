@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Play, Pause, ChevronLeft, ChevronRight, MapPin, Star, Calendar, 
-  Clock, Compass, Shield, Award, Users, Heart, ArrowRight, Plane, 
-  Train, Hotel, Filter, Utensils, Sparkles, BookOpen, Coffee, Music, 
+import {
+  Play, Pause, ChevronLeft, ChevronRight, MapPin, Star, Calendar,
+  Clock, Compass, Shield, Award, Users, Heart, ArrowRight, Plane,
+  Train, Hotel, Filter, Utensils, Sparkles, BookOpen, Coffee, Music,
   Search, Globe, ChevronDown, Check, Info, ArrowUpRight, DollarSign
 } from 'lucide-react';
 import './App.css';
@@ -89,51 +89,51 @@ const slides = [
   }
 ];
 
-  const districtList = [
-    'Ahilyanagar',
-    'Akola',
-    'Amravati',
-    'Beed',
-    'Bhandara',
-    'Buldhana',
-    'Chandrapur',
-    'Chh. Sambhaji Nagar',
-    'Dharashiv',
-    'Dhule',
-    'Gadchiroli',
-    'Gondia',
-    'Hingoli',
-    'Jalgaon',
-    'Jalna',
-    'Kolhapur',
-    'Latur',
-    'Madha',
-    'Mumbai City',
-    'Mumbai Suburban',
-    'Nagpur',
-    'Nanded',
-    'Nandurbar',
-    'Nashik',
-    'Palghar',
-    'Parbhani',
-    'Pune',
-    'Raigad',
-    'Ratnagiri',
-    'Sangli',
-    'Satara',
-    'Sindhudurg',
-    'Solapur',
-    'Thane',
-    'Wardha',
-    'Washim',
-    'Yavatmal'
-  ];
-  { id: 1, title: 'Taj Mahal, Agra', state: 'Uttar Pradesh', region: 'North', category: 'Heritage', rating: 4.9, reviews: 45200, price: 45, img: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80', desc: 'The world\'s most famous monument of love, built in stunning white marble along the Yamuna River.' },
-  { id: 2, title: 'Munnar Tea Hills', state: 'Kerala', region: 'South', category: 'Nature', rating: 4.8, reviews: 12400, price: 30, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80', desc: 'Rolling tea gardens, pristine mist, and exotic flora nestled in the Western Ghats of Southern India.' },
-  { id: 3, title: 'Hampi Ruins', state: 'Karnataka', region: 'South', category: 'Heritage', rating: 4.9, reviews: 9800, price: 35, img: 'https://images.unsplash.com/photo-1600100397608-f010e42ed182?auto=format&fit=crop&w=600&q=80', desc: 'An awe-inspiring open-air museum showcasing the grand ruins of the historic Vijayanagara Empire.' },
-  { id: 4, title: 'Leh Ladakh Passes', state: 'Jammu & Kashmir', region: 'North', category: 'Adventure', rating: 4.9, reviews: 8500, price: 80, img: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80', desc: 'Rugged mountains, deep blue high-altitude lakes, and some of the world\'s highest motorable passes.' },
-  { id: 5, title: 'Jaisalmer Desert Dunes', state: 'Rajasthan', region: 'West', category: 'Adventure', rating: 4.7, reviews: 7100, price: 50, img: 'https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=600&q=80', desc: 'Golden sandstone forts, desert safaris under starry skies, and rich Rajasthani traditional performances.' },
-  { id: 6, title: 'Sundarbans Mangrove', state: 'West Bengal', region: 'East', category: 'Nature', rating: 4.6, reviews: 5400, price: 40, img: 'https://images.unsplash.com/photo-1561361046-c22208a2df5f?auto=format&fit=crop&w=600&q=80', desc: 'The largest mangrove forest in the world, home to the elusive Royal Bengal Tiger.' }
+const districtList = [
+  'Ahilyanagar',
+  'Akola',
+  'Amravati',
+  'Beed',
+  'Bhandara',
+  'Buldhana',
+  'Chandrapur',
+  'Chh. Sambhaji Nagar',
+  'Dharashiv',
+  'Dhule',
+  'Gadchiroli',
+  'Gondia',
+  'Hingoli',
+  'Jalgaon',
+  'Jalna',
+  'Kolhapur',
+  'Latur',
+  'Madha',
+  'Mumbai City',
+  'Mumbai Suburban',
+  'Nagpur',
+  'Nanded',
+  'Nandurbar',
+  'Nashik',
+  'Palghar',
+  'Parbhani',
+  'Pune',
+  'Raigad',
+  'Ratnagiri',
+  'Sangli',
+  'Satara',
+  'Sindhudurg',
+  'Solapur',
+  'Thane',
+  'Wardha',
+  'Washim',
+  'Yavatmal'
+];
+{ id: 1, title: 'Taj Mahal, Agra', state: 'Uttar Pradesh', region: 'North', category: 'Heritage', rating: 4.9, reviews: 45200, price: 45, img: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80', desc: 'The world\'s most famous monument of love, built in stunning white marble along the Yamuna River.' },
+{ id: 2, title: 'Munnar Tea Hills', state: 'Kerala', region: 'South', category: 'Nature', rating: 4.8, reviews: 12400, price: 30, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80', desc: 'Rolling tea gardens, pristine mist, and exotic flora nestled in the Western Ghats of Southern India.' },
+{ id: 3, title: 'Hampi Ruins', state: 'Karnataka', region: 'South', category: 'Heritage', rating: 4.9, reviews: 9800, price: 35, img: 'https://images.unsplash.com/photo-1600100397608-f010e42ed182?auto=format&fit=crop&w=600&q=80', desc: 'An awe-inspiring open-air museum showcasing the grand ruins of the historic Vijayanagara Empire.' },
+{ id: 4, title: 'Leh Ladakh Passes', state: 'Jammu & Kashmir', region: 'North', category: 'Adventure', rating: 4.9, reviews: 8500, price: 80, img: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80', desc: 'Rugged mountains, deep blue high-altitude lakes, and some of the world\'s highest motorable passes.' },
+{ id: 5, title: 'Jaisalmer Desert Dunes', state: 'Rajasthan', region: 'West', category: 'Adventure', rating: 4.7, reviews: 7100, price: 50, img: 'https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=600&q=80', desc: 'Golden sandstone forts, desert safaris under starry skies, and rich Rajasthani traditional performances.' },
+{ id: 6, title: 'Sundarbans Mangrove', state: 'West Bengal', region: 'East', category: 'Nature', rating: 4.6, reviews: 5400, price: 40, img: 'https://images.unsplash.com/photo-1561361046-c22208a2df5f?auto=format&fit=crop&w=600&q=80', desc: 'The largest mangrove forest in the world, home to the elusive Royal Bengal Tiger.' },
 ];
 
 const mockTours = [
@@ -195,12 +195,12 @@ const mockTraditions = [
 function App() {
   const [currentRoute, setCurrentRoute] = useState(window.location.hash || '#/');
   const [scrolled, setScrolled] = useState(false);
-  
+
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
-  
+
   // Custom Trip Planner State
   const [plannerBudget, setPlannerBudget] = useState('luxury');
   const [plannerDays, setPlannerDays] = useState(7);
@@ -411,7 +411,7 @@ function App() {
                   <span className="hero-location-badge">{slides[activeSlide].location}</span>
                   <h1 className="hero-title">{slides[activeSlide].title}</h1>
                   <p className="hero-description">{slides[activeSlide].description}</p>
-                  
+
                   <div className="hero-cta-wrapper">
                     <a href={slides[activeSlide].link} className="hero-explore-btn">
                       Explore Now
@@ -459,8 +459,8 @@ function App() {
                 <button className="control-btn" onClick={handlePrevSlide} title="Previous Slide">
                   <ChevronLeft size={20} />
                 </button>
-                <button 
-                  className="control-btn play-pause" 
+                <button
+                  className="control-btn play-pause"
                   onClick={() => setIsPlaying(!isPlaying)}
                   title={isPlaying ? "Pause Auto-Rotate" : "Start Auto-Rotate"}
                 >
@@ -576,7 +576,7 @@ function App() {
                 </div>
               ))}
             </div>
-            
+
             <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
               <a href="#/destinations" className="book-btn" style={{ padding: '0.8rem 2.2rem' }}>View All Destinations</a>
             </div>
@@ -751,7 +751,7 @@ function App() {
                       </div>
                       <h3 className="destination-card-title">{dest.title}</h3>
                       <p className="experience-card-desc" style={{ marginBottom: '1.2rem' }}>{dest.desc}</p>
-                      
+
                       <div className="destination-card-footer">
                         <div className="destination-card-stats">
                           <span className="destination-stats-label">Audience Reviews</span>
@@ -762,9 +762,9 @@ function App() {
                           <span className="destination-price-value">${dest.price}/day</span>
                         </div>
                       </div>
-                      
-                      <button 
-                        className="book-btn" 
+
+                      <button
+                        className="book-btn"
                         onClick={() => window.location.hash = '#/booking'}
                         style={{ width: '100%', marginTop: '1.2rem', textAlign: 'center' }}
                       >
@@ -809,12 +809,12 @@ function App() {
                           <Star size={12} fill="#FFFFFF" /> {tour.rating}
                         </span>
                       </div>
-                      
+
                       <h3 className="tour-title" style={{ fontSize: '1.7rem', marginBottom: '1.2rem' }}>{tour.title}</h3>
                       <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--saffron)', fontWeight: '700', display: 'block', marginBottom: '1rem', letterSpacing: '1px' }}>
                         Core Tour Inclusions
                       </span>
-                      
+
                       <ul className="tour-highlights" style={{ marginBottom: '2rem' }}>
                         {tour.highlights.map((h, i) => (
                           <li key={i} className="tour-highlight-item" style={{ fontSize: '0.95rem', marginBottom: '0.6rem' }}>
@@ -824,15 +824,15 @@ function App() {
                         ))}
                       </ul>
                     </div>
-                    
+
                     <div className="tour-footer" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1.5rem' }}>
                       <div className="tour-price">
                         <span className="tour-price-label">All-Inclusive Per Guest</span>
                         <span className="tour-price-value" style={{ fontSize: '1.7rem', color: 'var(--saffron)' }}>{tour.price}</span>
                       </div>
-                      
-                      <button 
-                        className="book-btn" 
+
+                      <button
+                        className="book-btn"
                         onClick={() => window.location.hash = '#/booking'}
                         style={{ padding: '0.8rem 2.2rem' }}
                       >
@@ -966,7 +966,7 @@ function App() {
                     <Sparkles size={20} style={{ color: 'var(--saffron)' }} />
                     Heritage Palace Showcase
                   </h3>
-                  
+
                   <div className="luxury-hotels-panel">
                     {luxuryHotels.map((hotel) => (
                       <div key={hotel.id} className="luxury-hotel-card">
@@ -998,24 +998,24 @@ function App() {
                   <form onSubmit={calculatePlan}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.2rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
-                        <button 
-                          type="button" 
+                        <button
+                          type="button"
                           className={`filter-btn ${plannerBudget === 'luxury' ? 'active' : ''}`}
                           onClick={() => setPlannerBudget('luxury')}
                           style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem' }}
                         >
                           Palace Luxury
                         </button>
-                        <button 
-                          type="button" 
+                        <button
+                          type="button"
                           className={`filter-btn ${plannerBudget === 'premium' ? 'active' : ''}`}
                           onClick={() => setPlannerBudget('premium')}
                           style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem' }}
                         >
                           Coastal Wellness
                         </button>
-                        <button 
-                          type="button" 
+                        <button
+                          type="button"
                           className={`filter-btn ${plannerBudget === 'eco' ? 'active' : ''}`}
                           onClick={() => setPlannerBudget('eco')}
                           style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem' }}
@@ -1029,11 +1029,11 @@ function App() {
                           <span style={{ fontWeight: '600' }}>Journey Duration</span>
                           <span style={{ color: 'var(--saffron)', fontWeight: '700' }}>{plannerDays} Days</span>
                         </div>
-                        <input 
-                          type="range" 
-                          min="3" 
-                          max="15" 
-                          value={plannerDays} 
+                        <input
+                          type="range"
+                          min="3"
+                          max="15"
+                          value={plannerDays}
                           onChange={(e) => setPlannerDays(parseInt(e.target.value))}
                           style={{ accentColor: 'var(--saffron)', cursor: 'pointer' }}
                         />
@@ -1094,7 +1094,7 @@ function App() {
                     <span className="food-card-region">{food.region}</span>
                     <h3 className="food-card-name">{food.name}</h3>
                     <p className="food-card-desc">{food.desc}</p>
-                    
+
                     <div className="food-card-footer">
                       <span className={`food-card-badge ${food.type}`}>
                         {food.type === 'veg' ? 'PURE VEG' : 'NON-VEG'}
@@ -1250,3 +1250,4 @@ function App() {
 }
 
 export default App;
+
