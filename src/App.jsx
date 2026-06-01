@@ -56,6 +56,18 @@ function SocialIconMark({ mark }) {
 
 const coverImage = (filename) => `${import.meta.env.BASE_URL}generated/${filename}`;
 
+const sectionImages = {
+  welcome: coverImage('welcome-india-summer-cover.png'),
+  destinations: coverImage('destinations-india-summer-cover.png'),
+  tours: coverImage('tours-india-summer-cover.png'),
+  booking: coverImage('booking-india-summer-cover.png'),
+  foods: coverImage('foods-india-summer-cover.png'),
+  traditions: coverImage('traditions-india-summer-cover.png')
+};
+
+const pageHeaderBackground = (image) =>
+  `linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('${image}')`;
+
 // Slide categories in the requested preview order.
 const slides = [
   {
@@ -65,8 +77,8 @@ const slides = [
     title: 'WELCOME TO INDIA',
     subtitle: 'Sunlit Shores & Timeless Journeys',
     description: 'A warm coastal welcome into India: golden beaches, blue water, palm shadows, relaxed resort stays, flavorful food, and culture glowing under the summer sun.',
-    imageUrl: coverImage('welcome-india-summer-cover.png'),
-    thumbnail: coverImage('welcome-india-summer-cover.png'),
+    imageUrl: sectionImages.welcome,
+    thumbnail: sectionImages.welcome,
     link: '#/'
   },
   {
@@ -76,8 +88,8 @@ const slides = [
     title: 'DESTINATIONS',
     subtitle: 'Beach Sands & Island Light',
     description: 'The destination preview highlights India’s tropical side: white sand, turquoise water, palm-lined beaches, island cliffs, and quiet coastal escapes made for summer travel.',
-    imageUrl: coverImage('destinations-india-summer-cover.png'),
-    thumbnail: coverImage('destinations-india-summer-cover.png'),
+    imageUrl: sectionImages.destinations,
+    thumbnail: sectionImages.destinations,
     link: '#/destinations'
   },
   {
@@ -87,8 +99,8 @@ const slides = [
     title: 'TOURS',
     subtitle: 'Golden Hour Beach Walks',
     description: 'The tours preview is about guided beach walks, sunset conversations, boat rides, local hosts, and easy routes through India’s brightest coastal experiences.',
-    imageUrl: coverImage('tours-india-summer-cover.png'),
-    thumbnail: coverImage('tours-india-summer-cover.png'),
+    imageUrl: sectionImages.tours,
+    thumbnail: sectionImages.tours,
     link: '#/tours'
   },
   {
@@ -98,8 +110,8 @@ const slides = [
     title: 'BOOKINGS',
     subtitle: 'Beach Resorts & Easy Arrivals',
     description: 'The bookings preview focuses on smooth arrivals: beach resorts, private stays, concierge planning, luggage-ready comfort, and sunlit check-ins by the sea.',
-    imageUrl: coverImage('booking-india-summer-cover.png'),
-    thumbnail: coverImage('booking-india-summer-cover.png'),
+    imageUrl: sectionImages.booking,
+    thumbnail: sectionImages.booking,
     link: '#/booking'
   },
   {
@@ -109,8 +121,8 @@ const slides = [
     title: 'FOODS',
     subtitle: 'Coastal Flavors & Tropical Plates',
     description: 'The food preview celebrates coastal India: grilled seafood, coconut drinks, mango, banana leaf plates, fresh chutneys, and spice-rich dishes beside the beach.',
-    imageUrl: coverImage('foods-india-summer-cover.png'),
-    thumbnail: coverImage('foods-india-summer-cover.png'),
+    imageUrl: sectionImages.foods,
+    thumbnail: sectionImages.foods,
     link: '#/foods'
   },
   {
@@ -120,8 +132,8 @@ const slides = [
     title: 'TRADITIONS',
     subtitle: 'Festivals by the Sea',
     description: 'The traditions preview shows India’s coastal celebrations: diyas on sand, marigold rituals, music, dance, colorful clothing, and festival evenings by the water.',
-    imageUrl: coverImage('traditions-india-summer-cover.png'),
-    thumbnail: coverImage('traditions-india-summer-cover.png'),
+    imageUrl: sectionImages.traditions,
+    thumbnail: sectionImages.traditions,
     link: '#/tradition'
   }
 ];
@@ -167,12 +179,12 @@ const districtList = [
 ];
 
 const mockDestinations = [
-  { id: 1, title: 'Taj Mahal, Agra', state: 'Uttar Pradesh', region: 'North', category: 'Heritage', rating: 4.9, reviews: 45200, price: 45, img: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=600&q=80', desc: 'The world\'s most famous monument of love, built in stunning white marble along the Yamuna River.' },
-  { id: 2, title: 'Munnar Tea Hills', state: 'Kerala', region: 'South', category: 'Nature', rating: 4.8, reviews: 12400, price: 30, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80', desc: 'Rolling tea gardens, pristine mist, and exotic flora nestled in the Western Ghats of Southern India.' },
-  { id: 3, title: 'Hampi Ruins', state: 'Karnataka', region: 'South', category: 'Heritage', rating: 4.9, reviews: 9800, price: 35, img: 'https://images.unsplash.com/photo-1600100397608-f010e42ed182?auto=format&fit=crop&w=600&q=80', desc: 'An awe-inspiring open-air museum showcasing the grand ruins of the historic Vijayanagara Empire.' },
-  { id: 4, title: 'Leh Ladakh Passes', state: 'Jammu & Kashmir', region: 'North', category: 'Adventure', rating: 4.9, reviews: 8500, price: 80, img: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80', desc: 'Rugged mountains, deep blue high-altitude lakes, and some of the world\'s highest motorable passes.' },
-  { id: 5, title: 'Jaisalmer Desert Dunes', state: 'Rajasthan', region: 'West', category: 'Adventure', rating: 4.7, reviews: 7100, price: 50, img: 'https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=600&q=80', desc: 'Golden sandstone forts, desert safaris under starry skies, and rich Rajasthani traditional performances.' },
-  { id: 6, title: 'Sundarbans Mangrove', state: 'West Bengal', region: 'East', category: 'Nature', rating: 4.6, reviews: 5400, price: 40, img: 'https://images.unsplash.com/photo-1561361046-c22208a2df5f?auto=format&fit=crop&w=600&q=80', desc: 'The largest mangrove forest in the world, home to the elusive Royal Bengal Tiger.' },
+  { id: 1, title: 'Taj Mahal, Agra', state: 'Uttar Pradesh', region: 'North', category: 'Heritage', rating: 4.9, reviews: 45200, price: 45, img: sectionImages.destinations, desc: 'The world\'s most famous monument of love, built in stunning white marble along the Yamuna River.' },
+  { id: 2, title: 'Munnar Tea Hills', state: 'Kerala', region: 'South', category: 'Nature', rating: 4.8, reviews: 12400, price: 30, img: sectionImages.welcome, desc: 'Rolling tea gardens, pristine mist, and exotic flora nestled in the Western Ghats of Southern India.' },
+  { id: 3, title: 'Hampi Ruins', state: 'Karnataka', region: 'South', category: 'Heritage', rating: 4.9, reviews: 9800, price: 35, img: sectionImages.traditions, desc: 'An awe-inspiring open-air museum showcasing the grand ruins of the historic Vijayanagara Empire.' },
+  { id: 4, title: 'Leh Ladakh Passes', state: 'Jammu & Kashmir', region: 'North', category: 'Adventure', rating: 4.9, reviews: 8500, price: 80, img: sectionImages.tours, desc: 'Rugged mountains, deep blue high-altitude lakes, and some of the world\'s highest motorable passes.' },
+  { id: 5, title: 'Jaisalmer Desert Dunes', state: 'Rajasthan', region: 'West', category: 'Adventure', rating: 4.7, reviews: 7100, price: 50, img: sectionImages.booking, desc: 'Golden sandstone forts, desert safaris under starry skies, and rich Rajasthani traditional performances.' },
+  { id: 6, title: 'Sundarbans Mangrove', state: 'West Bengal', region: 'East', category: 'Nature', rating: 4.6, reviews: 5400, price: 40, img: sectionImages.foods, desc: 'The largest mangrove forest in the world, home to the elusive Royal Bengal Tiger.' },
 ];
 
 const mockTours = [
@@ -184,7 +196,7 @@ const mockTours = [
     rating: '4.9',
     category: 'Heritage & Culture',
     highlights: ['Agra Taj Mahal Sunrise Guided Tour', 'Jaipur Amer Fort Elephant Ride Experience', 'Delhi Chandni Chowk Food Crawl', 'Jodhpur Golden Palace Homestay'],
-    img: 'https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=600&q=80',
+    img: sectionImages.booking,
     date: 'Starting 12 June, 2026'
   },
   {
@@ -195,7 +207,7 @@ const mockTours = [
     rating: '4.8',
     category: 'Nature & Wellness',
     highlights: ['Overnight Luxury Houseboat Cruise', 'Kathakali Traditional Dance Performance', 'Munnar Organic Tea Garden Walk', 'Kovalam Beach Yoga Session'],
-    img: 'https://images.unsplash.com/photo-1547983699-121697287625?auto=format&fit=crop&w=600&q=80',
+    img: sectionImages.welcome,
     date: 'Starting 20 June, 2026'
   },
   {
@@ -206,22 +218,22 @@ const mockTours = [
     rating: '4.9',
     category: 'Adventure & Spirituality',
     highlights: ['Ganges Ganga Aarti Ceremony in Rishikesh', 'High Altitude Valley Trek in Dharamshala', 'Meditation Retreat with Masters', 'White Water River Rafting Class IV'],
-    img: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80',
+    img: sectionImages.tours,
     date: 'Starting 05 July, 2026'
   }
 ];
 
 const luxuryHotels = [
-  { id: 1, name: 'Taj Lake Palace', type: 'Palace Hotel', location: 'Udaipur, Rajasthan', price: '₹55,000/N', img: 'https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=600&q=80' },
-  { id: 2, name: 'Kumarakom Lake Resort', type: 'Luxury Resort', location: 'Kottayam, Kerala', price: '₹22,000/N', img: 'https://images.unsplash.com/photo-1547983699-121697287625?auto=format&fit=crop&w=600&q=80' },
-  { id: 3, name: 'Evolve Back Kabini', type: 'Eco Lodge', location: 'Kabini Forest, Karnataka', price: '₹34,000/N', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' }
+  { id: 1, name: 'Taj Lake Palace', type: 'Palace Hotel', location: 'Udaipur, Rajasthan', price: '₹55,000/N', img: sectionImages.booking },
+  { id: 2, name: 'Kumarakom Lake Resort', type: 'Luxury Resort', location: 'Kottayam, Kerala', price: '₹22,000/N', img: sectionImages.welcome },
+  { id: 3, name: 'Evolve Back Kabini', type: 'Eco Lodge', location: 'Kabini Forest, Karnataka', price: '₹34,000/N', img: sectionImages.destinations }
 ];
 
 const mockFoods = [
-  { id: 1, name: 'Butter Chicken & Naan', region: 'North India', type: 'non-veg', spiciness: 'Medium', desc: 'A rich, creamy, tomato-based curry loaded with tandoor-roasted chicken, served with hot butter garlic naan.', img: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=600&q=80' },
-  { id: 2, name: 'Traditional Ghee Dosa', region: 'South India', type: 'veg', spiciness: 'Mild', desc: 'A super-crisp, thin fermented crepe made of rice and lentils, served with fresh coconut chutney and piping hot sambar.', img: 'https://images.unsplash.com/photo-1600100397608-f010e42ed182?auto=format&fit=crop&w=600&q=80' },
-  { id: 3, name: 'Misal Pav & Farsan', region: 'West India', type: 'veg', spiciness: 'High', desc: 'A spicy curry made of sprouted moth beans, topped with crunchy savory farsan, onions, coriander, and soft pav buns.', img: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=600&q=80' },
-  { id: 4, name: 'Shorba & Biryani Feast', region: 'East India', type: 'non-veg', spiciness: 'Medium', desc: 'Aromatic basmati rice cooked slowly with delicate herbs, spices, and marinated mutton, served with hot spiced gravy.', img: 'https://images.unsplash.com/photo-1561361046-c22208a2df5f?auto=format&fit=crop&w=600&q=80' }
+  { id: 1, name: 'Butter Chicken & Naan', region: 'North India', type: 'non-veg', spiciness: 'Medium', desc: 'A rich, creamy, tomato-based curry loaded with tandoor-roasted chicken, served with hot butter garlic naan.', img: sectionImages.foods },
+  { id: 2, name: 'Traditional Ghee Dosa', region: 'South India', type: 'veg', spiciness: 'Mild', desc: 'A super-crisp, thin fermented crepe made of rice and lentils, served with fresh coconut chutney and piping hot sambar.', img: sectionImages.welcome },
+  { id: 3, name: 'Misal Pav & Farsan', region: 'West India', type: 'veg', spiciness: 'High', desc: 'A spicy curry made of sprouted moth beans, topped with crunchy savory farsan, onions, coriander, and soft pav buns.', img: sectionImages.booking },
+  { id: 4, name: 'Shorba & Biryani Feast', region: 'East India', type: 'non-veg', spiciness: 'Medium', desc: 'Aromatic basmati rice cooked slowly with delicate herbs, spices, and marinated mutton, served with hot spiced gravy.', img: sectionImages.traditions }
 ];
 
 const mockTraditions = [
@@ -364,7 +376,7 @@ function App() {
     rating: 5,
     reviews: 0,
     price: 0,
-    img: `https://via.placeholder.com/600x400?text=${encodeURIComponent(name)}`,
+    img: sectionImages.destinations,
     desc: `${name} district in Maharashtra.`
   }));
   const allDestinations = [...mockDestinations, ...districtObjects];
@@ -542,7 +554,7 @@ function App() {
 
             <div className="experience-grid">
               <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=600&q=80" alt="Mountains" className="experience-card-img" />
+                <img src={sectionImages.tours} alt="Mountains" className="experience-card-img" />
                 <div className="experience-card-overlay">
                   <div className="experience-icon"><Compass size={24} /></div>
                   <h3 className="experience-card-title">Mountains</h3>
@@ -552,7 +564,7 @@ function App() {
               </div>
 
               <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src="https://images.unsplash.com/photo-1547983699-121697287625?auto=format&fit=crop&w=600&q=80" alt="Beaches" className="experience-card-img" />
+                <img src={sectionImages.welcome} alt="Beaches" className="experience-card-img" />
                 <div className="experience-card-overlay">
                   <div className="experience-icon"><Globe size={24} /></div>
                   <h3 className="experience-card-title">Beaches</h3>
@@ -562,7 +574,7 @@ function App() {
               </div>
 
               <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Wildlife" className="experience-card-img" />
+                <img src={sectionImages.destinations} alt="Wildlife" className="experience-card-img" />
                 <div className="experience-card-overlay">
                   <div className="experience-icon"><Award size={24} /></div>
                   <h3 className="experience-card-title">Wildlife</h3>
@@ -572,7 +584,7 @@ function App() {
               </div>
 
               <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src="https://images.unsplash.com/photo-1600100397608-f010e42ed182?auto=format&fit=crop&w=600&q=80" alt="Heritage" className="experience-card-img" />
+                <img src={sectionImages.traditions} alt="Heritage" className="experience-card-img" />
                 <div className="experience-card-overlay">
                   <div className="experience-icon"><Sparkles size={24} /></div>
                   <h3 className="experience-card-title">Heritage</h3>
@@ -661,13 +673,13 @@ function App() {
               {/* Overlapping Collage */}
               <div className="collage-container">
                 <div className="collage-img collage-img-1">
-                  <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=500&q=80" alt="Collage 1" />
+                  <img src={sectionImages.destinations} alt="Collage 1" />
                 </div>
                 <div className="collage-img collage-img-2">
-                  <img src="https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=500&q=80" alt="Collage 2" />
+                  <img src={sectionImages.booking} alt="Collage 2" />
                 </div>
                 <div className="collage-img collage-img-3">
-                  <img src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=500&q=80" alt="Collage 3" />
+                  <img src={sectionImages.traditions} alt="Collage 3" />
                 </div>
                 <div className="collage-accent-badge">
                   <span className="collage-accent-num">#1</span>
@@ -739,7 +751,7 @@ function App() {
       {/* DESTINATIONS CATEGORY PAGE */}
       {currentRoute === '#/destinations' && (
         <>
-          <div className="page-header" style={{ backgroundImage: "linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1920&q=80')" }}>
+          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.destinations) }}>
             <span className="page-subtitle">Curated Indian Wonders</span>
             <h1 className="page-title">Explore Indian Destinations</h1>
           </div>
@@ -835,7 +847,7 @@ function App() {
       {/* TOURS CATEGORY PAGE */}
       {currentRoute === '#/tours' && (
         <>
-          <div className="page-header" style={{ backgroundImage: "linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('https://images.unsplash.com/photo-1547983699-121697287625?auto=format&fit=crop&w=1920&q=80')" }}>
+          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.tours) }}>
             <span className="page-subtitle">Fully Accompanied Tours</span>
             <h1 className="page-title">Curated Indian Tour Packages</h1>
           </div>
@@ -897,7 +909,7 @@ function App() {
       {/* BOOKING CATEGORY PAGE WITH CUSTOM TRIP PLANNER */}
       {currentRoute === '#/booking' && (
         <>
-          <div className="page-header" style={{ backgroundImage: "linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('https://images.unsplash.com/photo-1598977123418-45f04b6140ba?auto=format&fit=crop&w=1920&q=80')" }}>
+          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.booking) }}>
             <span className="page-subtitle">Hassle-Free Reservations</span>
             <h1 className="page-title">Book Flight, Train & Palace Stays</h1>
           </div>
@@ -1120,7 +1132,7 @@ function App() {
       {/* FOODS CATEGORY PAGE */}
       {currentRoute === '#/foods' && (
         <>
-          <div className="page-header" style={{ backgroundImage: "linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=1920&q=80')" }}>
+          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.foods) }}>
             <span className="page-subtitle">A Sensory Spice Celebration</span>
             <h1 className="page-title">Regional Indian Cuisines</h1>
           </div>
@@ -1172,7 +1184,7 @@ function App() {
       {/* TRADITION CATEGORY PAGE */}
       {currentRoute === '#/tradition' && (
         <>
-          <div className="page-header" style={{ backgroundImage: "linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1920&q=80')" }}>
+          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.traditions) }}>
             <span className="page-subtitle">Centuries of living soul</span>
             <h1 className="page-title">Festivals, Culture & Performing Arts</h1>
           </div>
@@ -1212,7 +1224,7 @@ function App() {
               </div>
 
               <div style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', height: '300px', boxShadow: '0 15px 30px rgba(0,0,0,0.4)' }}>
-                <img src="https://images.unsplash.com/photo-1600100397608-f010e42ed182?auto=format&fit=crop&w=600&q=80" alt="Tradition Walk" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={sectionImages.traditions} alt="Tradition Walk" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to top, rgba(8,10,16,0.6) 0%, transparent 100%)' }} />
               </div>
             </div>
