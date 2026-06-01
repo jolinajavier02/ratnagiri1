@@ -480,8 +480,22 @@ function App() {
             {/* Next 4 Upcoming Slide Cards Carousel Right */}
             <div className="hero-carousel-panel">
               <div className="carousel-cards-container">
-                {previewSlides.map((card) => (
-                  <div className="hero-preview-item" key={card.id}>
+                <AnimatePresence initial={false} mode="popLayout">
+                  {previewSlides.map((card) => (
+                    <motion.div
+                      className="hero-preview-item"
+                      key={card.id}
+                      layout
+                      initial={{ opacity: 0, x: 70, scale: 0.96 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: -70, scale: 0.96 }}
+                      transition={{
+                        layout: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
+                        opacity: { duration: 0.28 },
+                        x: { duration: 0.48, ease: [0.22, 1, 0.36, 1] },
+                        scale: { duration: 0.35 }
+                      }}
+                    >
                     <div
                       className="carousel-card"
                       onClick={() => selectSlide(card.originalIndex)}
@@ -501,8 +515,9 @@ function App() {
                         <h4 className="carousel-card-title">{card.title}</h4>
                       </div>
                     </div>
-                  </div>
-                ))}
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </div>
             </div>
 

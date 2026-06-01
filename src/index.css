@@ -2441,12 +2441,14 @@ body {
   align-items: center;
   overflow: visible;
   pointer-events: auto;
+  position: relative;
 }
 
 .hero-preview-item {
   display: flex;
   flex: 0 0 clamp(116px, 9.2vw, 180px);
   flex-direction: column;
+  will-change: transform, opacity;
 }
 
 .carousel-card {
