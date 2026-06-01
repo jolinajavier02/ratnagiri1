@@ -2437,18 +2437,28 @@ body {
 }
 
 .carousel-cards-container {
-  gap: 0.9rem;
-  align-items: center;
-  overflow: visible;
+  --preview-card-width: clamp(116px, 9.2vw, 180px);
+  --preview-gap: 0.9rem;
+  width: calc((var(--preview-card-width) * 5) + (var(--preview-gap) * 4));
+  max-width: 100%;
+  overflow: hidden;
   pointer-events: auto;
   position: relative;
 }
 
+.carousel-cards-track {
+  display: flex;
+  gap: var(--preview-gap);
+  align-items: center;
+  transform: translateX(calc(var(--preview-offset) * -1 * (var(--preview-card-width) + var(--preview-gap))));
+  transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
 .hero-preview-item {
   display: flex;
-  flex: 0 0 clamp(116px, 9.2vw, 180px);
+  flex: 0 0 var(--preview-card-width);
   flex-direction: column;
-  will-change: transform, opacity;
 }
 
 .carousel-card {
@@ -2603,12 +2613,17 @@ body {
     width: 100%;
   }
 
+  .carousel-cards-container {
+    --preview-card-width: 220px;
+    width: 100%;
+    overflow: hidden;
+  }
+
   .hero-content {
     width: 100%;
   }
 
   .hero-preview-item:nth-child(n) {
-    flex-basis: 220px;
     margin-top: 0;
     opacity: 1;
   }
