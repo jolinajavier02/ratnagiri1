@@ -326,7 +326,10 @@ function App() {
     setProgress(0);
   };
 
-  const previewSlides = slides.map((slide, originalIndex) => ({ ...slide, originalIndex }));
+  const previewSlides = Array.from({ length: slides.length - 1 }, (_, index) => {
+    const originalIndex = (activeSlide + index + 1) % slides.length;
+    return { ...slides[originalIndex], originalIndex };
+  });
 
   // Dynamic Trip Planner Function
   const calculatePlan = (e) => {
@@ -480,7 +483,7 @@ function App() {
                 {previewSlides.map((card) => (
                   <div className="hero-preview-item" key={card.id}>
                     <div
-                      className={`carousel-card ${card.originalIndex === activeSlide ? 'active' : ''}`}
+                      className="carousel-card"
                       onClick={() => selectSlide(card.originalIndex)}
                       role="button"
                       tabIndex={0}
@@ -491,7 +494,6 @@ function App() {
                         }
                       }}
                       aria-label={`Show ${card.title}`}
-                      aria-current={card.originalIndex === activeSlide ? 'true' : undefined}
                     >
                       <img src={card.thumbnail} alt={card.title} className="carousel-card-img" />
                       <div className="carousel-card-overlay">

@@ -2462,11 +2462,6 @@ body {
   transform: translateY(-8px);
 }
 
-.carousel-card.active {
-  border-color: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.34), 0 0 0 3px rgba(255, 255, 255, 0.22);
-}
-
 .carousel-card-overlay {
   padding: 1rem;
   background: linear-gradient(180deg, rgba(5, 20, 35, 0.02) 0%, rgba(5, 20, 35, 0.12) 46%, rgba(5, 20, 35, 0.92) 100%);
