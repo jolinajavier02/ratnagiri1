@@ -54,17 +54,19 @@ function SocialIconMark({ mark }) {
   );
 }
 
-// Slide categories matching user requests
+const coverImage = (filename) => `${import.meta.env.BASE_URL}generated/${filename}`;
+
+// Slide categories in the requested preview order.
 const slides = [
   {
     id: 'cover',
-    category: 'Cover',
+    category: 'Welcome',
     location: 'Summer Escapes - Coastal India',
     title: 'WELCOME TO INDIA',
     subtitle: 'Sunlit Shores & Timeless Journeys',
     description: 'A warm coastal welcome into India: golden beaches, blue water, palm shadows, relaxed resort stays, flavorful food, and culture glowing under the summer sun.',
-    imageUrl: '/generated/welcome-india-summer-cover.png',
-    thumbnail: '/generated/welcome-india-summer-cover.png',
+    imageUrl: coverImage('welcome-india-summer-cover.png'),
+    thumbnail: coverImage('welcome-india-summer-cover.png'),
     link: '#/'
   },
   {
@@ -74,8 +76,8 @@ const slides = [
     title: 'DESTINATIONS',
     subtitle: 'Beach Sands & Island Light',
     description: 'The destination preview highlights India’s tropical side: white sand, turquoise water, palm-lined beaches, island cliffs, and quiet coastal escapes made for summer travel.',
-    imageUrl: '/generated/destinations-india-summer-cover.png',
-    thumbnail: '/generated/destinations-india-summer-cover.png',
+    imageUrl: coverImage('destinations-india-summer-cover.png'),
+    thumbnail: coverImage('destinations-india-summer-cover.png'),
     link: '#/destinations'
   },
   {
@@ -85,8 +87,8 @@ const slides = [
     title: 'TOURS',
     subtitle: 'Golden Hour Beach Walks',
     description: 'The tours preview is about guided beach walks, sunset conversations, boat rides, local hosts, and easy routes through India’s brightest coastal experiences.',
-    imageUrl: '/generated/tours-india-summer-cover.png',
-    thumbnail: '/generated/tours-india-summer-cover.png',
+    imageUrl: coverImage('tours-india-summer-cover.png'),
+    thumbnail: coverImage('tours-india-summer-cover.png'),
     link: '#/tours'
   },
   {
@@ -96,8 +98,8 @@ const slides = [
     title: 'BOOKINGS',
     subtitle: 'Beach Resorts & Easy Arrivals',
     description: 'The bookings preview focuses on smooth arrivals: beach resorts, private stays, concierge planning, luggage-ready comfort, and sunlit check-ins by the sea.',
-    imageUrl: '/generated/booking-india-summer-cover.png',
-    thumbnail: '/generated/booking-india-summer-cover.png',
+    imageUrl: coverImage('booking-india-summer-cover.png'),
+    thumbnail: coverImage('booking-india-summer-cover.png'),
     link: '#/booking'
   },
   {
@@ -107,8 +109,8 @@ const slides = [
     title: 'FOODS',
     subtitle: 'Coastal Flavors & Tropical Plates',
     description: 'The food preview celebrates coastal India: grilled seafood, coconut drinks, mango, banana leaf plates, fresh chutneys, and spice-rich dishes beside the beach.',
-    imageUrl: '/generated/foods-india-summer-cover.png',
-    thumbnail: '/generated/foods-india-summer-cover.png',
+    imageUrl: coverImage('foods-india-summer-cover.png'),
+    thumbnail: coverImage('foods-india-summer-cover.png'),
     link: '#/foods'
   },
   {
@@ -118,8 +120,8 @@ const slides = [
     title: 'TRADITIONS',
     subtitle: 'Festivals by the Sea',
     description: 'The traditions preview shows India’s coastal celebrations: diyas on sand, marigold rituals, music, dance, colorful clothing, and festival evenings by the water.',
-    imageUrl: '/generated/traditions-india-summer-cover.png',
-    thumbnail: '/generated/traditions-india-summer-cover.png',
+    imageUrl: coverImage('traditions-india-summer-cover.png'),
+    thumbnail: coverImage('traditions-india-summer-cover.png'),
     link: '#/tradition'
   }
 ];
@@ -312,15 +314,7 @@ function App() {
     setProgress(0);
   };
 
-  // Get all other slides for the right-side rotating feature preview.
-  const getNextSlides = () => {
-    const list = [];
-    for (let i = 1; i < slides.length; i++) {
-      const idx = (activeSlide + i) % slides.length;
-      list.push({ ...slides[idx], originalIndex: idx });
-    }
-    return list;
-  };
+  const previewSlides = slides.map((slide, originalIndex) => ({ ...slide, originalIndex }));
 
   // Dynamic Trip Planner Function
   const calculatePlan = (e) => {
@@ -471,11 +465,21 @@ function App() {
             {/* Next 4 Upcoming Slide Cards Carousel Right */}
             <div className="hero-carousel-panel">
               <div className="carousel-cards-container">
-                {getNextSlides().map((card) => (
+                {previewSlides.map((card) => (
                   <div className="hero-preview-item" key={card.id}>
                     <div
-                      className="carousel-card"
+                      className={`carousel-card ${card.originalIndex === activeSlide ? 'active' : ''}`}
                       onClick={() => selectSlide(card.originalIndex)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          selectSlide(card.originalIndex);
+                        }
+                      }}
+                      aria-label={`Show ${card.title}`}
+                      aria-current={card.originalIndex === activeSlide ? 'true' : undefined}
                     >
                       <img src={card.thumbnail} alt={card.title} className="carousel-card-img" />
                       <div className="carousel-card-overlay">
