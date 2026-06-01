@@ -7,74 +7,119 @@ import {
   Search, Globe, Check, Info
 } from 'lucide-react';
 import './App.css';
-import heroCover from './assets/hero.png';
+
+const socialLinks = [
+  { label: 'Facebook', href: 'https://facebook.com', mark: 'f' },
+  { label: 'X', href: 'https://twitter.com', mark: 'x' },
+  { label: 'Instagram', href: 'https://instagram.com', mark: 'ig' },
+  { label: 'YouTube', href: 'https://youtube.com', mark: 'yt' },
+  { label: 'WhatsApp', href: 'https://whatsapp.com', mark: 'wa' },
+  { label: 'Pinterest', href: 'https://pinterest.com', mark: 'p' },
+  { label: 'LinkedIn', href: 'https://linkedin.com', mark: 'in' }
+];
+
+function SocialIconMark({ mark }) {
+  if (mark === 'ig') {
+    return (
+      <svg className="social-svg" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="8" y="8" width="16" height="16" rx="5" />
+        <circle cx="16" cy="16" r="4" />
+        <circle cx="21" cy="11" r="1.4" />
+      </svg>
+    );
+  }
+
+  if (mark === 'yt') {
+    return (
+      <svg className="social-svg" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="6" y="10" width="20" height="12" rx="4" />
+        <path d="M14 13.2 20 16l-6 2.8Z" />
+      </svg>
+    );
+  }
+
+  if (mark === 'wa') {
+    return (
+      <svg className="social-svg" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M9.3 24.2 10.5 20A9 9 0 1 1 14 23.2Z" />
+        <path d="M13 12.2c.4-.8.8-.8 1.2-.5l1 1.6c.2.3.1.7-.2.9l-.6.6c.7 1.4 1.8 2.5 3.3 3.2l.7-.8c.3-.3.6-.3.9-.1l1.5.8c.4.2.5.6.3 1-.4.9-1.1 1.3-2 1.2-3.7-.4-6.7-3.3-7.2-7-.1-.3.3-.7 1.1-.9Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="social-svg" viewBox="0 0 32 32" aria-hidden="true">
+      <text x="16" y="21" textAnchor="middle">{mark}</text>
+    </svg>
+  );
+}
 
 // Slide categories matching user requests
 const slides = [
   {
     id: 'cover',
     category: 'Cover',
-    location: 'Pratik Patil - Maharashtra India',
-    title: 'INDIA',
-    subtitle: 'Malshej Ghat',
-    description: 'Diwanpada is a scenic, offbeat village in the Malshej Ghat region of Maharashtra, India, famed for the majestic Kalu Waterfall. During the monsoon season, the landscape transforms into a vibrant paradise with lush, green valleys, rolling misty hills, cascading waterfalls, and dramatic, cloud-filled skies.',
-    imageUrl: heroCover,
-    thumbnail: heroCover,
+    location: 'Summer Escapes - Coastal India',
+    title: 'WELCOME TO INDIA',
+    subtitle: 'Sunlit Shores & Timeless Journeys',
+    description: 'A warm coastal welcome into India: golden beaches, blue water, palm shadows, relaxed resort stays, flavorful food, and culture glowing under the summer sun.',
+    imageUrl: '/generated/welcome-india-summer-cover.png',
+    thumbnail: '/generated/welcome-india-summer-cover.png',
     link: '#/'
   },
   {
     id: 'destinations',
     category: 'Destinations',
-    location: 'Agra - Uttar Pradesh India',
+    location: 'Andaman Islands - India',
     title: 'DESTINATIONS',
-    subtitle: 'Golden Heritage Icons',
-    description: 'Explore India through unforgettable places: marble monuments glowing at sunrise, sacred rivers, forts, desert cities, tea hills, coastal lagoons, and living heritage streets shaped by centuries of travel stories.',
-    imageUrl: '/generated/destinations-india-cover.png',
-    thumbnail: '/generated/destinations-india-cover.png',
+    subtitle: 'Beach Sands & Island Light',
+    description: 'The destination preview highlights India’s tropical side: white sand, turquoise water, palm-lined beaches, island cliffs, and quiet coastal escapes made for summer travel.',
+    imageUrl: '/generated/destinations-india-summer-cover.png',
+    thumbnail: '/generated/destinations-india-summer-cover.png',
     link: '#/destinations'
   },
   {
     id: 'tours',
     category: 'Tours',
-    location: 'Jaipur - Rajasthan India',
+    location: 'Goa Coast - India',
     title: 'TOURS',
-    subtitle: 'Guided Royal Routes',
-    description: 'Move through India with expert local hosts, palace walks, food trails, cultural performances, and carefully paced journeys that make every fort, temple, market, and sunset feel close and personal.',
-    imageUrl: '/generated/tours-india-cover.png',
-    thumbnail: '/generated/tours-india-cover.png',
+    subtitle: 'Golden Hour Beach Walks',
+    description: 'The tours preview is about guided beach walks, sunset conversations, boat rides, local hosts, and easy routes through India’s brightest coastal experiences.',
+    imageUrl: '/generated/tours-india-summer-cover.png',
+    thumbnail: '/generated/tours-india-summer-cover.png',
     link: '#/tours'
   },
   {
     id: 'booking',
-    category: 'Booking',
-    location: 'Udaipur - Rajasthan India',
-    title: 'BOOKING',
-    subtitle: 'Palace Stays & Concierge',
-    description: 'Reserve flights, trains, palace hotels, lake resorts, and custom routes with a premium travel desk built for seamless planning, comfort, and memorable arrivals across India.',
-    imageUrl: '/generated/booking-india-cover.png',
-    thumbnail: '/generated/booking-india-cover.png',
+    category: 'Bookings',
+    location: 'Kerala Beach Resort - India',
+    title: 'BOOKINGS',
+    subtitle: 'Beach Resorts & Easy Arrivals',
+    description: 'The bookings preview focuses on smooth arrivals: beach resorts, private stays, concierge planning, luggage-ready comfort, and sunlit check-ins by the sea.',
+    imageUrl: '/generated/booking-india-summer-cover.png',
+    thumbnail: '/generated/booking-india-summer-cover.png',
     link: '#/booking'
   },
   {
     id: 'foods',
     category: 'Foods',
-    location: 'Spices Trail - Old Delhi India',
+    location: 'Goa Food Trail - India',
     title: 'FOODS',
-    subtitle: 'Regional Gastronomic Map',
-    description: 'Embark on a culinary odyssey through India’s rich gastronomic map. From the fiery, flavorful street food stalls of Old Delhi to aromatic slow-cooked biryanis and coastal seafood curries, Indian cuisine is an explosion of hand-ground spices, heritage recipes, and textures.',
-    imageUrl: '/generated/foods-india-cover.png',
-    thumbnail: '/generated/foods-india-cover.png',
+    subtitle: 'Coastal Flavors & Tropical Plates',
+    description: 'The food preview celebrates coastal India: grilled seafood, coconut drinks, mango, banana leaf plates, fresh chutneys, and spice-rich dishes beside the beach.',
+    imageUrl: '/generated/foods-india-summer-cover.png',
+    thumbnail: '/generated/foods-india-summer-cover.png',
     link: '#/foods'
   },
   {
     id: 'tradition',
     category: 'Tradition',
-    location: 'Cultural Beats - Kerala India',
+    location: 'Kerala Coast - India',
     title: 'TRADITIONS',
-    subtitle: 'Vibrant Colors of Heritage',
-    description: 'Immerse yourself in the soulful traditions of India. Experience the spectacular Kathakali dance, the thunderous beats of temple drums, the colorful expressions of Holi, and the spiritual radiance of Diwali. Explore a culture where ancient rituals thrive seamlessly in modern times.',
-    imageUrl: '/generated/traditions-india-cover.png',
-    thumbnail: '/generated/traditions-india-cover.png',
+    subtitle: 'Festivals by the Sea',
+    description: 'The traditions preview shows India’s coastal celebrations: diyas on sand, marigold rituals, music, dance, colorful clothing, and festival evenings by the water.',
+    imageUrl: '/generated/traditions-india-summer-cover.png',
+    thumbnail: '/generated/traditions-india-summer-cover.png',
     link: '#/tradition'
   }
 ];
@@ -447,34 +492,30 @@ function App() {
             <div className="hero-bottom-controls">
               {/* Social Media Links left */}
               <div className="social-links">
-                <a href="https://facebook.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
-                <a href="https://twitter.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="X">X</a>
-                <a href="https://instagram.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a>
-                <a href="https://youtube.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="YouTube">YT</a>
-                <a href="https://whatsapp.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="WhatsApp">WA</a>
-                <a href="https://pinterest.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Pinterest">P</a>
-                <a href="https://linkedin.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
-              </div>
-
-              {/* Prev/Play-Pause/Next buttons center */}
-              <div className="playback-controls">
-                <button className="control-btn" onClick={handlePrevSlide} title="Previous Slide">
-                  <ChevronLeft size={20} />
-                </button>
-                <button
-                  className="control-btn play-pause"
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  title={isPlaying ? "Pause Auto-Rotate" : "Start Auto-Rotate"}
-                >
-                  {isPlaying ? <Pause size={24} /> : <Play size={24} fill="#FFFFFF" />}
-                </button>
-                <button className="control-btn" onClick={handleNextSlide} title="Next Slide">
-                  <ChevronRight size={20} />
-                </button>
+                {socialLinks.map((social) => (
+                  <a key={social.label} href={social.href} className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label={social.label}>
+                    <SocialIconMark mark={social.mark} />
+                  </a>
+                ))}
               </div>
 
               {/* Progress bar and Counter right */}
               <div className="progress-and-counter">
+                <div className="playback-controls">
+                  <button className="control-btn" onClick={handlePrevSlide} title="Previous Slide">
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    className="control-btn play-pause"
+                    onClick={() => setIsPlaying(!isPlaying)}
+                    title={isPlaying ? "Pause Auto-Rotate" : "Start Auto-Rotate"}
+                  >
+                    {isPlaying ? <Pause size={22} /> : <Play size={22} fill="#FFFFFF" />}
+                  </button>
+                  <button className="control-btn" onClick={handleNextSlide} title="Next Slide">
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
                 <div className="progress-bar-container">
                   <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
                 </div>
@@ -1193,13 +1234,11 @@ function App() {
               Promoting responsible, luxury, and sustainable tourism across the rich states of India. Discover heritage sites, palaces, cuisines, and beaches in high-fidelity comfort.
             </p>
             <div className="footer-socials">
-              <a href="https://facebook.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
-              <a href="https://twitter.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="X">X</a>
-              <a href="https://instagram.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Instagram">IG</a>
-              <a href="https://youtube.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="YouTube">YT</a>
-              <a href="https://whatsapp.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="WhatsApp">WA</a>
-              <a href="https://pinterest.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="Pinterest">P</a>
-              <a href="https://linkedin.com" className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+              {socialLinks.map((social) => (
+                <a key={social.label} href={social.href} className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label={social.label}>
+                  <SocialIconMark mark={social.mark} />
+                </a>
+              ))}
             </div>
           </div>
 
