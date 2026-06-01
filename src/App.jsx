@@ -249,7 +249,6 @@ function App() {
 
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
-  const [previewOffset, setPreviewOffset] = useState(slides.length * 10 + 1);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
 
@@ -300,7 +299,6 @@ function App() {
         setProgress((prev) => {
           if (prev >= 100) {
             setActiveSlide((slide) => (slide + 1) % slides.length);
-            setPreviewOffset((offset) => offset + 1);
             return 0;
           }
           return prev + 1.25; // 8000ms total / 100ms ticker = 80 steps -> 100 / 80 = 1.25% per step
@@ -313,29 +311,25 @@ function App() {
   }, [isPlaying, activeSlide]);
 
   // Restart progress when user changes slide manually
-  const selectSlide = (index, nextPreviewOffset = slides.length * 10 + index + 1) => {
+  const selectSlide = (index) => {
     setActiveSlide(index);
-    setPreviewOffset(nextPreviewOffset);
     setProgress(0);
   };
 
   const handlePrevSlide = () => {
     setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setPreviewOffset((offset) => offset - 1);
     setProgress(0);
   };
 
   const handleNextSlide = () => {
     setActiveSlide((prev) => (prev + 1) % slides.length);
-    setPreviewOffset((offset) => offset + 1);
     setProgress(0);
   };
 
-  const previewTrack = Array.from({ length: slides.length * 20 }, (_, trackIndex) => ({
-    ...slides[trackIndex % slides.length],
-    trackIndex,
-    originalIndex: trackIndex % slides.length
-  }));
+  const previewSlides = Array.from({ length: slides.length - 1 }, (_, index) => {
+    const originalIndex = (activeSlide + index + 1) % slides.length;
+    return { ...slides[originalIndex], originalIndex };
+  });
 
   // Dynamic Trip Planner Function
   const calculatePlan = (e) => {
@@ -485,36 +479,30 @@ function App() {
 
             {/* Next 4 Upcoming Slide Cards Carousel Right */}
             <div className="hero-carousel-panel">
-              <div
-                className="carousel-cards-container"
-                style={{ '--preview-offset': previewOffset }}
-              >
-                <div className="carousel-cards-track">
-                  {previewTrack.map((card) => (
-                    <div className="hero-preview-item" key={`${card.id}-${card.trackIndex}`}>
-                      <div
-                        className="carousel-card"
-                        onClick={() => selectSlide(card.originalIndex, card.trackIndex + 1)}
-                        role="button"
-                        tabIndex={card.trackIndex >= previewOffset && card.trackIndex < previewOffset + slides.length - 1 ? 0 : -1}
-                        onKeyDown={(event) => {
-                          if (event.key === 'Enter' || event.key === ' ') {
-                            event.preventDefault();
-                            selectSlide(card.originalIndex, card.trackIndex + 1);
-                          }
-                        }}
-                        aria-label={`Show ${card.title}`}
-                        aria-hidden={card.trackIndex < previewOffset || card.trackIndex >= previewOffset + slides.length - 1}
-                      >
-                        <img src={card.thumbnail} alt={card.title} className="carousel-card-img" />
-                        <div className="carousel-card-overlay">
-                          <span className="carousel-card-location">{card.location}</span>
-                          <h4 className="carousel-card-title">{card.title}</h4>
-                        </div>
+              <div className="carousel-cards-container">
+                {previewSlides.map((card) => (
+                  <div className="hero-preview-item" key={card.id}>
+                    <div
+                      className="carousel-card"
+                      onClick={() => selectSlide(card.originalIndex)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          selectSlide(card.originalIndex);
+                        }
+                      }}
+                      aria-label={`Show ${card.title}`}
+                    >
+                      <img src={card.thumbnail} alt={card.title} className="carousel-card-img" />
+                      <div className="carousel-card-overlay">
+                        <span className="carousel-card-location">{card.location}</span>
+                        <h4 className="carousel-card-title">{card.title}</h4>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
 
