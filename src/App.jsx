@@ -444,46 +444,6 @@ function App() {
 
             <div className="hero-overlay" />
 
-            <div className="egypt-style-hero-copy">
-              <span className="hero-eyebrow">Visit Maharashtra</span>
-              <h1>Discover India&apos;s Top Coastal & Cultural Experiences</h1>
-              <p>Find historic caves, beaches, guided tours, food trails, hotels, and festivals in one trusted planning space.</p>
-            </div>
-
-            <div className="journey-search-panel">
-              <div className="journey-tabs">
-                {['Trips', 'Hotels', 'To Do', 'Events', 'Eat/Drink'].map((tab, index) => (
-                  <button key={tab} className={index === 0 ? 'active' : ''}>{tab}</button>
-                ))}
-              </div>
-              <div className="journey-fields">
-                <label>
-                  <span>Date From</span>
-                  <input type="text" value="Select date" readOnly />
-                </label>
-                <label>
-                  <span>Date To</span>
-                  <input type="text" value="Select date" readOnly />
-                </label>
-                <label>
-                  <span>Guests</span>
-                  <input type="text" value="2 Guests" readOnly />
-                </label>
-                <label>
-                  <span>City Search</span>
-                  <input type="text" value="Mumbai, Pune, Nashik" readOnly />
-                </label>
-                <button type="button" onClick={() => window.location.hash = '#/booking'}>Search</button>
-              </div>
-              <div className="journey-popular">
-                <span>Popular:</span>
-                <button onClick={() => window.location.hash = '#/destinations'}>Ajanta</button>
-                <button onClick={() => window.location.hash = '#/destinations'}>Mumbai</button>
-                <button onClick={() => window.location.hash = '#/foods'}>Food Trails</button>
-                <button onClick={() => window.location.hash = '#/tradition'}>Festivals</button>
-              </div>
-            </div>
-
             <div className="hero-carousel-panel">
               <div className="carousel-cards-container" key={activeSlide}>
                 {previewSlides.map((card) => (
