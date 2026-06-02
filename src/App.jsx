@@ -386,30 +386,46 @@ function App() {
   return (
     <div ref={topRef}>
       {/* Dynamic Navigation Bar */}
-      <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <a href="#/" className="logo-container">
-          <img src={brandLogo} alt="Maharashtra Tourism" className="logo-icon" />
-          <div className="logo-text">
-            <span className="logo-main">Incredible India</span>
-            <span className="logo-sub">Maharashtra Tourism</span>
+      <div className={`site-chrome ${scrolled ? 'scrolled' : ''}`}>
+        <div className="utility-bar">
+          <div className="utility-contact">
+            <span>+91 1800-425-4747</span>
+            <span>info@maharashtratourism.gov.in</span>
           </div>
-        </a>
-
-        <ul className="nav-links">
-          <li><a href="#/" className={`nav-link ${currentRoute === '#/' ? 'active' : ''}`}>Home</a></li>
-          <li><a href="#/destinations" className={`nav-link ${currentRoute === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
-          <li><a href="#/tours" className={`nav-link ${currentRoute === '#/tours' ? 'active' : ''}`}>Guided Tours</a></li>
-          <li><a href="#/booking" className={`nav-link ${currentRoute === '#/booking' ? 'active' : ''}`}>Bookings</a></li>
-          <li><a href="#/foods" className={`nav-link ${currentRoute === '#/foods' ? 'active' : ''}`}>Regional Foods</a></li>
-          <li><a href="#/tradition" className={`nav-link ${currentRoute === '#/tradition' ? 'active' : ''}`}>Traditions</a></li>
-        </ul>
-
-        <div className="nav-actions">
-          <button className="nav-action-btn" title="Search Site"><Search size={20} /></button>
-          <button className="nav-action-btn" title="Change Language"><Globe size={20} /></button>
-          <a href="#/booking" className="book-btn">Book My Trip</a>
+          <span className="utility-official">The Official Site of Maharashtra Tourism</span>
+          <div className="utility-languages">
+            <span>Language</span>
+            <strong>English</strong>
+            <span>मराठी</span>
+            <span>हिन्दी</span>
+          </div>
         </div>
-      </header>
+
+        <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+          <a href="#/" className="logo-container">
+            <img src={brandLogo} alt="Maharashtra Tourism" className="logo-icon" />
+            <div className="logo-text">
+              <span className="logo-main">Incredible India</span>
+              <span className="logo-sub">Maharashtra Tourism</span>
+            </div>
+          </a>
+
+          <ul className="nav-links">
+            <li><a href="#/" className={`nav-link ${currentRoute === '#/' ? 'active' : ''}`}>Home</a></li>
+            <li><a href="#/destinations" className={`nav-link ${currentRoute === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
+            <li><a href="#/tours" className={`nav-link ${currentRoute === '#/tours' ? 'active' : ''}`}>Guided Tours</a></li>
+            <li><a href="#/booking" className={`nav-link ${currentRoute === '#/booking' ? 'active' : ''}`}>Bookings</a></li>
+            <li><a href="#/foods" className={`nav-link ${currentRoute === '#/foods' ? 'active' : ''}`}>Regional Foods</a></li>
+            <li><a href="#/tradition" className={`nav-link ${currentRoute === '#/tradition' ? 'active' : ''}`}>Traditions</a></li>
+          </ul>
+
+          <div className="nav-actions">
+            <button className="nav-action-btn" title="Search Site"><Search size={20} /></button>
+            <button className="nav-action-btn" title="Change Language"><Globe size={20} /></button>
+            <a href="#/booking" className="book-btn">Plan Your Trip</a>
+          </div>
+        </header>
+      </div>
 
       {/* RENDER PAGES BASED ON SPA ROUTE */}
       {currentRoute === '#/' && (
@@ -427,6 +443,46 @@ function App() {
             </div>
 
             <div className="hero-overlay" />
+
+            <div className="egypt-style-hero-copy">
+              <span className="hero-eyebrow">Visit Maharashtra</span>
+              <h1>Discover India&apos;s Top Coastal & Cultural Experiences</h1>
+              <p>Find historic caves, beaches, guided tours, food trails, hotels, and festivals in one trusted planning space.</p>
+            </div>
+
+            <div className="journey-search-panel">
+              <div className="journey-tabs">
+                {['Trips', 'Hotels', 'To Do', 'Events', 'Eat/Drink'].map((tab, index) => (
+                  <button key={tab} className={index === 0 ? 'active' : ''}>{tab}</button>
+                ))}
+              </div>
+              <div className="journey-fields">
+                <label>
+                  <span>Date From</span>
+                  <input type="text" value="Select date" readOnly />
+                </label>
+                <label>
+                  <span>Date To</span>
+                  <input type="text" value="Select date" readOnly />
+                </label>
+                <label>
+                  <span>Guests</span>
+                  <input type="text" value="2 Guests" readOnly />
+                </label>
+                <label>
+                  <span>City Search</span>
+                  <input type="text" value="Mumbai, Pune, Nashik" readOnly />
+                </label>
+                <button type="button" onClick={() => window.location.hash = '#/booking'}>Search</button>
+              </div>
+              <div className="journey-popular">
+                <span>Popular:</span>
+                <button onClick={() => window.location.hash = '#/destinations'}>Ajanta</button>
+                <button onClick={() => window.location.hash = '#/destinations'}>Mumbai</button>
+                <button onClick={() => window.location.hash = '#/foods'}>Food Trails</button>
+                <button onClick={() => window.location.hash = '#/tradition'}>Festivals</button>
+              </div>
+            </div>
 
             <div className="hero-carousel-panel">
               <div className="carousel-cards-container" key={activeSlide}>
