@@ -438,6 +438,16 @@ function App() {
             <div className="hero-overlay" />
 
             <div className="hero-carousel-panel">
+              <div className="hero-browse-cue" aria-hidden="true">
+                <svg className="hero-browse-arrow" viewBox="0 0 190 118">
+                  <path
+                    className="hero-browse-swirl"
+                    d="M14 20c32-16 75-16 89 3 17 24-14 48-57 38-30-7-31-28-4-34 35-8 80 16 67 42-11 22-58 25-79 9-17-13-8-32 17-30 32 3 53 27 83 39"
+                  />
+                  <path className="hero-browse-head" d="M127 87l42 11-35 22M127 87l20 34" />
+                </svg>
+                <span>OR BROWSE CATEGORIES</span>
+              </div>
               <div className="carousel-cards-container" key={activeSlide}>
                 {previewSlides.map((card) => (
                   <div className="hero-preview-item" key={card.id}>
@@ -482,16 +492,7 @@ function App() {
               From snow-capped peaks in the north to deep tropical shores in the south, find itineraries customized to your desires.
             </p>
 
-            <div className="packages-frame">
-              <div className="browse-cue browse-cue-top" aria-hidden="true">
-                <svg className="browse-cue-arrow" viewBox="0 0 160 110">
-                  <path d="M10 22C48 4 91 6 102 30c14 31-42 31-72 27-27-4-24-26 7-31 48-8 95 29 54 49-22 11-55 8-66-8-10-15 4-26 25-20 25 7 43 25 72 36" />
-                  <path d="M118 83l30 10-23 18M118 83l15 27" />
-                </svg>
-                <span>OR BROWSE CATEGORIES</span>
-              </div>
-
-              <div className="experience-grid">
+            <div className="experience-grid">
                 <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
                   <img src={sectionImages.tours} alt="Mountains" className="experience-card-img" />
                   <div className="experience-card-overlay">
@@ -532,7 +533,6 @@ function App() {
                   </div>
                 </div>
               </div>
-            </div>
           </section>
 
           {/* 2. Popular Destinations Showcase */}

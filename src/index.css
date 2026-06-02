@@ -646,50 +646,48 @@ body {
   line-height: 1.6;
 }
 
-.packages-frame {
-  position: relative;
-}
-
-.browse-cue {
-  pointer-events: none;
-}
-
-.browse-cue-top {
-  position: absolute;
-  top: 1.6rem;
-  left: 50%;
-  z-index: 8;
+.hero-browse-cue {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.8rem, 1.8vw, 1.3rem);
-  width: min(92%, 760px);
-  transform: translateX(-50%);
+  gap: clamp(0.85rem, 1.8vw, 1.4rem);
+  margin: 0 auto 0.65rem;
+  width: min(92%, 820px);
+  pointer-events: none;
 }
 
-.browse-cue-top span {
+.hero-browse-cue span {
   color: #ffffff;
   font-family: var(--sans);
-  font-size: clamp(1rem, 2vw, 1.75rem);
+  font-size: clamp(1.05rem, 2vw, 1.75rem);
   font-weight: 800;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.16em;
   line-height: 1;
   text-align: center;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.46);
   white-space: nowrap;
 }
 
-.browse-cue-arrow {
-  width: clamp(4.8rem, 11vw, 9.4rem);
+.hero-browse-arrow {
+  width: clamp(5rem, 12vw, 10.5rem);
   height: auto;
   flex: 0 0 auto;
   fill: none;
   stroke: #ffffff;
-  stroke-width: 5;
+  stroke-width: 4.6;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.3));
-  transform: rotate(-8deg);
+  filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.44));
+  transform: rotate(-5deg) translateY(-0.15rem);
+}
+
+.hero-browse-swirl {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 0;
+}
+
+.hero-browse-head {
+  stroke-width: 4.2;
 }
 
 /* BODY SECTION - EXPERIENCE GRID */
@@ -1908,17 +1906,17 @@ body {
     width: 100%;
     margin-bottom: 2rem;
   }
-  .browse-cue-top {
-    top: 1.1rem;
-    width: min(94%, 520px);
+  .hero-browse-cue {
+    width: min(94%, 560px);
     gap: 0.7rem;
+    margin-bottom: 0.55rem;
   }
-  .browse-cue-top span {
+  .hero-browse-cue span {
     font-size: 0.95rem;
     letter-spacing: 0.1em;
   }
-  .browse-cue-arrow {
-    width: 4.2rem;
+  .hero-browse-arrow {
+    width: 4.5rem;
   }
   .experience-grid,
   .destinations-showcase,
@@ -1952,16 +1950,16 @@ body {
 }
 
 @media (max-width: 768px) {
-  .browse-cue-top {
-    top: 0.9rem;
+  .hero-browse-cue {
     width: 92%;
+    gap: 0.55rem;
   }
-  .browse-cue-top span {
+  .hero-browse-cue span {
     font-size: 0.82rem;
     white-space: normal;
   }
-  .browse-cue-arrow {
-    width: 3.4rem;
+  .hero-browse-arrow {
+    width: 3.7rem;
   }
   .experience-grid,
   .destinations-showcase,
