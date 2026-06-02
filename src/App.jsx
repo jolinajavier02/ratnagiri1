@@ -323,6 +323,45 @@ const bookingRows = {
   ]
 };
 
+const bookingSearchOptions = {
+  homes: {
+    whereLabel: 'Where',
+    wherePlaceholder: 'Search places',
+    dateLabel: 'When',
+    datePlaceholder: 'Add dates',
+    guestLabel: 'Who',
+    guestPlaceholder: 'Add guests',
+    panelTitle: 'Search hotels, resorts, and accommodations',
+    suggestions: ['Mumbai', 'Goa', 'Rajasthan', 'Udaipur', 'Jaipur', 'Ratnagiri'],
+    quickDates: ['June 12-14', 'This weekend', 'Next week', 'Flexible dates'],
+    guestUnits: ['1 guest', '2 guests', '4 guests', 'Family stay']
+  },
+  experiences: {
+    whereLabel: 'Tour',
+    wherePlaceholder: 'Search tour packages',
+    dateLabel: 'When',
+    datePlaceholder: 'Add tour dates',
+    guestLabel: 'Who',
+    guestPlaceholder: 'Add travelers',
+    panelTitle: 'Search guided tours and experiences',
+    suggestions: ['Mumbai city heritage walk', 'Goa sunset cruise', 'Jaipur forts', 'Kerala houseboat', 'Ratnagiri coastal food trail'],
+    quickDates: ['Today', 'Tomorrow', 'This weekend', 'Next month'],
+    guestUnits: ['1 traveler', '2 travelers', 'Small group', 'Private tour']
+  },
+  services: {
+    whereLabel: 'Transport',
+    wherePlaceholder: 'Search flights, taxi, or car',
+    dateLabel: 'When',
+    datePlaceholder: 'Add pickup date',
+    guestLabel: 'Who',
+    guestPlaceholder: 'Add passengers',
+    panelTitle: 'Search flights, taxis, and car booking',
+    suggestions: ['Flights', 'Taxi', 'Car', 'Mumbai airport taxi', 'Goa private driver', 'Kerala coastal taxi'],
+    quickDates: ['Today', 'Tomorrow', 'This weekend', 'Flexible pickup'],
+    guestUnits: ['1 passenger', '2 passengers', '4 passengers', 'Group transfer']
+  }
+};
+
 const mockFoods = [
   { id: 1, name: 'Butter Chicken & Naan', region: 'North India', type: 'non-veg', spiciness: 'Medium', desc: 'A rich, creamy, tomato-based curry loaded with tandoor-roasted chicken, served with hot butter garlic naan.', img: sectionImages.foods },
   { id: 2, name: 'Traditional Ghee Dosa', region: 'South India', type: 'veg', spiciness: 'Mild', desc: 'A super-crisp, thin fermented crepe made of rice and lentils, served with fresh coconut chutney and piping hot sambar.', img: sectionImages.welcome },
@@ -350,6 +389,12 @@ function App() {
 
   // Booking page state
   const [bookingTab, setBookingTab] = useState('homes');
+  const [bookingSearchFocus, setBookingSearchFocus] = useState(null);
+  const [bookingSearch, setBookingSearch] = useState({
+    homes: { where: '', when: '', who: '' },
+    experiences: { where: '', when: '', who: '' },
+    services: { where: '', when: '', who: '' }
+  });
 
   // Subpages refs
   const topRef = useRef(null);
@@ -416,7 +461,34 @@ function App() {
     const matchesCat = destFilterCat === 'All' || d.category === destFilterCat;
     return matchesRegion && matchesCat;
   });
-  const activeBookingRows = bookingRows[bookingTab];
+  const currentBookingSearch = bookingSearch[bookingTab];
+  const bookingSearchConfig = bookingSearchOptions[bookingTab];
+  const searchTerm = currentBookingSearch.where.trim().toLowerCase();
+  const activeBookingRows = bookingRows[bookingTab]
+    .map((row) => ({
+      ...row,
+      items: searchTerm
+        ? row.items.filter((item) =>
+          `${row.title} ${item.title} ${item.meta}`.toLowerCase().includes(searchTerm)
+        )
+        : row.items
+    }))
+    .filter((row) => row.items.length > 0);
+
+  const updateBookingSearch = (field, value) => {
+    setBookingSearch((current) => ({
+      ...current,
+      [bookingTab]: {
+        ...current[bookingTab],
+        [field]: value
+      }
+    }));
+  };
+
+  const selectBookingSearchValue = (field, value) => {
+    updateBookingSearch(field, value);
+    setBookingSearchFocus(null);
+  };
 
   return (
     <div ref={topRef}>
@@ -902,7 +974,10 @@ function App() {
                       key={tab.id}
                       className={`booking-mode-tab ${bookingTab === tab.id ? 'active' : ''}`}
                       type="button"
-                      onClick={() => setBookingTab(tab.id)}
+                      onClick={() => {
+                        setBookingTab(tab.id);
+                        setBookingSearchFocus(null);
+                      }}
                     >
                       {tab.badge && <span className="booking-tab-badge">{tab.badge}</span>}
                       <TabIcon size={34} strokeWidth={1.7} />
@@ -912,26 +987,126 @@ function App() {
                 })}
               </div>
 
-              <div className="booking-search-pill" role="search">
-                <div className="booking-search-field">
-                  <strong>Where</strong>
-                  <span>Search destinations</span>
+              <div className={`booking-search-pill ${bookingSearchFocus ? 'expanded' : ''}`} role="search">
+                <div className={`booking-search-field ${bookingSearchFocus === 'where' ? 'active' : ''}`}>
+                  <button type="button" onClick={() => setBookingSearchFocus('where')}>
+                    <strong>{bookingSearchConfig.whereLabel}</strong>
+                    <input
+                      type="text"
+                      value={currentBookingSearch.where}
+                      placeholder={bookingSearchConfig.wherePlaceholder}
+                      onChange={(event) => updateBookingSearch('where', event.target.value)}
+                      onFocus={() => setBookingSearchFocus('where')}
+                    />
+                  </button>
                 </div>
-                <div className="booking-search-field">
-                  <strong>When</strong>
-                  <span>Add dates</span>
+                <div className={`booking-search-field ${bookingSearchFocus === 'when' ? 'active' : ''}`}>
+                  <button type="button" onClick={() => setBookingSearchFocus('when')}>
+                    <strong>{bookingSearchConfig.dateLabel}</strong>
+                    <span>{currentBookingSearch.when || bookingSearchConfig.datePlaceholder}</span>
+                  </button>
                 </div>
-                <div className="booking-search-field">
-                  <strong>Who</strong>
-                  <span>Add guests</span>
+                <div className={`booking-search-field ${bookingSearchFocus === 'who' ? 'active' : ''}`}>
+                  <button type="button" onClick={() => setBookingSearchFocus('who')}>
+                    <strong>{bookingSearchConfig.guestLabel}</strong>
+                    <span>{currentBookingSearch.who || bookingSearchConfig.guestPlaceholder}</span>
+                  </button>
                 </div>
-                <button className="booking-search-btn" type="button" aria-label="Search bookings">
+                <button className="booking-search-btn" type="button" onClick={() => setBookingSearchFocus(null)}>
                   <Search size={24} />
+                  <span>Search</span>
                 </button>
               </div>
+
+              {bookingSearchFocus && (
+                <div className="booking-search-panel">
+                  {bookingSearchFocus === 'where' && (
+                    <>
+                      <h3>{bookingSearchConfig.panelTitle}</h3>
+                      <div className="booking-suggestion-grid">
+                        {bookingSearchConfig.suggestions.map((suggestion) => (
+                          <button
+                            key={suggestion}
+                            type="button"
+                            onClick={() => selectBookingSearchValue('where', suggestion)}
+                          >
+                            <Search size={17} />
+                            <span>{suggestion}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {bookingSearchFocus === 'when' && (
+                    <>
+                      <div className="booking-date-toggle">
+                        <button type="button" className="active">Dates</button>
+                        <button type="button">Flexible</button>
+                      </div>
+                      <div className="booking-calendar-preview">
+                        {['June 2026', 'July 2026'].map((month, monthIndex) => (
+                          <div className="booking-calendar-month" key={month}>
+                            <h3>{month}</h3>
+                            <div className="booking-calendar-weekdays">
+                              {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
+                                <span key={`${month}-${day}-${index}`}>{day}</span>
+                              ))}
+                            </div>
+                            <div className="booking-calendar-days">
+                              {Array.from({ length: 35 }, (_, index) => {
+                                const offset = monthIndex === 0 ? 1 : 3;
+                                const day = index - offset + 1;
+                                const maxDay = monthIndex === 0 ? 30 : 31;
+                                return (
+                                  <button
+                                    key={`${month}-${index}`}
+                                    type="button"
+                                    disabled={day < 1 || day > maxDay}
+                                    onClick={() => selectBookingSearchValue('when', `${month.split(' ')[0]} ${day}`)}
+                                  >
+                                    {day > 0 && day <= maxDay ? day : ''}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="booking-chip-row">
+                        {bookingSearchConfig.quickDates.map((date) => (
+                          <button key={date} type="button" onClick={() => selectBookingSearchValue('when', date)}>
+                            {date}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {bookingSearchFocus === 'who' && (
+                    <>
+                      <h3>{bookingTab === 'services' ? 'Choose passengers for your transport' : 'Choose guests for your booking'}</h3>
+                      <div className="booking-chip-row large">
+                        {bookingSearchConfig.guestUnits.map((unit) => (
+                          <button key={unit} type="button" onClick={() => selectBookingSearchValue('who', unit)}>
+                            {unit}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
 
             <div className="booking-marketplace-content">
+              {activeBookingRows.length === 0 && (
+                <div className="booking-empty-state">
+                  <h2>No matches yet</h2>
+                  <p>Try another place, tour package, or transport search.</p>
+                </div>
+              )}
+
               {activeBookingRows.map((row) => (
                 <section className="booking-row" key={row.title}>
                   <div className="booking-row-header">

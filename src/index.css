@@ -1789,14 +1789,38 @@ body {
   border-radius: 999px;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
   overflow: hidden;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.booking-search-pill.expanded {
+  background: #eeeeee;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
 }
 
 .booking-search-field {
   padding: 0 2rem;
+  border-right: 1px solid #dddddd;
+}
+
+.booking-search-field.active {
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+}
+
+.booking-search-field button {
+  width: 100%;
+  min-height: 72px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.25rem;
-  border-right: 1px solid #dddddd;
+  text-align: left;
 }
 
 .booking-search-field strong {
@@ -1805,33 +1829,209 @@ body {
   font-weight: 800;
 }
 
-.booking-search-field span {
+.booking-search-field span,
+.booking-search-field input {
   color: #777777;
   font-size: 1.08rem;
   font-weight: 500;
 }
 
+.booking-search-field input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: var(--sans);
+}
+
 .booking-search-btn {
-  width: 58px;
+  width: auto;
   height: 58px;
   margin-right: 0.55rem;
   border: 0;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: #e61e4d;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0 1.35rem;
+  background: linear-gradient(135deg, var(--saffron) 0%, #fb923c 58%, #c2410c 100%);
   color: #ffffff;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 800;
 }
 
 .booking-search-btn:hover {
-  background: #d70443;
+  background: linear-gradient(135deg, #fb923c 0%, var(--saffron) 58%, #9a3412 100%);
   transform: scale(1.04);
+}
+
+.booking-search-panel {
+  width: min(960px, 92vw);
+  margin: 1.25rem auto 0;
+  background: #ffffff;
+  border-radius: 32px;
+  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.18);
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  color: #222222;
+}
+
+.booking-search-panel h3 {
+  color: #222222;
+  font-family: var(--sans);
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+}
+
+.booking-suggestion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.booking-suggestion-grid button,
+.booking-chip-row button {
+  border: 1px solid #dddddd;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #222222;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  font-weight: 700;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.booking-suggestion-grid button {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0 1rem;
+  text-align: left;
+}
+
+.booking-suggestion-grid button:hover,
+.booking-chip-row button:hover {
+  border-color: #222222;
+  background: #f7f7f7;
+  transform: translateY(-1px);
+}
+
+.booking-date-toggle {
+  width: min(360px, 100%);
+  margin: 0 auto 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #eeeeee;
+  border-radius: 999px;
+  padding: 0.35rem;
+}
+
+.booking-date-toggle button {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #222222;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0.72rem 1rem;
+}
+
+.booking-date-toggle button.active {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.booking-calendar-preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.booking-calendar-month h3 {
+  text-align: center;
+  margin-bottom: 1.3rem;
+}
+
+.booking-calendar-weekdays,
+.booking-calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.3rem;
+}
+
+.booking-calendar-weekdays span {
+  color: #777777;
+  font-weight: 800;
+  text-align: center;
+  padding-bottom: 0.7rem;
+}
+
+.booking-calendar-days button {
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #222222;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.booking-calendar-days button:hover:not(:disabled) {
+  background: #f2f2f2;
+}
+
+.booking-calendar-days button:disabled {
+  cursor: default;
+  color: transparent;
+}
+
+.booking-chip-row {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.booking-chip-row.large {
+  justify-content: flex-start;
+}
+
+.booking-chip-row button {
+  padding: 0.75rem 1.15rem;
 }
 
 .booking-marketplace-content {
   padding: 4rem 0 0 5vw;
+}
+
+.booking-empty-state {
+  margin-right: 5vw;
+  min-height: 280px;
+  border: 1px dashed #dddddd;
+  border-radius: 24px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: #707070;
+}
+
+.booking-empty-state h2 {
+  color: #222222;
+  font-family: var(--sans);
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
 }
 
 .booking-row {
@@ -1999,6 +2199,10 @@ body {
   .booking-search-field:nth-child(3) {
     display: none;
   }
+
+  .booking-calendar-preview {
+    gap: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2039,6 +2243,10 @@ body {
     padding: 0.4rem 1rem;
   }
 
+  .booking-search-field button {
+    min-height: 48px;
+  }
+
   .booking-search-field:nth-child(2) {
     display: none;
   }
@@ -2047,6 +2255,25 @@ body {
     width: 48px;
     height: 48px;
     margin-right: 0;
+    padding: 0;
+  }
+
+  .booking-search-btn span {
+    display: none;
+  }
+
+  .booking-search-panel {
+    border-radius: 24px;
+    padding: 1.1rem;
+  }
+
+  .booking-suggestion-grid,
+  .booking-calendar-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-calendar-preview .booking-calendar-month:nth-child(2) {
+    display: none;
   }
 
   .booking-marketplace-content {
