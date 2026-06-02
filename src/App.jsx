@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import {
-  MapPin, Star, Calendar,
-  Compass, Award, Users, ArrowRight, Plane,
-  Train, Hotel, Filter, Utensils, Sparkles,
+  MapPin, Star,
+  Compass, Award, ArrowRight,
+  Heart, Car, Home,
+  Filter, Utensils, Sparkles,
   Search, Globe, Check, Info
 } from 'lucide-react';
 import brandLogo from './assets/logo.png';
@@ -237,6 +238,91 @@ const luxuryHotels = [
   { id: 3, name: 'Evolve Back Kabini', type: 'Eco Lodge', location: 'Kabini Forest, Karnataka', price: '₹34,000/N', img: sectionImages.destinations }
 ];
 
+const bookingTabs = [
+  { id: 'homes', label: 'Homes', icon: Home, badge: null },
+  { id: 'experiences', label: 'Experiences', icon: Sparkles, badge: 'NEW' },
+  { id: 'services', label: 'Services', icon: Car, badge: 'NEW' }
+];
+
+const bookingRows = {
+  homes: [
+    {
+      title: 'Popular homes in Mumbai',
+      items: [
+        { id: 'mum-1', title: 'Sea-view apartment in Bandra', meta: 'Mumbai, Maharashtra', price: '₹7,850 for 2 nights', rating: '4.94', image: sectionImages.booking },
+        { id: 'mum-2', title: 'Heritage suite near Colaba', meta: 'Mumbai, Maharashtra', price: '₹9,420 for 2 nights', rating: '4.89', image: sectionImages.destinations },
+        { id: 'mum-3', title: 'Boutique room in Juhu', meta: 'Mumbai, Maharashtra', price: '₹6,180 for 2 nights', rating: '4.82', image: sectionImages.welcome },
+        { id: 'mum-4', title: 'Modern stay by Marine Drive', meta: 'Mumbai, Maharashtra', price: '₹11,250 for 2 nights', rating: '4.96', image: sectionImages.tours },
+        { id: 'mum-5', title: 'Garden villa in Powai', meta: 'Mumbai, Maharashtra', price: '₹8,760 for 2 nights', rating: '4.91', image: sectionImages.traditions },
+        { id: 'mum-6', title: 'City studio near airport', meta: 'Mumbai, Maharashtra', price: '₹5,430 for 2 nights', rating: '4.78', image: sectionImages.foods }
+      ]
+    },
+    {
+      title: 'Available in Goa this weekend',
+      items: [
+        { id: 'goa-1', title: 'Beach hut in Palolem', meta: 'South Goa, Goa', price: '₹4,950 for 2 nights', rating: '4.88', image: sectionImages.welcome },
+        { id: 'goa-2', title: 'Villa with private pool', meta: 'Assagao, Goa', price: '₹18,500 for 2 nights', rating: '4.97', image: sectionImages.booking },
+        { id: 'goa-3', title: 'Portuguese home in Fontainhas', meta: 'Panaji, Goa', price: '₹7,300 for 2 nights', rating: '4.85', image: sectionImages.traditions },
+        { id: 'goa-4', title: 'Palm cottage near Anjuna', meta: 'North Goa, Goa', price: '₹6,820 for 2 nights', rating: '4.92', image: sectionImages.destinations },
+        { id: 'goa-5', title: 'Designer condo by the coast', meta: 'Candolim, Goa', price: '₹9,640 for 2 nights', rating: '4.9', image: sectionImages.tours },
+        { id: 'goa-6', title: 'Riverside stay in Siolim', meta: 'Siolim, Goa', price: '₹5,970 for 2 nights', rating: '4.81', image: sectionImages.foods }
+      ]
+    },
+    {
+      title: 'Palace and resort stays in Rajasthan',
+      items: [
+        { id: 'raj-1', title: 'Lake palace suite', meta: 'Udaipur, Rajasthan', price: '₹32,000 for 2 nights', rating: '4.98', image: luxuryHotels[0].img },
+        { id: 'raj-2', title: 'Desert haveli room', meta: 'Jaisalmer, Rajasthan', price: '₹12,400 for 2 nights', rating: '4.87', image: sectionImages.booking },
+        { id: 'raj-3', title: 'Pink city heritage stay', meta: 'Jaipur, Rajasthan', price: '₹10,250 for 2 nights', rating: '4.9', image: sectionImages.traditions },
+        { id: 'raj-4', title: 'Fort-view boutique hotel', meta: 'Jodhpur, Rajasthan', price: '₹13,890 for 2 nights', rating: '4.92', image: sectionImages.destinations },
+        { id: 'raj-5', title: 'Courtyard resort retreat', meta: 'Pushkar, Rajasthan', price: '₹8,100 for 2 nights', rating: '4.84', image: sectionImages.welcome }
+      ]
+    }
+  ],
+  experiences: [
+    {
+      title: 'Tour packages by city',
+      items: [
+        { id: 'exp-1', title: 'Mumbai city heritage walk', meta: '3 hours · Hosted tour', price: '₹1,800 per guest', rating: '4.91', image: sectionImages.destinations },
+        { id: 'exp-2', title: 'Goa sunset cruise and food trail', meta: '5 hours · Coastal package', price: '₹3,400 per guest', rating: '4.88', image: sectionImages.foods },
+        { id: 'exp-3', title: 'Jaipur forts day tour', meta: 'Full day · Guided package', price: '₹5,200 per guest', rating: '4.96', image: sectionImages.traditions },
+        { id: 'exp-4', title: 'Kerala backwater houseboat', meta: 'Overnight · Scenic package', price: '₹9,800 per guest', rating: '4.94', image: sectionImages.welcome },
+        { id: 'exp-5', title: 'Himalayan sunrise trek', meta: '2 days · Adventure tour', price: '₹7,500 per guest', rating: '4.89', image: sectionImages.tours }
+      ]
+    },
+    {
+      title: 'Maharashtra weekend experiences',
+      items: [
+        { id: 'mh-1', title: 'Ratnagiri coastal food trail', meta: 'Ratnagiri · Local host', price: '₹2,200 per guest', rating: '4.92', image: sectionImages.foods },
+        { id: 'mh-2', title: 'Ajanta and Ellora heritage route', meta: 'Chh. Sambhaji Nagar · 2 days', price: '₹6,900 per guest', rating: '4.95', image: sectionImages.traditions },
+        { id: 'mh-3', title: 'Lonavala monsoon escape', meta: 'Lonavala · Day tour', price: '₹3,100 per guest', rating: '4.84', image: sectionImages.destinations },
+        { id: 'mh-4', title: 'Konkan beach hopping tour', meta: 'Konkan Coast · 3 days', price: '₹8,450 per guest', rating: '4.9', image: sectionImages.welcome }
+      ]
+    }
+  ],
+  services: [
+    {
+      title: 'Flights across India',
+      items: [
+        { id: 'flt-1', title: 'Mumbai to Goa flights', meta: 'Daily departures · Economy to business', price: 'From ₹3,450', rating: '4.8', image: sectionImages.booking },
+        { id: 'flt-2', title: 'Delhi to Jaipur flights', meta: 'Quick hops · Flexible fares', price: 'From ₹2,980', rating: '4.76', image: sectionImages.tours },
+        { id: 'flt-3', title: 'Bengaluru to Kochi flights', meta: 'South India route', price: 'From ₹3,850', rating: '4.82', image: sectionImages.welcome },
+        { id: 'flt-4', title: 'Mumbai to Udaipur flights', meta: 'Royal Rajasthan route', price: 'From ₹5,120', rating: '4.86', image: sectionImages.traditions }
+      ]
+    },
+    {
+      title: 'Car booking and taxis in India',
+      items: [
+        { id: 'cab-1', title: 'Airport taxi in Mumbai', meta: 'Sedan, SUV, premium cars', price: 'From ₹799', rating: '4.87', image: sectionImages.destinations },
+        { id: 'cab-2', title: 'Goa private driver', meta: 'Hourly and full-day rental', price: 'From ₹2,400/day', rating: '4.91', image: sectionImages.welcome },
+        { id: 'cab-3', title: 'Jaipur fort route cab', meta: 'Local driver · 8 hours', price: 'From ₹2,900/day', rating: '4.85', image: sectionImages.booking },
+        { id: 'cab-4', title: 'Kerala coastal taxi', meta: 'Kochi, Alleppey, Munnar', price: 'From ₹3,200/day', rating: '4.88', image: sectionImages.foods },
+        { id: 'cab-5', title: 'Ratnagiri local transfers', meta: 'Beach and temple routes', price: 'From ₹1,850/day', rating: '4.83', image: sectionImages.traditions }
+      ]
+    }
+  ]
+};
+
 const mockFoods = [
   { id: 1, name: 'Butter Chicken & Naan', region: 'North India', type: 'non-veg', spiciness: 'Medium', desc: 'A rich, creamy, tomato-based curry loaded with tandoor-roasted chicken, served with hot butter garlic naan.', img: sectionImages.foods },
   { id: 2, name: 'Traditional Ghee Dosa', region: 'South India', type: 'veg', spiciness: 'Mild', desc: 'A super-crisp, thin fermented crepe made of rice and lentils, served with fresh coconut chutney and piping hot sambar.', img: sectionImages.welcome },
@@ -258,18 +344,12 @@ function App() {
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
 
-  // Custom Trip Planner State
-  const [plannerBudget, setPlannerBudget] = useState('luxury');
-  const [plannerDays, setPlannerDays] = useState(7);
-  const [plannedItinerary, setPlannedItinerary] = useState(null);
-
   // Destinations page filter state
   const [destFilterRegion, setDestFilterRegion] = useState('All');
   const [destFilterCat, setDestFilterCat] = useState('All');
 
   // Booking page state
-  const [bookingTab, setBookingTab] = useState('flight');
-  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingTab, setBookingTab] = useState('homes');
 
   // Subpages refs
   const topRef = useRef(null);
@@ -315,44 +395,6 @@ function App() {
     return { ...slides[originalIndex], originalIndex };
   });
 
-  // Dynamic Trip Planner Function
-  const calculatePlan = (e) => {
-    e.preventDefault();
-    let hotelChoice;
-    let routeDesc;
-    let cost;
-
-    if (plannerBudget === 'luxury') {
-      hotelChoice = luxuryHotels[0];
-      routeDesc = 'You will experience the ultimate royal luxury. Charter flights or private saloon trains to Udaipur & Jaipur, staying in legendary heritage palace hotels with private butler service and fine-dining gourmet trails.';
-      cost = plannerDays * 65000;
-    } else if (plannerBudget === 'premium') {
-      hotelChoice = luxuryHotels[1];
-      routeDesc = 'Indulge in wellness, beaches, and pristine backwaters. Stay in award-winning lakefront resorts, travel via premium Vande Bharat train executive classes, and enjoy guided organic spice trails.';
-      cost = plannerDays * 25000;
-    } else {
-      hotelChoice = luxuryHotels[2];
-      routeDesc = 'Connect with raw nature and local wildlife. Stay in sustainably managed premium eco-lodges near Kabini Reserve, travel with local premium cars, and embark on authentic wilderness safaris and heritage walks.';
-      cost = plannerDays * 15000;
-    }
-
-    setPlannedItinerary({
-      hotel: hotelChoice,
-      route: routeDesc,
-      totalCost: cost.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }),
-      days: plannerDays
-    });
-  };
-
-  // Booked trigger
-  const handleBookingSubmit = (e) => {
-    e.preventDefault();
-    setBookingSuccess(true);
-    setTimeout(() => {
-      setBookingSuccess(false);
-    }, 5000);
-  };
-
   // Destinations page data combines main destinations and Maharashtra districts
   const districtObjects = districtList.map((name, idx) => ({
     id: 100 + idx,
@@ -374,6 +416,7 @@ function App() {
     const matchesCat = destFilterCat === 'All' || d.category === destFilterCat;
     return matchesRegion && matchesCat;
   });
+  const activeBookingRows = bookingRows[bookingTab];
 
   return (
     <div ref={topRef}>
@@ -846,226 +889,80 @@ function App() {
         </>
       )}
 
-      {/* BOOKING CATEGORY PAGE WITH CUSTOM TRIP PLANNER */}
+      {/* BOOKING CATEGORY PAGE */}
       {currentRoute === '#/booking' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.booking) }}>
-            <span className="page-subtitle">Hassle-Free Reservations</span>
-            <h1 className="page-title">Book Flight, Train & Palace Stays</h1>
-          </div>
-
-          <div className="page-container">
-            <div className="booking-panel">
-              {/* Form card left */}
-              <div className="booking-card-main">
-                {/* Tab selector */}
-                <div className="booking-tabs">
-                  <button className={`booking-tab ${bookingTab === 'flight' ? 'active' : ''}`} onClick={() => setBookingTab('flight')}>
-                    <Plane size={18} />
-                    <span>Flights</span>
-                  </button>
-                  <button className={`booking-tab ${bookingTab === 'train' ? 'active' : ''}`} onClick={() => setBookingTab('train')}>
-                    <Train size={18} />
-                    <span>Trains</span>
-                  </button>
-                  <button className={`booking-tab ${bookingTab === 'hotel' ? 'active' : ''}`} onClick={() => setBookingTab('hotel')}>
-                    <Hotel size={18} />
-                    <span>Palace Hotels & Resorts</span>
-                  </button>
-                </div>
-
-                {bookingSuccess ? (
-                  <div style={{ textAlign: 'center', padding: '3rem 0', animation: 'scaleUp 0.5s ease' }}>
-                    <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(76, 175, 80, 0.1)', color: '#4CAF50', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem auto' }}>
-                      <Check size={40} />
-                    </div>
-                    <h2 style={{ fontFamily: 'var(--serif)', color: 'var(--text-primary)', marginBottom: '0.8rem' }}>Reservation Request Received!</h2>
-                    <p style={{ color: 'var(--text-muted)', maxWidth: '450px', margin: '0 auto' }}>
-                      Our luxury concierge team is verifying seat and suite availability. A customized voucher has been sent to your registered email address.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleBookingSubmit}>
-                    <div className="booking-form-grid">
-                      <div className="booking-input-group">
-                        <label className="booking-label">From (Departure City)</label>
-                        <div className="booking-input-wrapper">
-                          <Plane size={16} className="booking-input-icon" />
-                          <input type="text" placeholder="e.g. Mumbai (BOM)" className="booking-input" required />
-                        </div>
-                      </div>
-
-                      <div className="booking-input-group">
-                        <label className="booking-label">To (Destination)</label>
-                        <div className="booking-input-wrapper">
-                          <MapPin size={16} className="booking-input-icon" />
-                          <input type="text" placeholder="e.g. Udaipur (UDR)" className="booking-input" required />
-                        </div>
-                      </div>
-
-                      <div className="booking-input-group">
-                        <label className="booking-label">Departure Date</label>
-                        <div className="booking-input-wrapper">
-                          <Calendar size={16} className="booking-input-icon" />
-                          <input type="date" className="booking-input" defaultValue="2026-06-15" required />
-                        </div>
-                      </div>
-
-                      <div className="booking-input-group">
-                        <label className="booking-label">Class Category</label>
-                        <div className="booking-input-wrapper">
-                          <Award size={16} className="booking-input-icon" />
-                          <select className="booking-select">
-                            {bookingTab === 'flight' && (
-                              <>
-                                <option>First Class Suite</option>
-                                <option>Club Business Class</option>
-                                <option>Premium Economy</option>
-                              </>
-                            )}
-                            {bookingTab === 'train' && (
-                              <>
-                                <option>AC Executive Chair Car (EC)</option>
-                                <option>AC First Class Coupe (1A)</option>
-                                <option>AC 2 Tier Sleeper (2A)</option>
-                              </>
-                            )}
-                            {bookingTab === 'hotel' && (
-                              <>
-                                <option>Grand Maharaja Heritage Suite</option>
-                                <option>Lake View Luxury Room</option>
-                                <option>Forest Luxury Canopy Lodge</option>
-                              </>
-                            )}
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="booking-input-group full-width">
-                        <label className="booking-label">Contact Details</label>
-                        <div className="booking-input-wrapper">
-                          <Users size={16} className="booking-input-icon" />
-                          <input type="email" placeholder="Enter your email for ticket & luxury voucher delivery" className="booking-input" required />
-                        </div>
-                      </div>
-                    </div>
-
-                    <button type="submit" className="booking-submit-btn">
-                      Request Suite & Seat Reservation
-                      <ArrowRight size={18} />
+          <section className="booking-marketplace">
+            <div className="booking-marketplace-top">
+              <div className="booking-mode-tabs">
+                {bookingTabs.map((tab) => {
+                  const TabIcon = tab.icon;
+                  return (
+                    <button
+                      key={tab.id}
+                      className={`booking-mode-tab ${bookingTab === tab.id ? 'active' : ''}`}
+                      type="button"
+                      onClick={() => setBookingTab(tab.id)}
+                    >
+                      {tab.badge && <span className="booking-tab-badge">{tab.badge}</span>}
+                      <TabIcon size={34} strokeWidth={1.7} />
+                      <span>{tab.label}</span>
                     </button>
-                  </form>
-                )}
+                  );
+                })}
               </div>
 
-              {/* Luxury accommodation catalog & interactive trip planner right */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-                <div>
-                  <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.4rem', color: 'var(--text-primary)', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Sparkles size={20} style={{ color: 'var(--saffron)' }} />
-                    Heritage Palace Showcase
-                  </h3>
-
-                  <div className="luxury-hotels-panel">
-                    {luxuryHotels.map((hotel) => (
-                      <div key={hotel.id} className="luxury-hotel-card">
-                        <img src={hotel.img} alt={hotel.name} className="luxury-hotel-img" />
-                        <div className="luxury-hotel-info">
-                          <span className="luxury-hotel-tag">{hotel.type}</span>
-                          <h4 className="luxury-hotel-name">{hotel.name}</h4>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
-                            <MapPin size={12} style={{ color: 'var(--saffron)' }} />
-                            <span>{hotel.location}</span>
-                          </div>
-                        </div>
-                        <span className="luxury-hotel-price">{hotel.price}</span>
-                      </div>
-                    ))}
-                  </div>
+              <div className="booking-search-pill" role="search">
+                <div className="booking-search-field">
+                  <strong>Where</strong>
+                  <span>Search destinations</span>
                 </div>
-
-                {/* TRIP PLANNER WIDGET */}
-                <div style={{ backgroundColor: 'var(--obsidian-card)', border: '1px dashed var(--saffron)', borderRadius: '20px', padding: '1.8rem' }}>
-                  <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.25rem', color: 'var(--text-primary)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Compass size={18} style={{ color: 'var(--saffron)' }} />
-                    AI-Driven Trip Planner
-                  </h3>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-                    Simulate your luxury budget and days to receive recommendations instantly.
-                  </p>
-
-                  <form onSubmit={calculatePlan}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.2rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
-                        <button
-                          type="button"
-                          className={`filter-btn ${plannerBudget === 'luxury' ? 'active' : ''}`}
-                          onClick={() => setPlannerBudget('luxury')}
-                          style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem' }}
-                        >
-                          Palace Luxury
-                        </button>
-                        <button
-                          type="button"
-                          className={`filter-btn ${plannerBudget === 'premium' ? 'active' : ''}`}
-                          onClick={() => setPlannerBudget('premium')}
-                          style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem' }}
-                        >
-                          Coastal Wellness
-                        </button>
-                        <button
-                          type="button"
-                          className={`filter-btn ${plannerBudget === 'eco' ? 'active' : ''}`}
-                          onClick={() => setPlannerBudget('eco')}
-                          style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem' }}
-                        >
-                          Eco Safari
-                        </button>
-                      </div>
-
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem' }}>
-                          <span style={{ fontWeight: '600' }}>Journey Duration</span>
-                          <span style={{ color: 'var(--saffron)', fontWeight: '700' }}>{plannerDays} Days</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="3"
-                          max="15"
-                          value={plannerDays}
-                          onChange={(e) => setPlannerDays(parseInt(e.target.value))}
-                          style={{ accentColor: 'var(--saffron)', cursor: 'pointer' }}
-                        />
-                      </div>
-                    </div>
-
-                    <button type="submit" className="book-btn" style={{ width: '100%', fontSize: '0.8rem', padding: '0.6rem' }}>
-                      Generate Itinerary Recommendations
-                    </button>
-                  </form>
-
-                  {plannedItinerary && (
-                    <div style={{ marginTop: '1.5rem', backgroundColor: 'var(--obsidian)', borderRadius: '12px', padding: '1rem', border: '1px solid rgba(255,255,255,0.05)', animation: 'fadeIn 0.5s ease' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                        <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--saffron)', fontWeight: '700', letterSpacing: '1px' }}>
-                          Recommended Stay
-                        </span>
-                        <span style={{ fontSize: '0.9rem', color: 'var(--gold)', fontWeight: '700' }}>
-                          {plannedItinerary.totalCost} Est.
-                        </span>
-                      </div>
-                      <h4 style={{ color: 'var(--text-primary)', fontSize: '0.95rem', fontFamily: 'var(--serif)', marginBottom: '0.4rem' }}>
-                        {plannedItinerary.hotel.name}
-                      </h4>
-                      <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                        {plannedItinerary.route}
-                      </p>
-                    </div>
-                  )}
+                <div className="booking-search-field">
+                  <strong>When</strong>
+                  <span>Add dates</span>
                 </div>
+                <div className="booking-search-field">
+                  <strong>Who</strong>
+                  <span>Add guests</span>
+                </div>
+                <button className="booking-search-btn" type="button" aria-label="Search bookings">
+                  <Search size={24} />
+                </button>
               </div>
             </div>
-          </div>
+
+            <div className="booking-marketplace-content">
+              {activeBookingRows.map((row) => (
+                <section className="booking-row" key={row.title}>
+                  <div className="booking-row-header">
+                    <h2>{row.title}</h2>
+                    <button type="button" aria-label={`View more ${row.title}`}>
+                      <ArrowRight size={20} />
+                    </button>
+                  </div>
+
+                  <div className="booking-scroll-row">
+                    {row.items.map((item) => (
+                      <article className="booking-listing-card" key={item.id}>
+                        <div className="booking-listing-image-wrap">
+                          <img src={item.image} alt={item.title} className="booking-listing-image" />
+                          <span className="booking-favorite-badge">Guest favorite</span>
+                          <button className="booking-heart-btn" type="button" aria-label={`Save ${item.title}`}>
+                            <Heart size={24} />
+                          </button>
+                        </div>
+                        <div className="booking-listing-copy">
+                          <h3>{item.title}</h3>
+                          <p>{item.meta}</p>
+                          <span>{item.price} · <Star size={13} fill="currentColor" /> {item.rating}</span>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </section>
         </>
       )}
 
