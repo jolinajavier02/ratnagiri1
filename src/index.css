@@ -2292,18 +2292,21 @@ body {
 
 /* Dribbble-inspired cinematic landing hero */
 .hero-container {
-  min-height: 58vh;
-  padding: 7.4rem 4.8% 4.2rem;
-  background:
-    radial-gradient(circle at 70% 6%, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0) 20rem),
-    linear-gradient(180deg, #dbeafe 0%, #edf5ff 46%, #f8fbff 100%);
+  height: 100svh;
+  min-height: 760px;
+  padding: 0 5.5% 0 6.8%;
+  background: #0f172a;
   isolation: isolate;
-  display: flex;
-  align-items: flex-start;
 }
 
 .hero-container::before {
-  display: none;
+  content: '';
+  position: absolute;
+  inset: 5.25rem 4.8% 3.5rem 4.8%;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow: none;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero-video {
@@ -2319,15 +2322,17 @@ body {
 }
 
 .logo-arrangement {
-  position: relative;
-  z-index: 3;
-  width: 100%;
+  position: absolute;
+  left: 4.8%;
+  right: 4.8%;
+  top: 8.4rem;
+  z-index: 6;
   display: grid;
-  grid-template-columns: minmax(250px, 37%) minmax(54px, 7%) minmax(150px, 20%) minmax(150px, 20%);
+  grid-template-columns: minmax(190px, 36%) minmax(48px, 7%) minmax(120px, 18%) minmax(120px, 19%);
   grid-template-rows: auto auto;
   align-items: center;
-  column-gap: clamp(1.2rem, 3.5vw, 4.2rem);
-  row-gap: 0.35rem;
+  column-gap: clamp(1rem, 3vw, 3rem);
+  row-gap: 0.25rem;
   pointer-events: none;
 }
 
@@ -2342,30 +2347,27 @@ body {
 .arrangement-logo {
   grid-column: 1;
   grid-row: 1 / span 2;
-  width: clamp(250px, 35vw, 560px);
+  width: clamp(190px, 31vw, 470px);
 }
 
 .arrangement-badge {
   grid-column: 2;
   grid-row: 1;
-  width: clamp(54px, 6vw, 98px);
-  align-self: end;
+  width: clamp(44px, 6vw, 88px);
 }
 
 .arrangement-sign {
   grid-column: 3;
   grid-row: 1;
-  width: clamp(150px, 16vw, 260px);
+  width: clamp(118px, 16vw, 240px);
   justify-self: center;
-  align-self: end;
 }
 
 .arrangement-sticker {
   grid-column: 4;
   grid-row: 1;
-  width: clamp(150px, 17vw, 270px);
+  width: clamp(120px, 17vw, 250px);
   justify-self: end;
-  align-self: end;
 }
 
 .arrangement-title {
@@ -2373,13 +2375,12 @@ body {
   grid-row: 2;
   color: var(--saffron);
   font-family: var(--serif);
-  font-size: clamp(2.9rem, 5.6vw, 5.8rem);
+  font-size: clamp(2.2rem, 5.6vw, 5.2rem);
   font-weight: 900;
   letter-spacing: 0;
   line-height: 1;
   text-shadow: none;
   white-space: nowrap;
-  align-self: start;
 }
 
 .hero-location-badge {
@@ -2439,7 +2440,19 @@ body {
 }
 
 .hero-rail {
-  display: none;
+  position: absolute;
+  left: 2.65%;
+  top: 3.8rem;
+  bottom: 8.8rem;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .hero-rail-line {
@@ -2632,7 +2645,7 @@ body {
 
 @media (max-width: 1024px) {
   .hero-container {
-    padding: 7rem 6% 3rem;
+    padding: 9rem 6% 3rem;
     height: auto;
   }
 
@@ -2655,7 +2668,9 @@ body {
   }
 
   .logo-arrangement {
-    width: 100%;
+    top: 7rem;
+    left: 6%;
+    right: 6%;
     grid-template-columns: 1fr 0.28fr 0.72fr 0.8fr;
   }
 
@@ -2680,7 +2695,7 @@ body {
 
 @media (max-width: 768px) {
   .hero-container {
-    min-height: 54vh;
+    min-height: 100svh;
   }
 
   .hero-container::before {
@@ -2696,6 +2711,7 @@ body {
   }
 
   .logo-arrangement {
+    top: 6.5rem;
     grid-template-columns: minmax(120px, 1fr) minmax(44px, 0.36fr);
     grid-template-rows: auto auto auto;
     column-gap: 0.9rem;
