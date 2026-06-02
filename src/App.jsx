@@ -6,9 +6,6 @@ import {
   Search, Globe, Check, Info
 } from 'lucide-react';
 import brandLogo from './assets/logo.png';
-import badgeLogo from './assets/badge.png';
-import signLogo from './assets/sign.png';
-import stickerLogo from './assets/sticker.png';
 import './App.css';
 
 const socialLinks = [
@@ -160,18 +157,6 @@ const slides = [
 
 const HERO_VIDEO_DURATION_MS = 10 * 60 * 1000;
 
-function LogoArrangement() {
-  return (
-    <div className="logo-arrangement" aria-label="Maharashtra Tourism brand arrangement">
-      <img src={brandLogo} alt="Maharashtra Tourism logo" className="arrangement-logo" />
-      <img src={badgeLogo} alt="Maharashtra Tourism badge" className="arrangement-badge" />
-      <img src={signLogo} alt="Incredible India" className="arrangement-sign" />
-      <img src={stickerLogo} alt="Maharashtra unlimited" className="arrangement-sticker" />
-      <h1 className="arrangement-title">Maharashtra Tourism</h1>
-    </div>
-  );
-}
-
 const districtList = [
   'Ahilyanagar',
   'Akola',
@@ -283,7 +268,6 @@ function App() {
 
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
-  const [progress, setProgress] = useState(0);
 
   // Custom Trip Planner State
   const [plannerBudget, setPlannerBudget] = useState('luxury');
@@ -326,23 +310,15 @@ function App() {
 
   // Cycle each landing video section every 10 minutes.
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => Math.min(prev + (100 / (HERO_VIDEO_DURATION_MS / 1000)), 100));
-    }, 1000);
     const timer = setTimeout(() => {
-      setProgress(0);
       setActiveSlide((slide) => (slide + 1) % slides.length);
     }, HERO_VIDEO_DURATION_MS);
 
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [activeSlide]);
 
   const selectSlide = (index) => {
     setActiveSlide(index);
-    setProgress(0);
   };
 
   const previewSlides = Array.from({ length: slides.length - 1 }, (_, index) => {
@@ -443,8 +419,6 @@ function App() {
         <>
           {/* HERO SECTION CONTAINER */}
           <section className="hero-container">
-            <LogoArrangement />
-
             <div className="hero-video-wrapper">
               {slides.map((slide, idx) => (
                 <video
@@ -464,15 +438,6 @@ function App() {
             </div>
 
             <div className="hero-overlay" />
-
-            <div className="hero-rail" aria-hidden="true">
-              <span>01</span>
-              <div className="hero-rail-line">
-                <i style={{ height: `${Math.max(progress, 8)}%` }} />
-                <b>{activeSlide + 1}</b>
-              </div>
-              <span>{String(activeSlide + 1).padStart(2, '0')}/{String(slides.length).padStart(2, '0')}</span>
-            </div>
 
             <div className="hero-carousel-panel">
               <div className="carousel-cards-container">
