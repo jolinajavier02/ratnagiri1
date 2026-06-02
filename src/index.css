@@ -646,6 +646,131 @@ body {
   line-height: 1.6;
 }
 
+.exclusive-packages-heading {
+  text-align: center;
+  margin: 0 auto 4.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.exclusive-packages-script {
+  font-family: 'Water Brush', cursive;
+  color: #d8742b;
+  font-size: clamp(2.8rem, 7vw, 5.8rem);
+  line-height: 0.85;
+  transform: rotate(-3deg) translateY(0.45rem);
+  position: relative;
+  z-index: 2;
+}
+
+.exclusive-packages-title {
+  font-family: var(--sans);
+  color: #2b2b2d;
+  font-size: clamp(3.2rem, 7.2vw, 6.7rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.packages-frame {
+  position: relative;
+}
+
+.browse-cue {
+  position: absolute;
+  top: 1.2rem;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.7rem, 1.4vw, 1.1rem);
+  pointer-events: none;
+}
+
+.browse-cue-left {
+  left: clamp(0.7rem, 2vw, 1.5rem);
+}
+
+.browse-cue-right {
+  right: clamp(0.7rem, 2vw, 1.5rem);
+  flex-direction: row-reverse;
+}
+
+.browse-cue span {
+  color: #ffffff;
+  font-family: var(--sans);
+  font-size: clamp(0.78rem, 1.6vw, 1.55rem);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.browse-cue-arrow {
+  width: clamp(4.8rem, 10vw, 9.2rem);
+  height: auto;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: rotate(-9deg);
+}
+
+.browse-cue-right .browse-cue-arrow {
+  transform: scaleX(-1) rotate(-9deg);
+}
+
+@media (max-width: 1280px) {
+  .browse-cue span {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+
+  .browse-cue-arrow {
+    width: 4.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .packages-frame {
+    padding-top: 3.3rem;
+  }
+
+  .browse-cue {
+    top: 0;
+  }
+
+  .browse-cue-left {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .browse-cue-right {
+    display: none;
+  }
+
+  .browse-cue span {
+    color: #2b2b2d;
+  }
+
+  .browse-cue-arrow {
+    width: 4.1rem;
+    stroke: #d8742b;
+  }
+}
+
+@media (max-width: 640px) {
+  .packages-frame {
+    padding-top: 0;
+  }
+
+  .browse-cue {
+    display: none;
+  }
+}
+
 /* BODY SECTION - EXPERIENCE GRID */
 .experience-grid {
   display: grid;

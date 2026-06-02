@@ -476,50 +476,67 @@ function App() {
 
           {/* 1. Experience Categories Grid */}
           <section className="section-wrapper">
-            <span className="section-tag">Find Your Passion</span>
-            <h2 className="section-title">Experience India By Theme</h2>
-            <p className="section-subtitle">
-              From snow-capped peaks in the north to deep tropical shores in the south, find itineraries customized to your desires.
-            </p>
+            <div className="exclusive-packages-heading">
+              <span className="exclusive-packages-script">Plan Your Trip</span>
+              <h2 className="exclusive-packages-title">Exclusive Packages</h2>
+            </div>
 
-            <div className="experience-grid">
-              <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src={sectionImages.tours} alt="Mountains" className="experience-card-img" />
-                <div className="experience-card-overlay">
-                  <div className="experience-icon"><Compass size={24} /></div>
-                  <h3 className="experience-card-title">Mountains</h3>
-                  <p className="experience-card-desc">Trek the misty valleys of Himachal and scale high altitude mountain passes.</p>
-                  <span className="experience-card-count">12 Active Trails</span>
-                </div>
+            <div className="packages-frame">
+              <div className="browse-cue browse-cue-left" aria-hidden="true">
+                <svg className="browse-cue-arrow" viewBox="0 0 160 110">
+                  <path d="M10 22C48 4 91 6 102 30c14 31-42 31-72 27-27-4-24-26 7-31 48-8 95 29 54 49-22 11-55 8-66-8-10-15 4-26 25-20 25 7 43 25 72 36" />
+                  <path d="M118 83l30 10-23 18M118 83l15 27" />
+                </svg>
+                <span>OR BROWSE CATEGORIES</span>
               </div>
 
-              <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src={sectionImages.welcome} alt="Beaches" className="experience-card-img" />
-                <div className="experience-card-overlay">
-                  <div className="experience-icon"><Globe size={24} /></div>
-                  <h3 className="experience-card-title">Beaches</h3>
-                  <p className="experience-card-desc">Swaying palms, golden sands, and majestic coastal water cruises in Kerala.</p>
-                  <span className="experience-card-count">24 Coastal Stays</span>
-                </div>
+              <div className="browse-cue browse-cue-right" aria-hidden="true">
+                <svg className="browse-cue-arrow" viewBox="0 0 160 110">
+                  <path d="M10 22C48 4 91 6 102 30c14 31-42 31-72 27-27-4-24-26 7-31 48-8 95 29 54 49-22 11-55 8-66-8-10-15 4-26 25-20 25 7 43 25 72 36" />
+                  <path d="M118 83l30 10-23 18M118 83l15 27" />
+                </svg>
+                <span>OR BROWSE CATEGORIES</span>
               </div>
 
-              <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src={sectionImages.destinations} alt="Wildlife" className="experience-card-img" />
-                <div className="experience-card-overlay">
-                  <div className="experience-icon"><Award size={24} /></div>
-                  <h3 className="experience-card-title">Wildlife</h3>
-                  <p className="experience-card-desc">Spot Bengal tigers, Asiatic lions, and curations of exotic tropical bird species.</p>
-                  <span className="experience-card-count">9 Safaris Open</span>
+              <div className="experience-grid">
+                <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
+                  <img src={sectionImages.tours} alt="Mountains" className="experience-card-img" />
+                  <div className="experience-card-overlay">
+                    <div className="experience-icon"><Compass size={24} /></div>
+                    <h3 className="experience-card-title">Mountains</h3>
+                    <p className="experience-card-desc">Trek the misty valleys of Himachal and scale high altitude mountain passes.</p>
+                    <span className="experience-card-count">12 Active Trails</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src={sectionImages.traditions} alt="Heritage" className="experience-card-img" />
-                <div className="experience-card-overlay">
-                  <div className="experience-icon"><Sparkles size={24} /></div>
-                  <h3 className="experience-card-title">Heritage</h3>
-                  <p className="experience-card-desc">Marvel at ancient temples, palace architecture, and UNESCO sites dating back millennia.</p>
-                  <span className="experience-card-count">36 Monument Walks</span>
+                <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
+                  <img src={sectionImages.welcome} alt="Beaches" className="experience-card-img" />
+                  <div className="experience-card-overlay">
+                    <div className="experience-icon"><Globe size={24} /></div>
+                    <h3 className="experience-card-title">Beaches</h3>
+                    <p className="experience-card-desc">Swaying palms, golden sands, and majestic coastal water cruises in Kerala.</p>
+                    <span className="experience-card-count">24 Coastal Stays</span>
+                  </div>
+                </div>
+
+                <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
+                  <img src={sectionImages.destinations} alt="Wildlife" className="experience-card-img" />
+                  <div className="experience-card-overlay">
+                    <div className="experience-icon"><Award size={24} /></div>
+                    <h3 className="experience-card-title">Wildlife</h3>
+                    <p className="experience-card-desc">Spot Bengal tigers, Asiatic lions, and curations of exotic tropical bird species.</p>
+                    <span className="experience-card-count">9 Safaris Open</span>
+                  </div>
+                </div>
+
+                <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
+                  <img src={sectionImages.traditions} alt="Heritage" className="experience-card-img" />
+                  <div className="experience-card-overlay">
+                    <div className="experience-icon"><Sparkles size={24} /></div>
+                    <h3 className="experience-card-title">Heritage</h3>
+                    <p className="experience-card-desc">Marvel at ancient temples, palace architecture, and UNESCO sites dating back millennia.</p>
+                    <span className="experience-card-count">36 Monument Walks</span>
+                  </div>
                 </div>
               </div>
             </div>
