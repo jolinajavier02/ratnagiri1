@@ -269,6 +269,7 @@ const mockTours = [
     price: '$799',
     rating: '4.9',
     category: 'Heritage & Culture',
+    location: 'Delhi, Agra, Jaipur',
     highlights: ['Agra Taj Mahal Sunrise Guided Tour', 'Jaipur Amer Fort Elephant Ride Experience', 'Delhi Chandni Chowk Food Crawl', 'Jodhpur Golden Palace Homestay'],
     img: sectionImages.booking,
     date: 'Starting 12 June, 2026'
@@ -280,6 +281,7 @@ const mockTours = [
     price: '$599',
     rating: '4.8',
     category: 'Nature & Wellness',
+    location: 'Kerala Coast',
     highlights: ['Overnight Luxury Houseboat Cruise', 'Kathakali Traditional Dance Performance', 'Munnar Organic Tea Garden Walk', 'Kovalam Beach Yoga Session'],
     img: sectionImages.welcome,
     date: 'Starting 20 June, 2026'
@@ -291,9 +293,46 @@ const mockTours = [
     price: '$999',
     rating: '4.9',
     category: 'Adventure & Spirituality',
+    location: 'Himalayan Foothills',
     highlights: ['Ganges Ganga Aarti Ceremony in Rishikesh', 'High Altitude Valley Trek in Dharamshala', 'Meditation Retreat with Masters', 'White Water River Rafting Class IV'],
     img: sectionImages.tours,
     date: 'Starting 05 July, 2026'
+  },
+  {
+    id: 4,
+    title: 'Ratnagiri Konkan Coastal Escape',
+    duration: '5 Days',
+    price: '$449',
+    rating: '4.8',
+    category: 'Coastal Maharashtra',
+    location: 'Ratnagiri, Konkan',
+    highlights: ['Ganpatipule Temple Visit', 'Ratnadurg Fort Sunset Walk', 'Alphonso Mango Orchard Stop', 'Konkan Coastal Food Trail'],
+    img: sectionImages.destinations,
+    date: 'Starting 18 July, 2026'
+  },
+  {
+    id: 5,
+    title: 'Ajanta Ellora Heritage Route',
+    duration: '4 Days',
+    price: '$529',
+    rating: '4.9',
+    category: 'UNESCO Heritage',
+    location: 'Chh. Sambhaji Nagar',
+    highlights: ['Ajanta Cave Murals Tour', 'Ellora Kailasa Temple Walk', 'Bibi Ka Maqbara Visit', 'Deccan Heritage Dinner'],
+    img: sectionImages.traditions,
+    date: 'Starting 08 August, 2026'
+  },
+  {
+    id: 6,
+    title: 'Mumbai Pune Culture Weekend',
+    duration: '3 Days',
+    price: '$399',
+    rating: '4.7',
+    category: 'City Culture',
+    location: 'Mumbai and Pune',
+    highlights: ['Mumbai Heritage Precinct Walk', 'Marine Drive Evening', 'Pune Wada Trail', 'Local Market Food Stops'],
+    img: sectionImages.foods,
+    date: 'Starting 22 August, 2026'
   }
 ];
 
@@ -444,6 +483,24 @@ const mockTraditions = [
   { id: 4, title: 'Pushkar Camel Fair', date: 'November', place: 'Pushkar, Rajasthan', desc: 'One of the world\'s largest camel and livestock fairs, transforming a desert oasis into a vibrant carnival of folk dancers, musicians, camel races, and local bazaars.', img: sectionImages.booking }
 ];
 
+const traditionCategoryCards = [
+  {
+    title: 'Events',
+    desc: 'Festival calendars, public celebrations, fairs and seasonal gatherings across Maharashtra.',
+    img: sectionImages.traditions
+  },
+  {
+    title: 'Cultures',
+    desc: 'Local art, dress, music, dance, community rituals and regional ways of welcoming visitors.',
+    img: sectionImages.tours
+  },
+  {
+    title: 'Traditions',
+    desc: 'Temple practices, food customs, family festivals and heritage moments carried through generations.',
+    img: sectionImages.welcome
+  }
+];
+
 const socialGalleryItems = [
   { title: 'Konkan Coast', image: sectionImages.destinations },
   { title: 'Guided Walks', image: sectionImages.tours },
@@ -494,6 +551,15 @@ const galleryPageItems = [
     title: item.title,
     image: item.image
   }))
+];
+
+const digitalGalleryVideos = [
+  { title: 'Welcome Preview', video: sectionVideos.welcome },
+  { title: 'Destinations Video', video: sectionVideos.destinations },
+  { title: 'Tours Video', video: sectionVideos.tours },
+  { title: 'Booking Video', video: sectionVideos.booking },
+  { title: 'Food Video', video: sectionVideos.foods },
+  { title: 'Traditions Video', video: sectionVideos.traditions }
 ];
 
 function App() {
@@ -765,9 +831,9 @@ function App() {
             </p>
 
             <div className="tours-grid">
-              {mockTours.slice(0, 2).map((tour) => (
-                <div key={tour.id} className="tour-card">
-                  <div className="tour-img-wrapper">
+              {mockTours.slice(0, 6).map((tour) => (
+                <div key={tour.id} className="tour-card home-tour-package-card">
+                  <div className="tour-img-wrapper home-tour-image">
                     <img src={tour.img} alt={tour.title} className="tour-img" />
                     <span className="tour-duration-badge">{tour.duration}</span>
                   </div>
@@ -775,18 +841,12 @@ function App() {
                     <div>
                       <span className="tour-date">{tour.date}</span>
                       <h3 className="tour-title">{tour.title}</h3>
-                      <ul className="tour-highlights">
-                        {tour.highlights.map((h, i) => (
-                          <li key={i} className="tour-highlight-item">
-                            <Check size={14} className="saffron-check" style={{ color: 'var(--saffron)' }} />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <p className="home-tour-desc">{tour.highlights.slice(0, 2).join(' · ')}</p>
+                      <span className="home-tour-location">{tour.location}</span>
                     </div>
                     <div className="tour-footer">
                       <div className="tour-price">
-                        <span className="tour-price-label">Price/Guest</span>
+                        <span className="tour-price-label">From</span>
                         <span className="tour-price-value">{tour.price}</span>
                       </div>
                       <button className="tour-book-btn" onClick={() => window.location.hash = `#/tours?package=${tour.id}`}>Book Slot</button>
@@ -826,6 +886,18 @@ function App() {
             <p className="section-subtitle">
               Festivals, rituals, music and historic celebrations keep Maharashtra's culture vivid across the year.
             </p>
+
+            <div className="tradition-category-grid">
+              {traditionCategoryCards.map((card) => (
+                <article className="tradition-category-card" key={card.title}>
+                  <img src={card.img} alt={card.title} />
+                  <div>
+                    <h3>{card.title}</h3>
+                    <p>{card.desc}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
 
             <div className="home-feature-grid">
               {mockTraditions.slice(0, 3).map((tradition) => (
@@ -1430,6 +1502,27 @@ function App() {
             {galleryPageItems.map((item, index) => (
               <article className="gallery-page-card" key={`${item.title}-${index}`}>
                 <img src={item.image} alt={item.title} />
+                <span>{item.title}</span>
+              </article>
+            ))}
+          </div>
+
+          <div className="gallery-page-heading video-gallery-heading">
+            <span className="section-tag">Digital Gallery</span>
+            <h2 className="section-title">Maharashtra Video Stories</h2>
+          </div>
+
+          <div className="gallery-page-grid video-gallery-grid">
+            {digitalGalleryVideos.map((item) => (
+              <article className="gallery-page-card video-gallery-card" key={item.title}>
+                <video
+                  src={item.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
                 <span>{item.title}</span>
               </article>
             ))}
