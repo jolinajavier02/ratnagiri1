@@ -76,6 +76,7 @@ const slides = [
     location: 'Summer Escapes - Coastal India',
     title: 'WELCOME TO INDIA',
     subtitle: 'Sunlit Shores & Timeless Journeys',
+    previewText: 'Begin with the full coastal welcome experience.',
     description: 'A warm coastal welcome into India: golden beaches, blue water, palm shadows, relaxed resort stays, flavorful food, and culture glowing under the summer sun.',
     imageUrl: sectionImages.welcome,
     thumbnail: sectionImages.welcome,
@@ -87,6 +88,7 @@ const slides = [
     location: 'Andaman Islands - India',
     title: 'DESTINATIONS',
     subtitle: 'Beach Sands & Island Light',
+    previewText: 'Explore beaches, islands, forts, and scenic escapes.',
     description: 'The destination preview highlights India’s tropical side: white sand, turquoise water, palm-lined beaches, island cliffs, and quiet coastal escapes made for summer travel.',
     imageUrl: sectionImages.destinations,
     thumbnail: sectionImages.destinations,
@@ -98,6 +100,7 @@ const slides = [
     location: 'Goa Coast - India',
     title: 'TOURS',
     subtitle: 'Golden Hour Beach Walks',
+    previewText: 'Follow curated routes, guided walks, and hosted trips.',
     description: 'The tours preview is about guided beach walks, sunset conversations, boat rides, local hosts, and easy routes through India’s brightest coastal experiences.',
     imageUrl: sectionImages.tours,
     thumbnail: sectionImages.tours,
@@ -109,6 +112,7 @@ const slides = [
     location: 'Kerala Beach Resort - India',
     title: 'BOOKINGS',
     subtitle: 'Beach Resorts & Easy Arrivals',
+    previewText: 'Plan stays, arrivals, transport, and travel details.',
     description: 'The bookings preview focuses on smooth arrivals: beach resorts, private stays, concierge planning, luggage-ready comfort, and sunlit check-ins by the sea.',
     imageUrl: sectionImages.booking,
     thumbnail: sectionImages.booking,
@@ -120,6 +124,7 @@ const slides = [
     location: 'Goa Food Trail - India',
     title: 'FOODS',
     subtitle: 'Coastal Flavors & Tropical Plates',
+    previewText: 'Taste coastal plates, local spices, and fresh dishes.',
     description: 'The food preview celebrates coastal India: grilled seafood, coconut drinks, mango, banana leaf plates, fresh chutneys, and spice-rich dishes beside the beach.',
     imageUrl: sectionImages.foods,
     thumbnail: sectionImages.foods,
@@ -131,6 +136,7 @@ const slides = [
     location: 'Kerala Coast - India',
     title: 'TRADITIONS',
     subtitle: 'Festivals by the Sea',
+    previewText: 'Discover festivals, rituals, music, and heritage moments.',
     description: 'The traditions preview shows India’s coastal celebrations: diyas on sand, marigold rituals, music, dance, colorful clothing, and festival evenings by the water.',
     imageUrl: sectionImages.traditions,
     thumbnail: sectionImages.traditions,
@@ -312,10 +318,6 @@ function App() {
     return () => clearTimeout(timer);
   }, [activeSlide]);
 
-  const selectSlide = (index) => {
-    setActiveSlide(index);
-  };
-
   const previewSlides = Array.from({ length: slides.length - 1 }, (_, index) => {
     const originalIndex = (activeSlide + index + 1) % slides.length;
     return { ...slides[originalIndex], originalIndex };
@@ -427,28 +429,34 @@ function App() {
             <div className="hero-overlay" />
 
             <div className="hero-carousel-panel">
+              <div className="preview-carousel-kicker">Preview Carousel</div>
               <div className="carousel-cards-container">
                 {previewSlides.map((card) => (
                   <div className="hero-preview-item" key={card.id}>
                     <div
                       className="carousel-card"
-                      onClick={() => selectSlide(card.originalIndex)}
+                      onClick={() => {
+                        window.location.hash = card.link;
+                      }}
                       role="button"
                       tabIndex={0}
                       onKeyDown={(event) => {
                         if (event.key === 'Enter' || event.key === ' ') {
                           event.preventDefault();
-                          selectSlide(card.originalIndex);
+                          window.location.hash = card.link;
                         }
                       }}
-                      aria-label={`Show ${card.title}`}
+                      aria-label={`Open ${card.category}`}
                     >
                       <GeneratedCategoryVideo
                         className="carousel-card-img"
                         slide={card}
                       />
                       <div className="carousel-card-overlay">
-                        <h4 className="carousel-card-title">{card.category}</h4>
+                        <div className="carousel-card-copy">
+                          <h4 className="carousel-card-title">{card.category}</h4>
+                          <p className="carousel-card-desc">{card.previewText}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
