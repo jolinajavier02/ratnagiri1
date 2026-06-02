@@ -423,6 +423,7 @@ const mockTraditions = [
 function App() {
   const [currentRoute, setCurrentRoute] = useState(window.location.hash || '#/');
   const [scrolled, setScrolled] = useState(false);
+  const [activeRtsService, setActiveRtsService] = useState(null);
 
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
@@ -645,10 +646,16 @@ function App() {
                 <div className="rts-heading-line" />
                 <div className="rts-services-grid">
                   {rtsServices.map((service, index) => (
-                    <article className={`rts-service-card tone-${index % 5}`} key={service}>
+                    <button
+                      className={`rts-service-card tone-${index % 5} ${activeRtsService === index ? 'is-active' : ''}`}
+                      key={service}
+                      type="button"
+                      aria-pressed={activeRtsService === index}
+                      onClick={() => setActiveRtsService(index)}
+                    >
                       <Check size={18} />
                       <h3>{service}</h3>
-                    </article>
+                    </button>
                   ))}
                 </div>
               </div>
