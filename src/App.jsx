@@ -65,17 +65,6 @@ const sectionImages = {
   traditions: coverImage('traditions-india-summer-cover.png')
 };
 
-const videoPath = (filename) => `${import.meta.env.BASE_URL}videos/${filename}`;
-
-const sectionVideos = {
-  welcome: videoPath('welcome.mp4'),
-  destinations: videoPath('destinations.mp4'),
-  tours: videoPath('tours.mp4'),
-  booking: videoPath('booking.mp4'),
-  foods: videoPath('foods.mp4'),
-  traditions: videoPath('traditions.mp4')
-};
-
 const pageHeaderBackground = (image) =>
   `linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('${image}')`;
 
@@ -90,7 +79,6 @@ const slides = [
     description: 'A warm coastal welcome into India: golden beaches, blue water, palm shadows, relaxed resort stays, flavorful food, and culture glowing under the summer sun.',
     imageUrl: sectionImages.welcome,
     thumbnail: sectionImages.welcome,
-    videoUrl: sectionVideos.welcome,
     link: '#/'
   },
   {
@@ -102,7 +90,6 @@ const slides = [
     description: 'The destination preview highlights India’s tropical side: white sand, turquoise water, palm-lined beaches, island cliffs, and quiet coastal escapes made for summer travel.',
     imageUrl: sectionImages.destinations,
     thumbnail: sectionImages.destinations,
-    videoUrl: sectionVideos.destinations,
     link: '#/destinations'
   },
   {
@@ -114,48 +101,56 @@ const slides = [
     description: 'The tours preview is about guided beach walks, sunset conversations, boat rides, local hosts, and easy routes through India’s brightest coastal experiences.',
     imageUrl: sectionImages.tours,
     thumbnail: sectionImages.tours,
-    videoUrl: sectionVideos.tours,
     link: '#/tours'
   },
   {
     id: 'booking',
-    category: 'Bookings',
+    category: 'Booking',
     location: 'Kerala Beach Resort - India',
     title: 'BOOKINGS',
     subtitle: 'Beach Resorts & Easy Arrivals',
     description: 'The bookings preview focuses on smooth arrivals: beach resorts, private stays, concierge planning, luggage-ready comfort, and sunlit check-ins by the sea.',
     imageUrl: sectionImages.booking,
     thumbnail: sectionImages.booking,
-    videoUrl: sectionVideos.booking,
     link: '#/booking'
   },
   {
     id: 'foods',
-    category: 'Foods',
+    category: 'Food',
     location: 'Goa Food Trail - India',
     title: 'FOODS',
     subtitle: 'Coastal Flavors & Tropical Plates',
     description: 'The food preview celebrates coastal India: grilled seafood, coconut drinks, mango, banana leaf plates, fresh chutneys, and spice-rich dishes beside the beach.',
     imageUrl: sectionImages.foods,
     thumbnail: sectionImages.foods,
-    videoUrl: sectionVideos.foods,
     link: '#/foods'
   },
   {
     id: 'tradition',
-    category: 'Tradition',
+    category: 'Traditions',
     location: 'Kerala Coast - India',
     title: 'TRADITIONS',
     subtitle: 'Festivals by the Sea',
     description: 'The traditions preview shows India’s coastal celebrations: diyas on sand, marigold rituals, music, dance, colorful clothing, and festival evenings by the water.',
     imageUrl: sectionImages.traditions,
     thumbnail: sectionImages.traditions,
-    videoUrl: sectionVideos.traditions,
     link: '#/tradition'
   }
 ];
 
 const HERO_VIDEO_DURATION_MS = 10 * 60 * 1000;
+
+function GeneratedCategoryVideo({ slide, className = '' }) {
+  return (
+    <div className={`generated-video-scene generated-video-${slide.id} ${className}`} aria-label={`${slide.category} generated video`}>
+      <img src={slide.thumbnail} alt="" className="generated-video-image" aria-hidden="true" />
+      <span className="generated-video-wash" aria-hidden="true" />
+      <span className="generated-video-sweep" aria-hidden="true" />
+      <span className="generated-video-detail detail-one" aria-hidden="true" />
+      <span className="generated-video-detail detail-two" aria-hidden="true" />
+    </div>
+  );
+}
 
 const districtList = [
   'Ahilyanagar',
@@ -421,19 +416,11 @@ function App() {
           <section className="hero-container">
             <div className="hero-video-wrapper">
               {slides.map((slide, idx) => (
-                <video
+                <GeneratedCategoryVideo
                   key={slide.id}
                   className={`hero-video ${idx === activeSlide ? 'active' : ''}`}
-                  poster={slide.thumbnail}
-                  muted
-                  playsInline
-                  autoPlay={idx === activeSlide}
-                  loop
-                  preload={idx === activeSlide ? 'auto' : 'metadata'}
-                  aria-label={`${slide.category} tourism video`}
-                >
-                  <source src={slide.videoUrl} type="video/mp4" />
-                </video>
+                  slide={slide}
+                />
               ))}
             </div>
 
@@ -456,18 +443,13 @@ function App() {
                       }}
                       aria-label={`Show ${card.title}`}
                     >
-                      <video
+                      <GeneratedCategoryVideo
                         className="carousel-card-img"
-                        poster={card.thumbnail}
-                        muted
-                        playsInline
-                        loop
-                        autoPlay
-                        preload="metadata"
-                        aria-label={`${card.category} preview video`}
-                      >
-                        <source src={card.videoUrl} type="video/mp4" />
-                      </video>
+                        slide={card}
+                      />
+                      <div className="carousel-card-overlay">
+                        <h4 className="carousel-card-title">{card.category}</h4>
+                      </div>
                     </div>
                   </div>
                 ))}

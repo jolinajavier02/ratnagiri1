@@ -122,17 +122,18 @@ body {
   justify-content: space-between;
   align-items: center;
   z-index: 100;
-  background: transparent;
-  backdrop-filter: none;
-  border-bottom: 0;
+  background: rgba(255, 250, 240, 0.34);
+  backdrop-filter: blur(18px) saturate(1.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 18px 44px rgba(32, 19, 11, 0.12);
   transition: all 0.4s ease;
 }
 
 .navbar.scrolled {
   padding: 0.8rem 4%;
-  background-color: transparent;
-  border-bottom: 0;
-  box-shadow: none;
+  background-color: rgba(255, 250, 240, 0.48);
+  border-bottom: 1px solid rgba(249, 115, 22, 0.2);
+  box-shadow: 0 20px 48px rgba(32, 19, 11, 0.16);
 }
 
 .logo-container {
@@ -1941,16 +1942,16 @@ body {
 
 .navbar {
   padding: 1rem 4%;
-  background: transparent;
-  border-bottom: 0;
-  box-shadow: none;
-  backdrop-filter: none;
+  background: rgba(255, 250, 240, 0.34);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 18px 44px rgba(32, 19, 11, 0.12);
+  backdrop-filter: blur(18px) saturate(1.25);
 }
 
 .navbar.scrolled {
-  background: transparent;
-  border-bottom-color: transparent;
-  box-shadow: none;
+  background: rgba(255, 250, 240, 0.48);
+  border-bottom-color: rgba(249, 115, 22, 0.2);
+  box-shadow: 0 20px 48px rgba(32, 19, 11, 0.16);
 }
 
 .logo-icon {
@@ -2300,17 +2301,114 @@ body {
 }
 
 .hero-container::before {
-  content: '';
-  position: absolute;
-  inset: 5.25rem 4.8% 3.5rem 4.8%;
-  border: 1px solid rgba(255, 255, 255, 0.62);
-  box-shadow: none;
-  pointer-events: none;
-  z-index: 2;
+  display: none;
 }
 
 .hero-video {
   filter: saturate(1.08) contrast(1.02);
+}
+
+.generated-video-scene {
+  position: relative;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.generated-video-image {
+  position: absolute;
+  inset: -6%;
+  width: 112%;
+  height: 112%;
+  object-fit: cover;
+  transform-origin: center;
+  animation: generatedSceneDrift 22s ease-in-out infinite alternate;
+}
+
+.generated-video-wash,
+.generated-video-sweep,
+.generated-video-detail {
+  position: absolute;
+  pointer-events: none;
+}
+
+.generated-video-wash {
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 24%, rgba(249, 115, 22, 0.2), transparent 28%),
+    radial-gradient(circle at 78% 30%, rgba(15, 118, 110, 0.22), transparent 28%),
+    linear-gradient(115deg, rgba(15, 23, 42, 0.28), rgba(15, 23, 42, 0.02) 46%, rgba(255, 247, 237, 0.16));
+  mix-blend-mode: screen;
+}
+
+.generated-video-sweep {
+  inset: -30% -18%;
+  background: linear-gradient(105deg, transparent 28%, rgba(255, 255, 255, 0.24) 44%, transparent 62%);
+  transform: translateX(-45%);
+  animation: generatedSceneSweep 9s ease-in-out infinite;
+}
+
+.generated-video-detail {
+  width: 28%;
+  aspect-ratio: 1;
+  border: 0;
+  background: rgba(255, 255, 255, 0.14);
+  opacity: 0.58;
+  animation: generatedSceneFloat 13s ease-in-out infinite alternate;
+}
+
+.detail-one {
+  left: 10%;
+  bottom: 14%;
+}
+
+.detail-two {
+  right: 12%;
+  top: 16%;
+  animation-delay: -4s;
+}
+
+.generated-video-destinations .generated-video-detail,
+.generated-video-tours .generated-video-detail {
+  border-radius: 50%;
+}
+
+.generated-video-booking .generated-video-detail {
+  border-radius: 8px;
+}
+
+.generated-video-foods .generated-video-detail {
+  border-radius: 999px;
+}
+
+.generated-video-tradition .generated-video-detail {
+  transform: rotate(45deg);
+}
+
+@keyframes generatedSceneDrift {
+  from {
+    transform: scale(1.02) translate3d(-1.5%, -1%, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(2%, 1.5%, 0);
+  }
+}
+
+@keyframes generatedSceneSweep {
+  0%, 22% {
+    transform: translateX(-54%);
+  }
+  70%, 100% {
+    transform: translateX(54%);
+  }
+}
+
+@keyframes generatedSceneFloat {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(10%, -10%, 0) rotate(18deg);
+  }
 }
 
 .hero-overlay {
@@ -2520,7 +2618,7 @@ body {
   width: 100%;
   height: clamp(120px, 11vw, 180px);
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.78);
+  border: 0;
   box-shadow: none;
   background: rgba(255, 255, 255, 0.08);
 }
@@ -2530,7 +2628,12 @@ body {
 }
 
 .carousel-card-overlay {
-  display: none;
+  position: absolute;
+  inset: 0;
+  padding: 0.9rem;
+  display: flex;
+  align-items: flex-end;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.16) 44%, rgba(15, 23, 42, 0.72) 100%);
 }
 
 .carousel-card-location {
@@ -2556,11 +2659,14 @@ body {
 }
 
 .carousel-card-title {
-  font-family: var(--serif);
-  font-size: clamp(0.98rem, 1.08vw, 1.45rem);
-  line-height: 1;
+  color: #ffffff;
+  font-family: var(--sans);
+  font-size: clamp(0.78rem, 0.92vw, 1rem);
+  font-weight: 800;
+  line-height: 1.1;
   max-width: 12ch;
-  text-transform: uppercase;
+  text-transform: none;
+  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
 }
 
 .hero-bottom-controls {
