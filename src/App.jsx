@@ -144,7 +144,7 @@ const slides = [
   }
 ];
 
-const HERO_VIDEO_DURATION_MS = 10 * 60 * 1000;
+const HERO_PREVIEW_INTERVAL_MS = 7000;
 
 function GeneratedCategoryVideo({ slide, className = '' }) {
   return (
@@ -309,11 +309,11 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Cycle each landing video section every 10 minutes.
+  // Cycle the landing preview so each card advances smoothly.
   useEffect(() => {
     const timer = setTimeout(() => {
       setActiveSlide((slide) => (slide + 1) % slides.length);
-    }, HERO_VIDEO_DURATION_MS);
+    }, HERO_PREVIEW_INTERVAL_MS);
 
     return () => clearTimeout(timer);
   }, [activeSlide]);
@@ -429,8 +429,7 @@ function App() {
             <div className="hero-overlay" />
 
             <div className="hero-carousel-panel">
-              <div className="preview-carousel-kicker">Preview Carousel</div>
-              <div className="carousel-cards-container">
+              <div className="carousel-cards-container" key={activeSlide}>
                 {previewSlides.map((card) => (
                   <div className="hero-preview-item" key={card.id}>
                     <div
