@@ -4866,6 +4866,132 @@ body {
   transform: scale(1.05);
 }
 
+.plan-trip-section {
+  padding-block: clamp(4rem, 7vw, 7rem);
+  background: #fff;
+}
+
+.plan-trip-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 6vw, 6.5rem);
+  align-items: center;
+}
+
+.plan-trip-video-frame {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 0.72;
+  overflow: hidden;
+  justify-self: center;
+  background: #f4e6d1;
+  border-radius: 46% 48% 45% 43% / 15% 15% 12% 12%;
+  box-shadow: 0 24px 54px rgba(36, 23, 15, 0.18);
+}
+
+.plan-trip-video-frame::after {
+  content: '';
+  position: absolute;
+  right: -24%;
+  top: 40%;
+  width: 52%;
+  height: 28%;
+  border-radius: 50%;
+  background: #fff;
+  z-index: 2;
+}
+
+.plan-trip-video-frame video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.plan-trip-copy {
+  max-width: 760px;
+}
+
+.plan-trip-script {
+  color: var(--script-orange);
+  display: block;
+  font-family: var(--script);
+  font-size: clamp(4rem, 7vw, 7.4rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 0.72;
+  margin-bottom: 0.55rem;
+}
+
+.plan-trip-copy h2 {
+  color: #19183d;
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 4.6vw, 5rem);
+  font-weight: 800;
+  line-height: 1.02;
+  margin-bottom: 1.35rem;
+}
+
+.plan-trip-copy p {
+  color: #565569;
+  font-size: clamp(1rem, 1.25vw, 1.24rem);
+  font-weight: 600;
+  line-height: 1.8;
+  max-width: 760px;
+}
+
+.plan-trip-list {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  margin: 2rem 0 2.3rem;
+  padding: 0;
+}
+
+.plan-trip-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: #242344;
+  font-size: clamp(1rem, 1.18vw, 1.18rem);
+  font-weight: 850;
+}
+
+.plan-trip-list svg {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  padding: 5px;
+  color: #fff;
+  background: #de7b2b;
+  border-radius: 50%;
+}
+
+.plan-trip-button {
+  min-width: min(100%, 340px);
+  border: 0;
+  border-radius: 999px;
+  background: #de7b2b;
+  color: #fffaf1;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  padding: 1.2rem 2rem;
+  text-transform: uppercase;
+  box-shadow: 0 18px 38px rgba(222, 123, 43, 0.24);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.plan-trip-button:hover,
+.plan-trip-button:focus-visible {
+  background: #c96d21;
+  box-shadow: 0 24px 48px rgba(222, 123, 43, 0.3);
+  outline: none;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 1024px) {
   .maharashtra-story-layout {
     grid-template-columns: 1fr;
@@ -4881,6 +5007,14 @@ body {
 
   .social-gallery-section .social-gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .plan-trip-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-trip-copy {
+    max-width: none;
   }
 }
 
@@ -4898,5 +5032,17 @@ body {
   .social-gallery-section .social-gallery-card,
   .social-gallery-section .social-gallery-card img {
     min-height: 135px;
+  }
+
+  .plan-trip-video-frame {
+    width: min(100%, 360px);
+  }
+
+  .plan-trip-script {
+    font-size: clamp(3.4rem, 17vw, 5.2rem);
+  }
+
+  .plan-trip-button {
+    width: 100%;
   }
 }

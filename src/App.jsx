@@ -465,6 +465,12 @@ const newsletterItems = [
   { title: 'New Year Escape Ideas', date: 'January 2027', image: sectionImages.welcome }
 ];
 
+const planTripHighlights = [
+  'Explore forts, caves, beaches and hill stations',
+  'Book stays, tours, taxis and flight services',
+  'Experience food trails, festivals and local culture'
+];
+
 const galleryPageItems = [
   ...socialGalleryItems,
   ...brochureItems.map((item) => ({
@@ -913,18 +919,38 @@ function App() {
           </section>
 
           {/* 10. Plan Your Trip */}
-          <section className="section-wrapper">
-            <div className="cta-banner">
-              <div className="cta-banner-content">
-                <span className="section-tag">Plan Your Trip</span>
-                <h2 className="cta-title">Start Planning Your Maharashtra Journey</h2>
-                <p className="cta-desc">
-                  Browse stays, experiences, flights, taxis and guided routes for a seamless visit across Maharashtra.
+          <section className="section-wrapper plan-trip-section">
+            <div className="plan-trip-layout">
+              <div className="plan-trip-video-frame" aria-label="Maharashtra destination preview video">
+                <video
+                  src={sectionVideos.destinations}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
+              </div>
+
+              <div className="plan-trip-copy">
+                <span className="plan-trip-script">Visit Maharashtra</span>
+                <h2>Plan Your Trip with Us</h2>
+                <p>
+                  Maharashtra brings together sea forts, Konkan beaches, ancient caves, hill stations, city culture and unforgettable food trails. Build your route, choose the right stay, and move through the state with a plan that feels easy from arrival to return.
                 </p>
-                <form className="cta-form" onSubmit={(e) => { e.preventDefault(); window.location.hash = '#/booking'; }}>
-                  <input type="email" placeholder="Enter your email address" className="cta-input" required />
-                  <button type="submit" className="cta-submit-btn">Plan My Trip</button>
-                </form>
+
+                <ul className="plan-trip-list">
+                  {planTripHighlights.map((highlight) => (
+                    <li key={highlight}>
+                      <Check size={18} />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <button className="plan-trip-button" type="button" onClick={() => window.location.hash = '#/booking'}>
+                  Plan Your Trip Now
+                </button>
               </div>
             </div>
           </section>
