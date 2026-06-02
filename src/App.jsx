@@ -486,6 +486,8 @@ const galleryPageItems = [
 function App() {
   const [currentRoute, setCurrentRoute] = useState(window.location.hash || '#/');
   const [scrolled, setScrolled] = useState(false);
+  const routePath = currentRoute.split('?')[0];
+  const routeParams = new URLSearchParams(currentRoute.includes('?') ? currentRoute.split('?')[1] : '');
 
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
@@ -548,6 +550,8 @@ function App() {
   const activeRegionFeature = activeIndiaPlace === ratnagiriRegionFeature.id
     ? ratnagiriRegionFeature
     : ratnagiriRegionFeature;
+  const selectedTourId = Number(routeParams.get('package')) || mockTours[0].id;
+  const selectedTour = mockTours.find((tour) => tour.id === selectedTourId) || mockTours[0];
   const currentBookingSearch = bookingSearch[bookingTab];
   const bookingSearchConfig = bookingSearchOptions[bookingTab];
   const searchTerm = currentBookingSearch.where.trim().toLowerCase();
@@ -605,12 +609,12 @@ function App() {
           </a>
 
           <ul className="nav-links">
-            <li><a href="#/" className={`nav-link ${currentRoute === '#/' ? 'active' : ''}`}>Home</a></li>
-            <li><a href="#/destinations" className={`nav-link ${currentRoute === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
-            <li><a href="#/tours" className={`nav-link ${currentRoute === '#/tours' ? 'active' : ''}`}>Guided Tours</a></li>
-            <li><a href="#/booking" className={`nav-link ${currentRoute === '#/booking' ? 'active' : ''}`}>Bookings</a></li>
-            <li><a href="#/foods" className={`nav-link ${currentRoute === '#/foods' ? 'active' : ''}`}>Regional Foods</a></li>
-            <li><a href="#/tradition" className={`nav-link ${currentRoute === '#/tradition' ? 'active' : ''}`}>Traditions</a></li>
+            <li><a href="#/" className={`nav-link ${routePath === '#/' ? 'active' : ''}`}>Home</a></li>
+            <li><a href="#/destinations" className={`nav-link ${routePath === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
+            <li><a href="#/tours" className={`nav-link ${routePath === '#/tours' ? 'active' : ''}`}>Guided Tours</a></li>
+            <li><a href="#/booking" className={`nav-link ${routePath === '#/booking' ? 'active' : ''}`}>Bookings</a></li>
+            <li><a href="#/foods" className={`nav-link ${routePath === '#/foods' ? 'active' : ''}`}>Regional Foods</a></li>
+            <li><a href="#/tradition" className={`nav-link ${routePath === '#/tradition' ? 'active' : ''}`}>Traditions</a></li>
           </ul>
 
           <div className="nav-actions">
@@ -622,7 +626,7 @@ function App() {
       </div>
 
       {/* RENDER PAGES BASED ON SPA ROUTE */}
-      {currentRoute === '#/' && (
+      {routePath === '#/' && (
         <>
           {/* HERO SECTION CONTAINER */}
           <section className="hero-container">
@@ -801,7 +805,7 @@ function App() {
                         <span className="tour-price-label">Price/Guest</span>
                         <span className="tour-price-value">{tour.price}</span>
                       </div>
-                      <button className="tour-book-btn" onClick={() => window.location.hash = '#/booking'}>Book Slots</button>
+                      <button className="tour-book-btn" onClick={() => window.location.hash = `#/tours?package=${tour.id}`}>Book Slot</button>
                     </div>
                   </div>
                 </div>
@@ -1059,56 +1063,78 @@ function App() {
       )}
 
       {/* TOURS CATEGORY PAGE */}
-      {currentRoute === '#/tours' && (
+      {routePath === '#/tours' && (
         <>
           <VideoPageHeader
             videoSrc={sectionVideos.tours}
           />
 
-          <div className="page-container">
-            <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '4rem' }}>
-              {mockTours.map((tour) => (
-                <div key={tour.id} className="tour-card" style={{ display: 'flex', flexDirection: 'row', minHeight: '380px' }}>
-                  <div className="tour-img-wrapper" style={{ width: '45%' }}>
-                    <img src={tour.img} alt={tour.title} className="tour-img" style={{ height: '100%' }} />
-                    <span className="tour-duration-badge" style={{ fontSize: '0.9rem', padding: '0.4rem 1.2rem' }}>{tour.duration}</span>
+          <div className="page-container tour-packages-page">
+            <div className="tour-detail-panel">
+              <div className="tour-detail-media">
+                <img src={selectedTour.img} alt={selectedTour.title} />
+                <span className="tour-duration-badge">{selectedTour.duration}</span>
+              </div>
+              <div className="tour-detail-copy">
+                <span className="section-tag">Selected Package</span>
+                <h2 className="section-title">{selectedTour.title}</h2>
+                <div className="tour-detail-meta">
+                  <span>{selectedTour.date}</span>
+                  <span><Star size={14} fill="currentColor" /> {selectedTour.rating}</span>
+                  <span>{selectedTour.category}</span>
+                </div>
+                <p>
+                  This guided package includes curated routes, hosted local experiences, transport-ready planning, and handpicked highlights for a smooth Maharashtra tourism journey.
+                </p>
+                <ul className="tour-detail-list">
+                  {selectedTour.highlights.map((highlight) => (
+                    <li key={highlight}>
+                      <Check size={16} />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="tour-detail-footer">
+                  <div className="tour-price">
+                    <span className="tour-price-label">All-Inclusive Per Guest</span>
+                    <span className="tour-price-value">{selectedTour.price}</span>
                   </div>
-                  <div className="tour-info" style={{ width: '55%', padding: '2.5rem' }}>
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-                        <span className="tour-date">{tour.date}</span>
-                        <span className="destination-rating-badge" style={{ position: 'static' }}>
-                          <Star size={12} fill="#FFFFFF" /> {tour.rating}
-                        </span>
-                      </div>
+                  <button className="tour-book-btn solid" onClick={() => window.location.hash = '#/booking'}>
+                    Reserve This Slot
+                  </button>
+                </div>
+              </div>
+            </div>
 
-                      <h3 className="tour-title" style={{ fontSize: '1.7rem', marginBottom: '1.2rem' }}>{tour.title}</h3>
-                      <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--saffron)', fontWeight: '700', display: 'block', marginBottom: '1rem', letterSpacing: '1px' }}>
-                        Core Tour Inclusions
-                      </span>
+            <div className="tour-packages-heading">
+              <span className="section-tag">Plan Your Trip</span>
+              <h2 className="section-title">Exclusive Packages</h2>
+            </div>
 
-                      <ul className="tour-highlights" style={{ marginBottom: '2rem' }}>
-                        {tour.highlights.map((h, i) => (
-                          <li key={i} className="tour-highlight-item" style={{ fontSize: '0.95rem', marginBottom: '0.6rem' }}>
-                            <Check size={16} className="saffron-check" style={{ color: 'var(--saffron)' }} />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
+            <div className="tour-packages-grid">
+              {mockTours.map((tour) => (
+                <div key={tour.id} className={`tour-package-card ${selectedTour.id === tour.id ? 'is-selected' : ''}`}>
+                  <div className="tour-package-image">
+                    <img src={tour.img} alt={tour.title} />
+                    <span>{tour.category}</span>
+                  </div>
+                  <div className="tour-package-content">
+                    <div className="tour-package-topline">
+                      <span>{tour.date}</span>
+                      <span><Star size={13} fill="currentColor" /> {tour.rating}</span>
                     </div>
-
-                    <div className="tour-footer" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1.5rem' }}>
+                    <h3>{tour.title}</h3>
+                    <p>{tour.highlights.slice(0, 2).join(' · ')}</p>
+                    <div className="tour-package-footer">
                       <div className="tour-price">
-                        <span className="tour-price-label">All-Inclusive Per Guest</span>
-                        <span className="tour-price-value" style={{ fontSize: '1.7rem', color: 'var(--saffron)' }}>{tour.price}</span>
+                        <span className="tour-price-label">From</span>
+                        <span className="tour-price-value">{tour.price}</span>
                       </div>
-
                       <button
-                        className="book-btn"
-                        onClick={() => window.location.hash = '#/booking'}
-                        style={{ padding: '0.8rem 2.2rem' }}
+                        className="tour-book-btn"
+                        onClick={() => window.location.hash = `#/tours?package=${tour.id}`}
                       >
-                        Enquire slots
+                        Book Slot
                       </button>
                     </div>
                   </div>
