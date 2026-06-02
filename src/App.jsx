@@ -12,6 +12,14 @@ import tourVideo from './assets/Tour.mp4';
 import bookingVideo from './assets/Booking.mp4';
 import foodVideo from './assets/Food.mp4';
 import traditionsVideo from './assets/Traditions.mp4';
+import fortBrochure1 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-01.jpg';
+import fortBrochure2 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-02.jpg';
+import fortBrochure3 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-03.jpg';
+import fortBrochure4 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-04.jpg';
+import shrineBrochure1 from "./assets/Brochures/Shiva's sacred shrine/MH-Digital-Standee-Jyotirlinga-01.webp";
+import shrineBrochure2 from "./assets/Brochures/Shiva's sacred shrine/MH-Digital-Standee-Jyotirlinga-02.jpg";
+import shrineBrochure3 from "./assets/Brochures/Shiva's sacred shrine/MH-Digital-Standee-Jyotirlinga-03.jpg";
+import shrineBrochure4 from "./assets/Brochures/Shiva's sacred shrine/MH-Digital-Standee-Jyotirlinga-04.jpg";
 import './App.css';
 
 const socialLinks = [
@@ -210,19 +218,23 @@ const maharashtraIntroParagraphs = [
   'By organizing and promoting cultural, historical, and recreational events and festivals, such as the Ganesh Festival and the Hindavi Swarajya Mahotsav, we strive to highlight the unique heritage and vibrant culture of Maharashtra. Maharashtra boasts UNESCO World Heritage Sites like the Ajanta and Ellora Caves, picturesque hill stations such as Mahabaleshwar and Lonavala, and bustling urban centers like Mumbai and Pune.'
 ];
 
-const rtsServices = [
-  'Issuance of Eligibility Certificate to Tourist Entities under the Tourism Policy-2024',
-  'Registration under the Women-Centered Tourism Policy. (Mahila kendrit tourism policy)',
-  'Issuance of No Objection Certificate for Stamp Duty concession to Tourist Entities under the Tourism Policy-2024',
-  'Registration of Tourism Villa under the Tourism Policy-2024',
-  'Granting Industrial Status to the Hospitality Sector under the Tourism Policy-2024',
-  'Registration of Tourism Apartments under the Tourism Policy-2024.',
-  'Registration under the Agricultural Tourism Policy as per the Tourism Policy-2024',
-  'Registration of Homestays under the Tourism Policy-2024.',
-  'Registration under the Adventure Tourism Policy as per the Tourism Policy-2024',
-  'Registration of Vacation Homes under the Tourism Policy-2024.',
-  'Registration under the Caravan Tourism Policy as per the Tourism Policy-2024',
-  'Registration and Renewal under the Bed & Breakfast Scheme.'
+const maharashtraFocusItems = [
+  {
+    title: 'Heritage Circuits',
+    desc: 'UNESCO caves, sea forts, temples, museums and historic cities arranged into easy cultural routes.'
+  },
+  {
+    title: 'Coastal Escapes',
+    desc: 'Konkan beaches, mango towns, fishing villages, quiet resorts and scenic drives toward Ratnagiri.'
+  },
+  {
+    title: 'Festival Calendar',
+    desc: 'Ganesh Festival, Hindavi Swarajya celebrations, food fairs and local cultural events across districts.'
+  },
+  {
+    title: 'Visitor Services',
+    desc: 'Travel information, guide support, district discovery and planning tools for a smoother Maharashtra visit.'
+  }
 ];
 
 const exploreDistricts = [
@@ -420,10 +432,54 @@ const mockTraditions = [
   { id: 4, title: 'Pushkar Camel Fair', date: 'November', place: 'Pushkar, Rajasthan', desc: 'One of the world\'s largest camel and livestock fairs, transforming a desert oasis into a vibrant carnival of folk dancers, musicians, camel races, and local bazaars.' }
 ];
 
+const socialGalleryItems = [
+  { title: 'Konkan Coast', image: sectionImages.destinations },
+  { title: 'Guided Walks', image: sectionImages.tours },
+  { title: 'Resort Stays', image: sectionImages.booking },
+  { title: 'Coastal Plates', image: sectionImages.foods },
+  { title: 'Festival Nights', image: sectionImages.traditions },
+  { title: 'Summer Welcome', image: sectionImages.welcome },
+  { title: 'Sea Fort Trails', image: fortBrochure1 },
+  { title: 'Sacred Shrines', image: shrineBrochure1 }
+];
+
+const brochureItems = [
+  { title: 'Guardians of History I', image: fortBrochure1, tag: 'Forts' },
+  { title: 'Guardians of History II', image: fortBrochure2, tag: 'Forts' },
+  { title: 'Guardians of History III', image: fortBrochure3, tag: 'Forts' },
+  { title: 'Guardians of History IV', image: fortBrochure4, tag: 'Forts' },
+  { title: 'Shiva\'s Sacred Shrine I', image: shrineBrochure1, tag: 'Jyotirlinga' },
+  { title: 'Shiva\'s Sacred Shrine II', image: shrineBrochure2, tag: 'Jyotirlinga' },
+  { title: 'Shiva\'s Sacred Shrine III', image: shrineBrochure3, tag: 'Jyotirlinga' },
+  { title: 'Shiva\'s Sacred Shrine IV', image: shrineBrochure4, tag: 'Jyotirlinga' }
+];
+
+const newsletterItems = [
+  { title: 'Konkan Weekend Routes', date: 'June 2026', image: sectionImages.destinations },
+  { title: 'Monsoon Fort Trails', date: 'July 2026', image: fortBrochure2 },
+  { title: 'Festival Travel Notes', date: 'August 2026', image: sectionImages.traditions },
+  { title: 'Coastal Food Guide', date: 'September 2026', image: sectionImages.foods },
+  { title: 'Heritage Stay Edit', date: 'October 2026', image: sectionImages.booking },
+  { title: 'Guided Tour Calendar', date: 'November 2026', image: sectionImages.tours },
+  { title: 'Sacred Maharashtra', date: 'December 2026', image: shrineBrochure2 },
+  { title: 'New Year Escape Ideas', date: 'January 2027', image: sectionImages.welcome }
+];
+
+const galleryPageItems = [
+  ...socialGalleryItems,
+  ...brochureItems.map((item) => ({
+    title: item.title,
+    image: item.image
+  })),
+  ...newsletterItems.map((item) => ({
+    title: item.title,
+    image: item.image
+  }))
+];
+
 function App() {
   const [currentRoute, setCurrentRoute] = useState(window.location.hash || '#/');
   const [scrolled, setScrolled] = useState(false);
-  const [activeRtsService, setActiveRtsService] = useState(null);
 
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
@@ -627,37 +683,27 @@ function App() {
 
           {/* BODY SECTION */}
 
-          {/* 1. Maharashtra Tourism + RTS Services */}
-          <section className="section-wrapper maharashtra-overview-section">
-            <div className="maharashtra-overview-grid">
-              <div className="maharashtra-copy-panel">
-                <h2 className="maharashtra-heading">
-                  <span>Maharashtra</span> Tourism
-                </h2>
-                <div className="maharashtra-title-underline" />
-                {maharashtraIntroParagraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-                <button className="maharashtra-read-btn" type="button">Read Less</button>
+          {/* 1. Maharashtra Tourism */}
+          <section className="section-wrapper maharashtra-story-section">
+            <div className="maharashtra-story-layout">
+              <div className="maharashtra-story-copy">
+                <span className="section-tag">Maharashtra Tourism</span>
+                <h2 className="section-title">Heritage, Coastlines and Living Culture</h2>
+                <p>{maharashtraIntroParagraphs[0]}</p>
+                <a href="#/destinations" className="story-link">
+                  Explore Districts
+                  <ArrowRight size={18} />
+                </a>
               </div>
 
-              <div className="rts-services-panel">
-                <h2 className="rts-heading">Services Under RTS</h2>
-                <div className="rts-heading-line" />
-                <div className="rts-services-grid">
-                  {rtsServices.map((service, index) => (
-                    <button
-                      className={`rts-service-card tone-${index % 5} ${activeRtsService === index ? 'is-active' : ''}`}
-                      key={service}
-                      type="button"
-                      aria-pressed={activeRtsService === index}
-                      onClick={() => setActiveRtsService(index)}
-                    >
-                      <Check size={18} />
-                      <h3>{service}</h3>
-                    </button>
-                  ))}
-                </div>
+              <div className="maharashtra-focus-grid">
+                {maharashtraFocusItems.map((item) => (
+                  <article className="maharashtra-focus-card" key={item.title}>
+                    <Check size={18} />
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                  </article>
+                ))}
               </div>
             </div>
           </section>
@@ -800,7 +846,73 @@ function App() {
             </div>
           </section>
 
-          {/* 7. Plan Your Trip */}
+          {/* 7. Social Gallery */}
+          <section className="section-wrapper social-gallery-section">
+            <div className="section-heading-row">
+              <div>
+                <span className="section-tag">Social Gallery</span>
+                <h2 className="section-title">Moments From Maharashtra</h2>
+              </div>
+              <a href="#/gallery" className="see-all-link">
+                See All
+                <ArrowRight size={18} />
+              </a>
+            </div>
+
+            <div className="social-gallery-grid">
+              {socialGalleryItems.slice(0, 4).map((item) => (
+                <article className="social-gallery-card" key={item.title}>
+                  <img src={item.image} alt={item.title} />
+                  <span>{item.title}</span>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 8. Brochures */}
+          <section className="section-wrapper compact-rail-section">
+            <span className="section-tag">Brochures</span>
+            <h2 className="section-title">Travel Brochures</h2>
+            <p className="section-subtitle">
+              Browse official visual guides for Maharashtra forts, shrines and cultural routes.
+            </p>
+
+            <div className="home-horizontal-rail" aria-label="Travel brochures">
+              {brochureItems.map((item) => (
+                <article className="document-card brochure-card" key={item.title}>
+                  <img src={item.image} alt={item.title} />
+                  <div>
+                    <span>{item.tag}</span>
+                    <h3>{item.title}</h3>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 9. Newsletters */}
+          <section className="section-wrapper compact-rail-section alternate">
+            <span className="section-tag">News Letter</span>
+            <h2 className="section-title">Tourism News Letter</h2>
+            <p className="section-subtitle">
+              Eight short travel updates for routes, festivals, stays and seasonal experiences.
+            </p>
+
+            <div className="home-horizontal-rail" aria-label="Tourism newsletters">
+              {newsletterItems.map((item) => (
+                <article className="document-card newsletter-card" key={item.title}>
+                  <img src={item.image} alt={item.title} />
+                  <div>
+                    <span>{item.date}</span>
+                    <h3>{item.title}</h3>
+                    <p>Read the latest planning notes and destination highlights.</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 10. Plan Your Trip */}
           <section className="section-wrapper">
             <div className="cta-banner">
               <div className="cta-banner-content">
@@ -1264,6 +1376,28 @@ function App() {
             </div>
           </div>
         </>
+      )}
+
+      {/* SOCIAL GALLERY PAGE */}
+      {currentRoute === '#/gallery' && (
+        <div className="page-container gallery-page">
+          <div className="gallery-page-heading">
+            <span className="section-tag">Social Gallery</span>
+            <h2 className="section-title">All Maharashtra Moments</h2>
+            <p className="section-subtitle">
+              Browse the full collection of destination images, brochure visuals, food stories and heritage highlights.
+            </p>
+          </div>
+
+          <div className="gallery-page-grid">
+            {galleryPageItems.map((item, index) => (
+              <article className="gallery-page-card" key={`${item.title}-${index}`}>
+                <img src={item.image} alt={item.title} />
+                <span>{item.title}</span>
+              </article>
+            ))}
+          </div>
+        </div>
       )}
 
       {/* GLOBAL FOOTER */}
