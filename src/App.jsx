@@ -476,21 +476,14 @@ function App() {
 
           {/* 1. Experience Categories Grid */}
           <section className="section-wrapper">
-            <div className="exclusive-packages-heading">
-              <span className="exclusive-packages-script">Plan Your Trip</span>
-              <h2 className="exclusive-packages-title">Exclusive Packages</h2>
-            </div>
+            <span className="section-tag">Find Your Passion</span>
+            <h2 className="section-title">Experience India By Theme</h2>
+            <p className="section-subtitle">
+              From snow-capped peaks in the north to deep tropical shores in the south, find itineraries customized to your desires.
+            </p>
 
             <div className="packages-frame">
-              <div className="browse-cue browse-cue-left" aria-hidden="true">
-                <svg className="browse-cue-arrow" viewBox="0 0 160 110">
-                  <path d="M10 22C48 4 91 6 102 30c14 31-42 31-72 27-27-4-24-26 7-31 48-8 95 29 54 49-22 11-55 8-66-8-10-15 4-26 25-20 25 7 43 25 72 36" />
-                  <path d="M118 83l30 10-23 18M118 83l15 27" />
-                </svg>
-                <span>OR BROWSE CATEGORIES</span>
-              </div>
-
-              <div className="browse-cue browse-cue-right" aria-hidden="true">
+              <div className="browse-cue browse-cue-top" aria-hidden="true">
                 <svg className="browse-cue-arrow" viewBox="0 0 160 110">
                   <path d="M10 22C48 4 91 6 102 30c14 31-42 31-72 27-27-4-24-26 7-31 48-8 95 29 54 49-22 11-55 8-66-8-10-15 4-26 25-20 25 7 43 25 72 36" />
                   <path d="M118 83l30 10-23 18M118 83l15 27" />
