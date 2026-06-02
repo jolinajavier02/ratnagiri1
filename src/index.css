@@ -650,44 +650,211 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.85rem, 1.8vw, 1.4rem);
-  margin: 0 auto 0.65rem;
+  margin: 0 auto 0.45rem;
   width: min(92%, 820px);
   pointer-events: none;
 }
 
 .hero-browse-cue span {
-  color: #ffffff;
-  font-family: var(--sans);
-  font-size: clamp(1.05rem, 2vw, 1.75rem);
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  line-height: 1;
+  color: var(--script-orange, #ffa23f);
+  font-family: var(--script, 'Water Brush', cursive);
+  font-size: clamp(2.2rem, 4vw, 4.6rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 0.9;
   text-align: center;
-  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.46);
+  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
   white-space: nowrap;
 }
 
-.hero-browse-arrow {
-  width: clamp(5rem, 12vw, 10.5rem);
-  height: auto;
-  flex: 0 0 auto;
-  fill: none;
-  stroke: #ffffff;
-  stroke-width: 4.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.44));
-  transform: rotate(-5deg) translateY(-0.15rem);
+.maharashtra-overview-section {
+  background:
+    linear-gradient(90deg, rgba(255, 250, 241, 0.94), rgba(255, 250, 241, 0.82)),
+    url('/logo.svg') left 3rem center / min(420px, 40vw) no-repeat;
 }
 
-.hero-browse-swirl {
-  stroke-dasharray: 420;
-  stroke-dashoffset: 0;
+.maharashtra-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
 }
 
-.hero-browse-head {
-  stroke-width: 4.2;
+.maharashtra-copy-panel {
+  position: sticky;
+  top: 7.5rem;
+}
+
+.maharashtra-heading,
+.rts-heading {
+  color: #050505;
+  font-family: var(--sans);
+  font-size: clamp(2.4rem, 4vw, 4.3rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-bottom: 0.65rem;
+}
+
+.maharashtra-heading span {
+  color: var(--saffron);
+}
+
+.maharashtra-title-underline,
+.rts-heading-line {
+  width: min(220px, 48%);
+  height: 5px;
+  margin-bottom: 2rem;
+  border-radius: 999px;
+  background: var(--saffron);
+}
+
+.maharashtra-title-underline {
+  width: 250px;
+  max-width: 52%;
+  transform: translateX(48%) rotate(-7deg);
+  background: #e93b68;
+}
+
+.maharashtra-copy-panel p {
+  color: #747474;
+  font-size: clamp(1.05rem, 1.45vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.85;
+  margin-bottom: 1.2rem;
+}
+
+.maharashtra-read-btn {
+  border: 0;
+  background: transparent;
+  color: var(--saffron);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 900;
+  padding: 0.2rem 0;
+}
+
+.rts-services-panel {
+  min-width: 0;
+}
+
+.rts-services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.rts-service-card {
+  min-height: 130px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(249, 115, 22, 0.18);
+  border-left: 5px solid var(--saffron);
+  box-shadow: 0 18px 42px rgba(90, 62, 35, 0.08);
+}
+
+.rts-service-card svg {
+  color: var(--saffron);
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.rts-service-card h3 {
+  color: #050505;
+  font-family: var(--sans);
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  font-weight: 900;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.rts-service-card.tone-1 {
+  border-left-color: #38bdf8;
+}
+
+.rts-service-card.tone-2,
+.rts-service-card.tone-4 {
+  border-left-color: #4ade80;
+}
+
+.rts-service-card.tone-3 {
+  border-left-color: #facc15;
+}
+
+.district-grid,
+.home-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.district-card,
+.home-feature-card {
+  overflow: hidden;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 22px 56px rgba(90, 62, 35, 0.12);
+}
+
+.district-card {
+  cursor: pointer;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.district-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 68px rgba(90, 62, 35, 0.16);
+}
+
+.district-card img,
+.home-feature-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.district-card > div,
+.home-feature-card > div {
+  padding: 1.4rem;
+}
+
+.district-card span,
+.home-feature-card span {
+  color: var(--saffron);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.district-card h3,
+.home-feature-card h3 {
+  color: var(--text-primary);
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0.45rem 0 0.7rem;
+}
+
+.district-card p,
+.home-feature-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.home-feature-card.compact {
+  min-height: 100%;
 }
 
 /* BODY SECTION - EXPERIENCE GRID */
@@ -1428,6 +1595,313 @@ body {
   min-height: 50vh;
 }
 
+.destination-video-landing {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 760px;
+  display: block;
+  overflow: hidden;
+  background: #24170f;
+}
+
+.destination-landing-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #24170f;
+}
+
+.india-regions-section {
+  background: #fffaf1;
+  color: var(--text-primary);
+  padding: clamp(5rem, 8vw, 8rem) 5.5%;
+}
+
+.india-regions-heading {
+  text-align: center;
+  margin-bottom: clamp(2.4rem, 5vw, 4rem);
+}
+
+.india-regions-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.78fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.india-map-panel {
+  position: relative;
+  min-height: 560px;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 52% 52%, rgba(249, 115, 22, 0.08), transparent 22rem),
+    #ffffff;
+  border: 1px solid rgba(126, 64, 18, 0.12);
+  overflow: hidden;
+}
+
+.india-map-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  display: block;
+}
+
+.india-map-land {
+  fill: #e8f6d8;
+  stroke: #a9d7a2;
+  stroke-width: 3;
+}
+
+.india-map-region {
+  stroke: rgba(255, 255, 255, 0.84);
+  stroke-width: 2;
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+.india-map-region.north,
+.india-map-region.east,
+.india-map-region.northeast {
+  fill: #bfe8b8;
+}
+
+.india-map-region.west {
+  fill: #f2c590;
+}
+
+.india-map-region.central {
+  fill: #dbeaa8;
+}
+
+.india-map-region.south {
+  fill: #c9efc4;
+}
+
+.india-region-label {
+  fill: #234315;
+  font-family: var(--sans);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0;
+  pointer-events: none;
+}
+
+.india-map-place text {
+  fill: #20130b;
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.india-map-place path {
+  fill: none;
+  stroke: rgba(32, 19, 11, 0.32);
+  stroke-width: 1.5;
+}
+
+.india-map-place circle {
+  fill: #d80f0f;
+  stroke: #ffffff;
+  stroke-width: 4;
+}
+
+.india-map-place.static {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.india-map-ratnagiri {
+  cursor: pointer;
+  outline: none;
+}
+
+.india-map-ratnagiri circle:first-child {
+  fill: var(--saffron);
+  opacity: 0.24;
+  transform-origin: 159px 292px;
+  animation: ratnagiriPulse 1.8s ease-in-out infinite;
+}
+
+.india-map-ratnagiri circle:last-child {
+  fill: #e11d1d;
+  stroke: #ffffff;
+  stroke-width: 5;
+}
+
+.india-map-ratnagiri:hover circle:last-child,
+.india-map-ratnagiri:focus circle:last-child {
+  fill: var(--saffron);
+}
+
+.ratnagiri-label text {
+  fill: var(--saffron);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.ratnagiri-label path {
+  stroke: var(--saffron);
+  stroke-width: 2;
+}
+
+.india-place-panel {
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 28px 70px rgba(90, 62, 35, 0.16);
+  border: 1px solid rgba(126, 64, 18, 0.12);
+}
+
+.india-place-image {
+  width: 100%;
+  height: clamp(220px, 24vw, 320px);
+  object-fit: cover;
+  display: block;
+}
+
+.india-place-content {
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.india-place-content > span {
+  color: #777;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.india-place-content h3 {
+  color: #171717;
+  font-family: var(--sans);
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-weight: 900;
+  line-height: 0.98;
+  margin: 0.25rem 0 0.4rem;
+}
+
+.india-place-region {
+  color: var(--saffron);
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.india-place-content p:not(.india-place-region) {
+  color: #5e5e5e;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.india-place-content ul {
+  margin: 1.25rem 0 1.6rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.india-place-content li {
+  color: #2f2f2f;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.india-place-content li::before {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-top: 0.45rem;
+  border-radius: 50%;
+  background: var(--saffron);
+  flex: 0 0 auto;
+}
+
+@keyframes ratnagiriPulse {
+  0%, 100% {
+    transform: scale(0.75);
+    opacity: 0.18;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.34;
+  }
+}
+
+@media (max-width: 1024px) {
+  .maharashtra-overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .maharashtra-copy-panel {
+    position: static;
+  }
+
+  .district-grid,
+  .home-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .india-regions-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .india-map-panel {
+    min-height: 520px;
+  }
+
+  .india-map-svg {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rts-services-grid,
+  .district-grid,
+  .home-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rts-service-card {
+    min-height: auto;
+  }
+
+  .maharashtra-title-underline {
+    transform: none;
+    max-width: 70%;
+  }
+
+  .destination-video-landing {
+    height: 100svh;
+    min-height: 100svh;
+  }
+
+  .india-regions-section {
+    padding-inline: 4%;
+  }
+
+  .india-map-panel {
+    min-height: 430px;
+  }
+
+  .india-map-svg {
+    min-width: 520px;
+    min-height: 430px;
+  }
+
+  .india-map-panel {
+    overflow-x: auto;
+  }
+
+  .india-place-content h3 {
+    font-size: 2.6rem;
+  }
+}
+
 /* Category Filter Bar */
 .filter-bar {
   display: flex;
@@ -1700,6 +2174,10 @@ body {
   background: #ffffff;
   color: #222222;
   padding: 9.2rem 0 5rem;
+}
+
+.destination-video-landing + .booking-marketplace {
+  padding-top: 0;
 }
 
 .booking-marketplace-top {
@@ -2498,15 +2976,10 @@ body {
   }
   .hero-browse-cue {
     width: min(94%, 560px);
-    gap: 0.7rem;
-    margin-bottom: 0.55rem;
+    margin-bottom: 0.45rem;
   }
   .hero-browse-cue span {
-    font-size: 0.95rem;
-    letter-spacing: 0.1em;
-  }
-  .hero-browse-arrow {
-    width: 4.5rem;
+    font-size: clamp(2rem, 6vw, 3.2rem);
   }
   .experience-grid,
   .destinations-showcase,
@@ -2542,14 +3015,10 @@ body {
 @media (max-width: 768px) {
   .hero-browse-cue {
     width: 92%;
-    gap: 0.55rem;
   }
   .hero-browse-cue span {
-    font-size: 0.82rem;
+    font-size: clamp(1.85rem, 9vw, 2.7rem);
     white-space: normal;
-  }
-  .hero-browse-arrow {
-    width: 3.7rem;
   }
   .experience-grid,
   .destinations-showcase,

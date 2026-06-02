@@ -1,12 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import {
   MapPin, Star,
-  Compass, Award, ArrowRight,
+  ArrowRight,
   Heart, Car, Home,
-  Filter, Utensils, Sparkles,
-  Search, Globe, Check, Info
+  Utensils, Sparkles,
+  Search, Globe, Check
 } from 'lucide-react';
 import brandLogo from './assets/logo.png';
+import destinationVideo from './assets/Destination.mp4';
+import tourVideo from './assets/Tour.mp4';
+import bookingVideo from './assets/Booking.mp4';
+import foodVideo from './assets/Food.mp4';
+import traditionsVideo from './assets/Traditions.mp4';
 import './App.css';
 
 const socialLinks = [
@@ -66,8 +71,30 @@ const sectionImages = {
   traditions: coverImage('traditions-india-summer-cover.png')
 };
 
-const pageHeaderBackground = (image) =>
-  `linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('${image}')`;
+const sectionVideos = {
+  welcome: destinationVideo,
+  destinations: destinationVideo,
+  tours: tourVideo,
+  booking: bookingVideo,
+  foods: foodVideo,
+  traditions: traditionsVideo
+};
+
+function VideoPageHeader({ videoSrc }) {
+  return (
+    <section className="destination-video-landing">
+      <video
+        className="destination-landing-video"
+        src={videoSrc}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
+    </section>
+  );
+}
 
 // Slide categories in the requested preview order.
 const slides = [
@@ -80,6 +107,7 @@ const slides = [
     previewText: 'Begin with the full coastal welcome experience.',
     description: 'A warm coastal welcome into India: golden beaches, blue water, palm shadows, relaxed resort stays, flavorful food, and culture glowing under the summer sun.',
     imageUrl: sectionImages.welcome,
+    videoUrl: sectionVideos.welcome,
     thumbnail: sectionImages.welcome,
     link: '#/'
   },
@@ -92,6 +120,7 @@ const slides = [
     previewText: 'Explore beaches, islands, forts, and scenic escapes.',
     description: 'The destination preview highlights India’s tropical side: white sand, turquoise water, palm-lined beaches, island cliffs, and quiet coastal escapes made for summer travel.',
     imageUrl: sectionImages.destinations,
+    videoUrl: sectionVideos.destinations,
     thumbnail: sectionImages.destinations,
     link: '#/destinations'
   },
@@ -104,6 +133,7 @@ const slides = [
     previewText: 'Follow curated routes, guided walks, and hosted trips.',
     description: 'The tours preview is about guided beach walks, sunset conversations, boat rides, local hosts, and easy routes through India’s brightest coastal experiences.',
     imageUrl: sectionImages.tours,
+    videoUrl: sectionVideos.tours,
     thumbnail: sectionImages.tours,
     link: '#/tours'
   },
@@ -116,6 +146,7 @@ const slides = [
     previewText: 'Plan stays, arrivals, transport, and travel details.',
     description: 'The bookings preview focuses on smooth arrivals: beach resorts, private stays, concierge planning, luggage-ready comfort, and sunlit check-ins by the sea.',
     imageUrl: sectionImages.booking,
+    videoUrl: sectionVideos.booking,
     thumbnail: sectionImages.booking,
     link: '#/booking'
   },
@@ -128,6 +159,7 @@ const slides = [
     previewText: 'Taste coastal plates, local spices, and fresh dishes.',
     description: 'The food preview celebrates coastal India: grilled seafood, coconut drinks, mango, banana leaf plates, fresh chutneys, and spice-rich dishes beside the beach.',
     imageUrl: sectionImages.foods,
+    videoUrl: sectionVideos.foods,
     thumbnail: sectionImages.foods,
     link: '#/foods'
   },
@@ -140,6 +172,7 @@ const slides = [
     previewText: 'Discover festivals, rituals, music, and heritage moments.',
     description: 'The traditions preview shows India’s coastal celebrations: diyas on sand, marigold rituals, music, dance, colorful clothing, and festival evenings by the water.',
     imageUrl: sectionImages.traditions,
+    videoUrl: sectionVideos.traditions,
     thumbnail: sectionImages.traditions,
     link: '#/tradition'
   }
@@ -147,53 +180,64 @@ const slides = [
 
 const HERO_PREVIEW_INTERVAL_MS = 7000;
 
-const districtList = [
-  'Ahilyanagar',
-  'Akola',
-  'Amravati',
-  'Beed',
-  'Bhandara',
-  'Buldhana',
-  'Chandrapur',
-  'Chh. Sambhaji Nagar',
-  'Dharashiv',
-  'Dhule',
-  'Gadchiroli',
-  'Gondia',
-  'Hingoli',
-  'Jalgaon',
-  'Jalna',
-  'Kolhapur',
-  'Latur',
-  'Madha',
-  'Mumbai City',
-  'Mumbai Suburban',
-  'Nagpur',
-  'Nanded',
-  'Nandurbar',
-  'Nashik',
-  'Palghar',
-  'Parbhani',
-  'Pune',
-  'Raigad',
-  'Ratnagiri',
-  'Sangli',
-  'Satara',
-  'Sindhudurg',
-  'Solapur',
-  'Thane',
-  'Wardha',
-  'Washim',
-  'Yavatmal'
+const indiaRegionLabels = [
+  { label: 'North India', x: 198, y: 122 },
+  { label: 'West India', x: 128, y: 255 },
+  { label: 'Central India', x: 238, y: 260 },
+  { label: 'East India', x: 338, y: 258 },
+  { label: 'South India', x: 246, y: 448 },
+  { label: 'Northeast India', x: 410, y: 178 }
 ];
 
-const mockDestinations = [
-  { id: 1, title: 'Taj Mahal, Agra', state: 'Uttar Pradesh', region: 'North', category: 'Heritage', rating: 4.9, reviews: 45200, price: 45, img: sectionImages.destinations, desc: 'The world\'s most famous monument of love, built in stunning white marble along the Yamuna River.' },
-  { id: 2, title: 'Munnar Tea Hills', state: 'Kerala', region: 'South', category: 'Nature', rating: 4.8, reviews: 12400, price: 30, img: sectionImages.welcome, desc: 'Rolling tea gardens, pristine mist, and exotic flora nestled in the Western Ghats of Southern India.' },
-  { id: 3, title: 'Hampi Ruins', state: 'Karnataka', region: 'South', category: 'Heritage', rating: 4.9, reviews: 9800, price: 35, img: sectionImages.traditions, desc: 'An awe-inspiring open-air museum showcasing the grand ruins of the historic Vijayanagara Empire.' },
-  { id: 4, title: 'Leh Ladakh Passes', state: 'Jammu & Kashmir', region: 'North', category: 'Adventure', rating: 4.9, reviews: 8500, price: 80, img: sectionImages.tours, desc: 'Rugged mountains, deep blue high-altitude lakes, and some of the world\'s highest motorable passes.' },
-  { id: 5, title: 'Jaisalmer Desert Dunes', state: 'Rajasthan', region: 'West', category: 'Adventure', rating: 4.7, reviews: 7100, price: 50, img: sectionImages.booking, desc: 'Golden sandstone forts, desert safaris under starry skies, and rich Rajasthani traditional performances.' },
-  { id: 6, title: 'Sundarbans Mangrove', state: 'West Bengal', region: 'East', category: 'Nature', rating: 4.6, reviews: 5400, price: 40, img: sectionImages.foods, desc: 'The largest mangrove forest in the world, home to the elusive Royal Bengal Tiger.' },
+const ratnagiriRegionFeature = {
+  id: 'ratnagiri',
+  name: 'Ratnagiri',
+  region: 'Maharashtra, West India',
+  title: 'Ratnagiri, Maharashtra',
+  subtitle: 'Konkan coast, Alphonso mangoes and sea forts',
+  description: 'Ratnagiri is the active destination on this India regions map. Hover the coastal marker to highlight its Konkan shoreline, quiet beaches, hill roads, temples, mango orchards and historic sea-facing forts.',
+  image: sectionImages.destinations,
+  places: [
+    'Ganpatipule Beach and Temple',
+    'Ratnadurg Fort',
+    'Thibaw Palace',
+    'Pawas coastal villages'
+  ]
+};
+
+const maharashtraIntroParagraphs = [
+  'Government of Maharashtra, is dedicated to promoting and developing tourism in the state by showcasing Maharashtra\'s diverse attractions both within India and internationally. Our core objectives include enhancing tourism infrastructure, formulating strategic plans, and implementing sustainable tourism initiatives. We aim to provide comprehensive tourist services, including travel guides and information centers, to ensure a seamless and enjoyable experience for visitors.',
+  'By organizing and promoting cultural, historical, and recreational events and festivals, such as the Ganesh Festival and the Hindavi Swarajya Mahotsav, we strive to highlight the unique heritage and vibrant culture of Maharashtra. Maharashtra boasts UNESCO World Heritage Sites like the Ajanta and Ellora Caves, picturesque hill stations such as Mahabaleshwar and Lonavala, and bustling urban centers like Mumbai and Pune.'
+];
+
+const rtsServices = [
+  'Issuance of Eligibility Certificate to Tourist Entities under the Tourism Policy-2024',
+  'Registration under the Women-Centered Tourism Policy. (Mahila kendrit tourism policy)',
+  'Issuance of No Objection Certificate for Stamp Duty concession to Tourist Entities under the Tourism Policy-2024',
+  'Registration of Tourism Villa under the Tourism Policy-2024',
+  'Granting Industrial Status to the Hospitality Sector under the Tourism Policy-2024',
+  'Registration of Tourism Apartments under the Tourism Policy-2024.',
+  'Registration under the Agricultural Tourism Policy as per the Tourism Policy-2024',
+  'Registration of Homestays under the Tourism Policy-2024.',
+  'Registration under the Adventure Tourism Policy as per the Tourism Policy-2024',
+  'Registration of Vacation Homes under the Tourism Policy-2024.',
+  'Registration under the Caravan Tourism Policy as per the Tourism Policy-2024',
+  'Registration and Renewal under the Bed & Breakfast Scheme.'
+];
+
+const exploreDistricts = [
+  { name: 'Ratnagiri', region: 'Konkan Coast', desc: 'Alphonso mango orchards, Ganpatipule, sea forts and quiet coastal villages.', img: sectionImages.destinations },
+  { name: 'Mumbai', region: 'Metro Heritage', desc: 'Gateway of India, Marine Drive, museums, markets and cinematic city energy.', img: sectionImages.booking },
+  { name: 'Pune', region: 'Culture & Hills', desc: 'Historic wadas, forts, learning hubs and easy escapes toward the Sahyadris.', img: sectionImages.tours },
+  { name: 'Aurangabad', region: 'World Heritage', desc: 'Ajanta, Ellora, Bibi ka Maqbara and layered Deccan history.', img: sectionImages.traditions },
+  { name: 'Nashik', region: 'Pilgrimage & Wine', desc: 'Godavari ghats, Trimbakeshwar, vineyards and monsoon landscapes.', img: sectionImages.foods },
+  { name: 'Sindhudurg', region: 'Beaches & Forts', desc: 'Clear waters, Malvan food, scuba experiences and coastal fort trails.', img: sectionImages.welcome }
+];
+
+const popularMaharashtraDestinations = [
+  { id: 'ajanta', title: 'Ajanta & Ellora Caves', location: 'Chh. Sambhaji Nagar', category: 'UNESCO Heritage', rating: 4.9, img: sectionImages.traditions, desc: 'Rock-cut caves, ancient murals and sacred architecture carved into the Deccan cliffs.' },
+  { id: 'mahabaleshwar', title: 'Mahabaleshwar', location: 'Satara', category: 'Hill Station', rating: 4.8, img: sectionImages.welcome, desc: 'Misty viewpoints, strawberry farms, forest drives and cool Sahyadri weather.' },
+  { id: 'ratnagiri-popular', title: 'Ratnagiri Coast', location: 'Konkan', category: 'Coastal Escape', rating: 4.9, img: sectionImages.destinations, desc: 'Beaches, sea forts, mango orchards and temple towns along Maharashtra\'s coast.' }
 ];
 
 const mockTours = [
@@ -383,9 +427,7 @@ function App() {
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
 
-  // Destinations page filter state
-  const [destFilterRegion, setDestFilterRegion] = useState('All');
-  const [destFilterCat, setDestFilterCat] = useState('All');
+  const [activeIndiaPlace, setActiveIndiaPlace] = useState(ratnagiriRegionFeature.id);
 
   // Booking page state
   const [bookingTab, setBookingTab] = useState('homes');
@@ -440,27 +482,9 @@ function App() {
     return { ...slides[originalIndex], originalIndex };
   });
 
-  // Destinations page data combines main destinations and Maharashtra districts
-  const districtObjects = districtList.map((name, idx) => ({
-    id: 100 + idx,
-    title: `${name}, Maharashtra`,
-    state: 'Maharashtra',
-    region: 'West',
-    category: 'District',
-    rating: 5,
-    reviews: 0,
-    price: 0,
-    img: sectionImages.destinations,
-    desc: `${name} district in Maharashtra.`
-  }));
-  const allDestinations = [...mockDestinations, ...districtObjects];
-
-  // Filters for destinations
-  const filteredDestinations = allDestinations.filter(d => {
-    const matchesRegion = destFilterRegion === 'All' || d.region === destFilterRegion;
-    const matchesCat = destFilterCat === 'All' || d.category === destFilterCat;
-    return matchesRegion && matchesCat;
-  });
+  const activeRegionFeature = activeIndiaPlace === ratnagiriRegionFeature.id
+    ? ratnagiriRegionFeature
+    : ratnagiriRegionFeature;
   const currentBookingSearch = bookingSearch[bookingTab];
   const bookingSearchConfig = bookingSearchOptions[bookingTab];
   const searchTerm = currentBookingSearch.where.trim().toLowerCase();
@@ -541,11 +565,16 @@ function App() {
           <section className="hero-container">
             <div className="hero-video-wrapper">
               {slides.map((slide, idx) => (
-                <img
+                <video
                   key={slide.id}
-                  src={slide.imageUrl}
-                  alt={`${slide.title} tourism preview`}
+                  src={slide.videoUrl}
                   className={`hero-video ${idx === activeSlide ? 'active' : ''}`}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label={`${slide.title} tourism preview video`}
                 />
               ))}
             </div>
@@ -554,14 +583,7 @@ function App() {
 
             <div className="hero-carousel-panel">
               <div className="hero-browse-cue" aria-hidden="true">
-                <svg className="hero-browse-arrow" viewBox="0 0 190 118">
-                  <path
-                    className="hero-browse-swirl"
-                    d="M14 20c32-16 75-16 89 3 17 24-14 48-57 38-30-7-31-28-4-34 35-8 80 16 67 42-11 22-58 25-79 9-17-13-8-32 17-30 32 3 53 27 83 39"
-                  />
-                  <path className="hero-browse-head" d="M127 87l42 11-35 22M127 87l20 34" />
-                </svg>
-                <span>OR BROWSE CATEGORIES</span>
+                <span>Browse Categories</span>
               </div>
               <div className="carousel-cards-container" key={activeSlide}>
                 {previewSlides.map((card) => (
@@ -579,10 +601,15 @@ function App() {
                       }}
                       aria-label={`Preview ${card.category}`}
                     >
-                      <img
-                        src={card.thumbnail}
-                        alt={`${card.category} preview`}
+                      <video
+                        src={card.videoUrl}
                         className="carousel-card-img"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-label={`${card.category} preview video`}
                       />
                       <div className="carousel-card-overlay">
                         <div className="carousel-card-copy">
@@ -599,67 +626,67 @@ function App() {
 
           {/* BODY SECTION */}
 
-          {/* 1. Experience Categories Grid */}
-          <section className="section-wrapper">
-            <span className="section-tag">Find Your Passion</span>
-            <h2 className="section-title">Experience India By Theme</h2>
-            <p className="section-subtitle">
-              From snow-capped peaks in the north to deep tropical shores in the south, find itineraries customized to your desires.
-            </p>
+          {/* 1. Maharashtra Tourism + RTS Services */}
+          <section className="section-wrapper maharashtra-overview-section">
+            <div className="maharashtra-overview-grid">
+              <div className="maharashtra-copy-panel">
+                <h2 className="maharashtra-heading">
+                  <span>Maharashtra</span> Tourism
+                </h2>
+                <div className="maharashtra-title-underline" />
+                {maharashtraIntroParagraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                <button className="maharashtra-read-btn" type="button">Read Less</button>
+              </div>
 
-            <div className="experience-grid">
-                <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                  <img src={sectionImages.tours} alt="Mountains" className="experience-card-img" />
-                  <div className="experience-card-overlay">
-                    <div className="experience-icon"><Compass size={24} /></div>
-                    <h3 className="experience-card-title">Mountains</h3>
-                    <p className="experience-card-desc">Trek the misty valleys of Himachal and scale high altitude mountain passes.</p>
-                    <span className="experience-card-count">12 Active Trails</span>
-                  </div>
-                </div>
-
-                <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                  <img src={sectionImages.welcome} alt="Beaches" className="experience-card-img" />
-                  <div className="experience-card-overlay">
-                    <div className="experience-icon"><Globe size={24} /></div>
-                    <h3 className="experience-card-title">Beaches</h3>
-                    <p className="experience-card-desc">Swaying palms, golden sands, and majestic coastal water cruises in Kerala.</p>
-                    <span className="experience-card-count">24 Coastal Stays</span>
-                  </div>
-                </div>
-
-                <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                  <img src={sectionImages.destinations} alt="Wildlife" className="experience-card-img" />
-                  <div className="experience-card-overlay">
-                    <div className="experience-icon"><Award size={24} /></div>
-                    <h3 className="experience-card-title">Wildlife</h3>
-                    <p className="experience-card-desc">Spot Bengal tigers, Asiatic lions, and curations of exotic tropical bird species.</p>
-                    <span className="experience-card-count">9 Safaris Open</span>
-                  </div>
-                </div>
-
-                <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                  <img src={sectionImages.traditions} alt="Heritage" className="experience-card-img" />
-                  <div className="experience-card-overlay">
-                    <div className="experience-icon"><Sparkles size={24} /></div>
-                    <h3 className="experience-card-title">Heritage</h3>
-                    <p className="experience-card-desc">Marvel at ancient temples, palace architecture, and UNESCO sites dating back millennia.</p>
-                    <span className="experience-card-count">36 Monument Walks</span>
-                  </div>
+              <div className="rts-services-panel">
+                <h2 className="rts-heading">Services Under RTS</h2>
+                <div className="rts-heading-line" />
+                <div className="rts-services-grid">
+                  {rtsServices.map((service, index) => (
+                    <article className={`rts-service-card tone-${index % 5}`} key={service}>
+                      <Check size={18} />
+                      <h3>{service}</h3>
+                    </article>
+                  ))}
                 </div>
               </div>
+            </div>
           </section>
 
-          {/* 2. Popular Destinations Showcase */}
+          {/* 2. Explore Districts */}
           <section className="section-wrapper alternate">
+            <span className="section-tag">Maharashtra Districts</span>
+            <h2 className="section-title">Explore Districts</h2>
+            <p className="section-subtitle">
+              Move through coastal towns, heritage cities, hill stations, pilgrimage routes, food trails and adventure pockets across Maharashtra.
+            </p>
+
+            <div className="district-grid">
+              {exploreDistricts.map((district) => (
+                <article className="district-card" key={district.name} onClick={() => window.location.hash = '#/destinations'}>
+                  <img src={district.img} alt={`${district.name} district`} />
+                  <div>
+                    <span>{district.region}</span>
+                    <h3>{district.name}</h3>
+                    <p>{district.desc}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 3. Most Popular Destinations */}
+          <section className="section-wrapper">
             <span className="section-tag">Handpicked for You</span>
             <h2 className="section-title">Most Popular Destinations</h2>
             <p className="section-subtitle">
-              Discover the locations that captures travelers’ hearts across the Indian subcontinent.
+              Discover Maharashtra's most loved heritage, hill station and coastal experiences.
             </p>
 
             <div className="destinations-showcase">
-              {mockDestinations.slice(0, 3).map((dest) => (
+              {popularMaharashtraDestinations.map((dest) => (
                 <div key={dest.id} className="destination-card">
                   <div className="destination-card-img-wrapper">
                     <img src={dest.img} alt={dest.title} className="destination-card-img" />
@@ -672,79 +699,17 @@ function App() {
                   <div className="destination-card-content">
                     <div className="destination-card-location">
                       <MapPin size={14} className="location-icon" />
-                      <span>{dest.state}, India</span>
+                      <span>{dest.location}, Maharashtra</span>
                     </div>
                     <h3 className="destination-card-title">{dest.title}</h3>
                     <p className="experience-card-desc">{dest.desc}</p>
-                    <div className="destination-card-footer">
-                      <div className="destination-card-stats">
-                        <span className="destination-stats-label">Travelers</span>
-                        <span className="destination-stats-value">{dest.reviews.toLocaleString()}+</span>
-                      </div>
-                      <div className="destination-card-price">
-                        <span className="destination-price-label">Avg. Cost</span>
-                        <span className="destination-price-value">${dest.price}/day</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               ))}
             </div>
-
-            <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
-              <a href="#/destinations" className="book-btn" style={{ padding: '0.8rem 2.2rem' }}>View All Destinations</a>
-            </div>
           </section>
 
-          {/* 3. Why Choose India Section with Stats & Overlapping Collage */}
-          <section className="section-wrapper">
-            <div className="why-choose-grid">
-              <div className="why-choose-content">
-                <span className="section-tag" style={{ textAlign: 'left' }}>The Land of Diversity</span>
-                <h2 className="why-choose-heading">Why Choose India For Your Next Adventure?</h2>
-                <p className="why-choose-desc">
-                  India offers a unique sensory celebration unmatched by any other destination. From spiritual retreats in ancient Ganges ghats to absolute luxury in Maharaja palaces, organic street foods, and rich cultural traditions, your perspective of life will change forever.
-                </p>
-
-                <div className="stats-grid">
-                  <div className="stat-item">
-                    <span className="stat-number">5,000+</span>
-                    <span className="stat-label">Years</span>
-                    <span className="stat-desc">Of continuous living history & culture</span>
-                  </div>
-                  <div className="stat-item">
-                    <span className="stat-number">28</span>
-                    <span className="stat-label">States</span>
-                    <span className="stat-desc">Each offering distinct language & cuisines</span>
-                  </div>
-                  <div className="stat-item">
-                    <span className="stat-number">36</span>
-                    <span className="stat-label">UNESCO</span>
-                    <span className="stat-desc">World Heritage archaeological masterpieces</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Overlapping Collage */}
-              <div className="collage-container">
-                <div className="collage-img collage-img-1">
-                  <img src={sectionImages.destinations} alt="Collage 1" />
-                </div>
-                <div className="collage-img collage-img-2">
-                  <img src={sectionImages.booking} alt="Collage 2" />
-                </div>
-                <div className="collage-img collage-img-3">
-                  <img src={sectionImages.traditions} alt="Collage 3" />
-                </div>
-                <div className="collage-accent-badge">
-                  <span className="collage-accent-num">#1</span>
-                  <span className="collage-accent-text">Travel Choice</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 4. Upcoming Tours Section */}
+          {/* 4. Upcoming Guided Tours */}
           <section className="section-wrapper alternate">
             <span className="section-tag">All-Inclusive Journeys</span>
             <h2 className="section-title">Upcoming Guided Tours</h2>
@@ -785,17 +750,61 @@ function App() {
             </div>
           </section>
 
-          {/* 5. Call to Action Banner */}
+          {/* 5. Flavor in India */}
+          <section className="section-wrapper flavor-home-section">
+            <span className="section-tag">Flavor in India</span>
+            <h2 className="section-title">Regional Flavors</h2>
+            <p className="section-subtitle">
+              Explore Maharashtra food trails alongside broader Indian culinary favorites.
+            </p>
+
+            <div className="home-feature-grid">
+              {mockFoods.slice(0, 3).map((food) => (
+                <article className="home-feature-card" key={food.id}>
+                  <img src={food.img} alt={food.name} />
+                  <div>
+                    <span>{food.region}</span>
+                    <h3>{food.name}</h3>
+                    <p>{food.desc}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 6. Traditions */}
+          <section className="section-wrapper alternate traditions-home-section">
+            <span className="section-tag">Living Heritage</span>
+            <h2 className="section-title">Traditions</h2>
+            <p className="section-subtitle">
+              Festivals, rituals, music and historic celebrations keep Maharashtra's culture vivid across the year.
+            </p>
+
+            <div className="home-feature-grid">
+              {mockTraditions.slice(0, 3).map((tradition) => (
+                <article className="home-feature-card compact" key={tradition.id}>
+                  <div>
+                    <span>{tradition.date} | {tradition.place}</span>
+                    <h3>{tradition.title}</h3>
+                    <p>{tradition.desc}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 7. Plan Your Trip */}
           <section className="section-wrapper">
             <div className="cta-banner">
               <div className="cta-banner-content">
-                <h2 className="cta-title">Start Planning Your Custom Journey</h2>
+                <span className="section-tag">Plan Your Trip</span>
+                <h2 className="cta-title">Start Planning Your Maharashtra Journey</h2>
                 <p className="cta-desc">
-                  Subscribe to our premium catalog, or request customized itinerary guides from our travel planners. Let us curate your perfect vacation today.
+                  Browse stays, experiences, flights, taxis and guided routes for a seamless visit across Maharashtra.
                 </p>
-                <form className="cta-form" onSubmit={(e) => { e.preventDefault(); alert('Thank you for subscribing! Your travel guide is on the way.'); }}>
+                <form className="cta-form" onSubmit={(e) => { e.preventDefault(); window.location.hash = '#/booking'; }}>
                   <input type="email" placeholder="Enter your email address" className="cta-input" required />
-                  <button type="submit" className="cta-submit-btn">Request Catalog</button>
+                  <button type="submit" className="cta-submit-btn">Plan My Trip</button>
                 </form>
               </div>
             </div>
@@ -806,106 +815,110 @@ function App() {
       {/* DESTINATIONS CATEGORY PAGE */}
       {currentRoute === '#/destinations' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.destinations) }}>
-            <span className="page-subtitle">Curated Indian Wonders</span>
-            <h1 className="page-title">Explore Indian Destinations</h1>
-          </div>
+          <VideoPageHeader
+            videoSrc={sectionVideos.destinations}
+          />
 
-          <div className="page-container">
-            {/* Interactive Filters Bar */}
-            <div className="filter-bar">
-              <div className="filters-group">
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', marginRight: '1rem' }}>
-                  <Filter size={16} style={{ marginRight: '0.4rem', color: 'var(--saffron)' }} /> Regions:
-                </span>
-                {['All', 'North', 'South', 'East', 'West'].map((region) => (
-                  <button
-                    key={region}
-                    className={`filter-btn ${destFilterRegion === region ? 'active' : ''}`}
-                    onClick={() => setDestFilterRegion(region)}
-                  >
-                    {region}
-                  </button>
-                ))}
-              </div>
-
-              <div className="filters-group">
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', marginRight: '1rem' }}>
-                  <Compass size={16} style={{ marginRight: '0.4rem', color: 'var(--saffron)' }} /> Theme:
-                </span>
-                {['All', 'Heritage', 'Nature', 'Adventure'].map((cat) => (
-                  <button
-                    key={cat}
-                    className={`filter-btn ${destFilterCat === cat ? 'active' : ''}`}
-                    onClick={() => setDestFilterCat(cat)}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
+          <section className="india-regions-section">
+            <div className="india-regions-heading">
+              <span className="section-tag">Regions of India</span>
+              <h2 className="section-title">Explore India By Region</h2>
             </div>
 
-            {/* Destinations grid list */}
-            {filteredDestinations.length > 0 ? (
-              <div className="destinations-grid">
-                {filteredDestinations.map((dest) => (
-                  <div key={dest.id} className="destination-card">
-                    <div className="destination-card-img-wrapper">
-                      <img src={dest.img} alt={dest.title} className="destination-card-img" />
-                      <span className="destination-tag-badge">{dest.category}</span>
-                      <div className="destination-rating-badge">
-                        <Star size={12} fill="#FFFFFF" />
-                        {dest.rating}
-                      </div>
-                    </div>
-                    <div className="destination-card-content">
-                      <div className="destination-card-location">
-                        <MapPin size={14} className="location-icon" />
-                        <span>{dest.state}, India</span>
-                      </div>
-                      <h3 className="destination-card-title">{dest.title}</h3>
-                      <p className="experience-card-desc" style={{ marginBottom: '1.2rem' }}>{dest.desc}</p>
+            <div className="india-regions-layout">
+              <div className="india-map-panel" aria-label="Map of India regions">
+                <svg className="india-map-svg" viewBox="0 0 520 560" role="img" aria-labelledby="india-map-title">
+                  <title id="india-map-title">Regions of India map with Ratnagiri highlighted</title>
+                  <path
+                    className="india-map-land"
+                    d="M218 38 276 48 306 82 338 99 354 136 393 151 418 196 398 235 413 286 379 309 354 350 333 393 307 420 294 474 257 531 224 466 194 421 158 392 144 337 112 304 124 252 103 215 126 170 157 139 174 92Z"
+                  />
+                  <path className="india-map-region north" d="M177 83 221 44 279 55 319 95 351 142 302 161 235 154 174 132Z" />
+                  <path className="india-map-region west" d="M126 171 174 133 236 155 224 250 169 306 116 296 103 216Z" />
+                  <path className="india-map-region central" d="M235 156 304 162 361 209 338 304 255 318 225 249Z" />
+                  <path className="india-map-region east" d="M362 211 414 198 399 236 413 286 380 308 337 305Z" />
+                  <path className="india-map-region south" d="M169 309 255 319 337 306 353 350 307 421 293 475 257 531 223 466 194 421 158 393 145 338Z" />
+                  <path className="india-map-region northeast" d="M354 137 413 155 459 148 494 174 468 206 421 197 393 151Z" />
 
-                      <div className="destination-card-footer">
-                        <div className="destination-card-stats">
-                          <span className="destination-stats-label">Audience Reviews</span>
-                          <span className="destination-stats-value">{dest.reviews.toLocaleString()}+</span>
-                        </div>
-                        <div className="destination-card-price">
-                          <span className="destination-price-label">Avg. Cost</span>
-                          <span className="destination-price-value">${dest.price}/day</span>
-                        </div>
-                      </div>
+                  {indiaRegionLabels.map((region) => (
+                    <text key={region.label} className="india-region-label" x={region.x} y={region.y}>
+                      {region.label}
+                    </text>
+                  ))}
 
-                      <button
-                        className="book-btn"
-                        onClick={() => window.location.hash = '#/booking'}
-                        style={{ width: '100%', marginTop: '1.2rem', textAlign: 'center' }}
-                      >
-                        Plan Travel to {dest.title.split(',')[0]}
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  <g className="india-map-place static">
+                    <circle cx="203" cy="120" r="5" />
+                    <text x="92" y="113">Delhi</text>
+                    <path d="M105 116H196" />
+                  </g>
+                  <g className="india-map-place static">
+                    <circle cx="370" cy="270" r="5" />
+                    <text x="386" y="273">Kolkata</text>
+                    <path d="M376 270h54" />
+                  </g>
+                  <g className="india-map-place static">
+                    <circle cx="257" cy="438" r="5" />
+                    <text x="278" y="442">Bengaluru</text>
+                    <path d="M263 438h64" />
+                  </g>
+                  <g className="india-map-place static">
+                    <circle cx="147" cy="246" r="5" />
+                    <text x="46" y="250">Mumbai</text>
+                    <path d="M86 247h55" />
+                  </g>
+
+                  <g
+                    className="india-map-ratnagiri"
+                    role="button"
+                    tabIndex={0}
+                    onMouseEnter={() => setActiveIndiaPlace(ratnagiriRegionFeature.id)}
+                    onFocus={() => setActiveIndiaPlace(ratnagiriRegionFeature.id)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setActiveIndiaPlace(ratnagiriRegionFeature.id);
+                      }
+                    }}
+                    aria-label="Ratnagiri, Maharashtra"
+                  >
+                    <circle cx="159" cy="292" r="18" />
+                    <circle cx="159" cy="292" r="7" />
+                  </g>
+                  <g className="india-map-place ratnagiri-label">
+                    <text x="28" y="318">Ratnagiri</text>
+                    <path d="M111 314 151 297" />
+                  </g>
+                </svg>
               </div>
-            ) : (
-              <div style={{ textAlign: 'center', padding: '5rem 0' }}>
-                <Info size={40} style={{ color: 'var(--saffron)', marginBottom: '1rem' }} />
-                <h3>No Destinations Match Selected Filters</h3>
-                <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>Try changing your region or theme criteria.</p>
-              </div>
-            )}
-          </div>
+
+              <aside className="india-place-panel">
+                <img src={activeRegionFeature.image} alt={activeRegionFeature.title} className="india-place-image" />
+                <div className="india-place-content">
+                  <span>Explore</span>
+                  <h3>{activeRegionFeature.name}</h3>
+                  <p className="india-place-region">{activeRegionFeature.region}</p>
+                  <p>{activeRegionFeature.description}</p>
+                  <ul>
+                    {activeRegionFeature.places.map((place) => (
+                      <li key={place}>{place}</li>
+                    ))}
+                  </ul>
+                  <button className="book-btn" type="button" onClick={() => window.location.hash = '#/booking'}>
+                    Plan Ratnagiri Trip
+                  </button>
+                </div>
+              </aside>
+            </div>
+          </section>
         </>
       )}
 
       {/* TOURS CATEGORY PAGE */}
       {currentRoute === '#/tours' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.tours) }}>
-            <span className="page-subtitle">Fully Accompanied Tours</span>
-            <h1 className="page-title">Curated Indian Tour Packages</h1>
-          </div>
+          <VideoPageHeader
+            videoSrc={sectionVideos.tours}
+          />
 
           <div className="page-container">
             <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '4rem' }}>
@@ -964,6 +977,10 @@ function App() {
       {/* BOOKING CATEGORY PAGE */}
       {currentRoute === '#/booking' && (
         <>
+          <VideoPageHeader
+            videoSrc={sectionVideos.booking}
+          />
+
           <section className="booking-marketplace">
             <div className="booking-marketplace-top">
               <div className="booking-mode-tabs">
@@ -1144,10 +1161,9 @@ function App() {
       {/* FOODS CATEGORY PAGE */}
       {currentRoute === '#/foods' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.foods) }}>
-            <span className="page-subtitle">A Sensory Spice Celebration</span>
-            <h1 className="page-title">Regional Indian Cuisines</h1>
-          </div>
+          <VideoPageHeader
+            videoSrc={sectionVideos.foods}
+          />
 
           <div className="page-container">
             <h2 className="section-title" style={{ marginBottom: '0.5rem' }}>Indian Culinary Treasures</h2>
@@ -1196,10 +1212,9 @@ function App() {
       {/* TRADITION CATEGORY PAGE */}
       {currentRoute === '#/tradition' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.traditions) }}>
-            <span className="page-subtitle">Centuries of living soul</span>
-            <h1 className="page-title">Festivals, Culture & Performing Arts</h1>
-          </div>
+          <VideoPageHeader
+            videoSrc={sectionVideos.traditions}
+          />
 
           <div className="page-container">
             <h2 className="section-title" style={{ marginBottom: '0.5rem' }}>Cultural Events Timeline</h2>
