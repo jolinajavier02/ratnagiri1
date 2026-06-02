@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import {
-  MapPin, Star,
+  Star,
   ArrowRight,
   Heart, Car, Home,
   Utensils, Sparkles,
@@ -237,19 +237,28 @@ const maharashtraFocusItems = [
   }
 ];
 
-const exploreDistricts = [
-  { name: 'Ratnagiri', region: 'Konkan Coast', desc: 'Alphonso mango orchards, Ganpatipule, sea forts and quiet coastal villages.', img: sectionImages.destinations },
-  { name: 'Mumbai', region: 'Metro Heritage', desc: 'Gateway of India, Marine Drive, museums, markets and cinematic city energy.', img: sectionImages.booking },
-  { name: 'Pune', region: 'Culture & Hills', desc: 'Historic wadas, forts, learning hubs and easy escapes toward the Sahyadris.', img: sectionImages.tours },
-  { name: 'Aurangabad', region: 'World Heritage', desc: 'Ajanta, Ellora, Bibi ka Maqbara and layered Deccan history.', img: sectionImages.traditions },
-  { name: 'Nashik', region: 'Pilgrimage & Wine', desc: 'Godavari ghats, Trimbakeshwar, vineyards and monsoon landscapes.', img: sectionImages.foods },
-  { name: 'Sindhudurg', region: 'Beaches & Forts', desc: 'Clear waters, Malvan food, scuba experiences and coastal fort trails.', img: sectionImages.welcome }
-];
-
-const popularMaharashtraDestinations = [
-  { id: 'ajanta', title: 'Ajanta & Ellora Caves', location: 'Chh. Sambhaji Nagar', category: 'UNESCO Heritage', rating: 4.9, img: sectionImages.traditions, desc: 'Rock-cut caves, ancient murals and sacred architecture carved into the Deccan cliffs.' },
-  { id: 'mahabaleshwar', title: 'Mahabaleshwar', location: 'Satara', category: 'Hill Station', rating: 4.8, img: sectionImages.welcome, desc: 'Misty viewpoints, strawberry farms, forest drives and cool Sahyadri weather.' },
-  { id: 'ratnagiri-popular', title: 'Ratnagiri Coast', location: 'Konkan', category: 'Coastal Escape', rating: 4.9, img: sectionImages.destinations, desc: 'Beaches, sea forts, mango orchards and temple towns along Maharashtra\'s coast.' }
+const curatedTravelGuide = [
+  {
+    id: 'local-etiquette',
+    title: 'Local Etiquette',
+    icon: 'namaste',
+    desc: 'Respecting traditions is key to authentic experiences. Remove shoes before entering temples or homes, greet hosts warmly, and dress modestly in sacred spaces.',
+    notes: ['Namaste is the universal greeting', 'Use your right hand for greetings and dining']
+  },
+  {
+    id: 'summer-essentials',
+    title: 'Summer Essentials',
+    icon: 'summer',
+    desc: 'Maharashtra is vibrant but warm. Pack breathable linens, high SPF protection, sunglasses, hats, and a reusable water bottle for long district explorations.',
+    notes: ['Light-colored cotton fabrics', 'Hydration for forts, beaches and city walks']
+  },
+  {
+    id: 'travel-logistics',
+    title: 'Travel Logistics',
+    icon: 'travel',
+    desc: 'Plan transfers between Mumbai, Pune, Ratnagiri and heritage districts early. Keep digital and physical copies of IDs, bookings and transport details.',
+    notes: ['Book guided slots in advance', 'Carry copies of permits and tickets']
+  }
 ];
 
 const mockTours = [
@@ -422,14 +431,17 @@ const mockFoods = [
   { id: 1, name: 'Butter Chicken & Naan', region: 'North India', type: 'non-veg', spiciness: 'Medium', desc: 'A rich, creamy, tomato-based curry loaded with tandoor-roasted chicken, served with hot butter garlic naan.', img: sectionImages.foods },
   { id: 2, name: 'Traditional Ghee Dosa', region: 'South India', type: 'veg', spiciness: 'Mild', desc: 'A super-crisp, thin fermented crepe made of rice and lentils, served with fresh coconut chutney and piping hot sambar.', img: sectionImages.welcome },
   { id: 3, name: 'Misal Pav & Farsan', region: 'West India', type: 'veg', spiciness: 'High', desc: 'A spicy curry made of sprouted moth beans, topped with crunchy savory farsan, onions, coriander, and soft pav buns.', img: sectionImages.booking },
-  { id: 4, name: 'Shorba & Biryani Feast', region: 'East India', type: 'non-veg', spiciness: 'Medium', desc: 'Aromatic basmati rice cooked slowly with delicate herbs, spices, and marinated mutton, served with hot spiced gravy.', img: sectionImages.traditions }
+  { id: 4, name: 'Shorba & Biryani Feast', region: 'East India', type: 'non-veg', spiciness: 'Medium', desc: 'Aromatic basmati rice cooked slowly with delicate herbs, spices, and marinated mutton, served with hot spiced gravy.', img: sectionImages.traditions },
+  { id: 5, name: 'Ratnagiri Alphonso Mangoes', region: 'Konkan', type: 'veg', spiciness: 'Sweet', desc: 'Golden seasonal mangoes from the Konkan belt, loved for their rich aroma, smooth pulp, and bright summer flavor.', img: sectionImages.destinations },
+  { id: 6, name: 'Maharashtrian Cuisine Thali', region: 'Maharashtra', type: 'veg', spiciness: 'Medium', desc: 'A balanced regional plate with bhakri, usal, chutney, vegetables, rice, dal, and coastal or Deccan flavors.', img: sectionImages.foods },
+  { id: 7, name: 'Puran Poli & Festival Sweets', region: 'Maharashtra', type: 'veg', spiciness: 'Sweet', desc: 'Soft festive flatbread filled with jaggery and dal, served with ghee alongside modak and local sweets.', img: sectionImages.welcome }
 ];
 
 const mockTraditions = [
-  { id: 1, title: 'Diwali - The Festival of Lights', date: 'November', place: 'Nationwide', desc: 'India’s biggest and most stunning celebration, symbolizing the victory of light over darkness. The entire nation illuminates with millions of clay oil lamps (diyas), lanterns, and vibrant firework displays.' },
-  { id: 2, title: 'Holi - The Festival of Colors', date: 'March', place: 'Mathura & Nationwide', desc: 'A chaotic, breathtaking festival celebrating spring, love, and colors. People smear organic colored powders on each other, dance to massive temple drum beats, and share traditional milk-based sweets.' },
-  { id: 3, title: 'Kathakali Dance Drama', date: 'Year-Round', place: 'Kerala', desc: 'A spectacular, highly stylized classical dance drama known for its colorful makeup, elaborate costumes, and deep expressive hand gestures (mudras) describing ancient epics.' },
-  { id: 4, title: 'Pushkar Camel Fair', date: 'November', place: 'Pushkar, Rajasthan', desc: 'One of the world\'s largest camel and livestock fairs, transforming a desert oasis into a vibrant carnival of folk dancers, musicians, camel races, and local bazaars.' }
+  { id: 1, title: 'Diwali - The Festival of Lights', date: 'November', place: 'Nationwide', desc: 'India’s biggest and most stunning celebration, symbolizing the victory of light over darkness. The entire nation illuminates with millions of clay oil lamps (diyas), lanterns, and vibrant firework displays.', img: sectionImages.traditions },
+  { id: 2, title: 'Holi - The Festival of Colors', date: 'March', place: 'Mathura & Nationwide', desc: 'A chaotic, breathtaking festival celebrating spring, love, and colors. People smear organic colored powders on each other, dance to massive temple drum beats, and share traditional milk-based sweets.', img: sectionImages.welcome },
+  { id: 3, title: 'Kathakali Dance Drama', date: 'Year-Round', place: 'Kerala', desc: 'A spectacular, highly stylized classical dance drama known for its colorful makeup, elaborate costumes, and deep expressive hand gestures (mudras) describing ancient epics.', img: sectionImages.tours },
+  { id: 4, title: 'Pushkar Camel Fair', date: 'November', place: 'Pushkar, Rajasthan', desc: 'One of the world\'s largest camel and livestock fairs, transforming a desert oasis into a vibrant carnival of folk dancers, musicians, camel races, and local bazaars.', img: sectionImages.booking }
 ];
 
 const socialGalleryItems = [
@@ -440,7 +452,8 @@ const socialGalleryItems = [
   { title: 'Festival Nights', image: sectionImages.traditions },
   { title: 'Summer Welcome', image: sectionImages.welcome },
   { title: 'Sea Fort Trails', image: fortBrochure1 },
-  { title: 'Sacred Shrines', image: shrineBrochure1 }
+  { title: 'Sacred Shrines', image: shrineBrochure1 },
+  { title: 'Travel Brochures', image: fortBrochure2 }
 ];
 
 const brochureItems = [
@@ -701,7 +714,7 @@ function App() {
                 <h2 className="section-title">Heritage, Coastlines and Living Culture</h2>
                 <p>{maharashtraIntroParagraphs[0]}</p>
                 <a href="#/destinations" className="story-link">
-                  Explore Districts
+                  Explore Regions
                   <ArrowRight size={18} />
                 </a>
               </div>
@@ -718,64 +731,35 @@ function App() {
             </div>
           </section>
 
-          {/* 2. Explore Districts */}
-          <section className="section-wrapper alternate">
-            <span className="section-tag">Maharashtra Districts</span>
-            <h2 className="section-title">Explore Districts</h2>
-            <p className="section-subtitle">
-              Move through coastal towns, heritage cities, hill stations, pilgrimage routes, food trails and adventure pockets across Maharashtra.
-            </p>
+          {/* 2. Curated Travel Guide */}
+          <section className="section-wrapper curated-guide-section">
+            <div className="curated-guide-heading">
+              <span className="section-tag">Essential Intelligence</span>
+              <h2 className="section-title">Curated Travel Guide</h2>
+            </div>
 
-            <div className="district-grid">
-              {exploreDistricts.map((district) => (
-                <article className="district-card" key={district.name} onClick={() => window.location.hash = '#/destinations'}>
-                  <img src={district.img} alt={`${district.name} district`} />
-                  <div>
-                    <span>{district.region}</span>
-                    <h3>{district.name}</h3>
-                    <p>{district.desc}</p>
+            <div className="curated-guide-grid">
+              {curatedTravelGuide.map((guide) => (
+                <article className="curated-guide-card" key={guide.id}>
+                  <div className={`curated-guide-icon ${guide.icon}`}>
+                    <Check size={28} />
                   </div>
+                  <h3>{guide.title}</h3>
+                  <p>{guide.desc}</p>
+                  <ul>
+                    {guide.notes.map((note) => (
+                      <li key={note}>{note}</li>
+                    ))}
+                  </ul>
                 </article>
               ))}
             </div>
           </section>
 
-          {/* 3. Most Popular Destinations */}
-          <section className="section-wrapper">
-            <span className="section-tag">Handpicked for You</span>
-            <h2 className="section-title">Most Popular Destinations</h2>
-            <p className="section-subtitle">
-              Discover Maharashtra's most loved heritage, hill station and coastal experiences.
-            </p>
-
-            <div className="destinations-showcase">
-              {popularMaharashtraDestinations.map((dest) => (
-                <div key={dest.id} className="destination-card">
-                  <div className="destination-card-img-wrapper">
-                    <img src={dest.img} alt={dest.title} className="destination-card-img" />
-                    <span className="destination-tag-badge">{dest.category}</span>
-                    <div className="destination-rating-badge">
-                      <Star size={12} fill="#FFFFFF" />
-                      {dest.rating}
-                    </div>
-                  </div>
-                  <div className="destination-card-content">
-                    <div className="destination-card-location">
-                      <MapPin size={14} className="location-icon" />
-                      <span>{dest.location}, Maharashtra</span>
-                    </div>
-                    <h3 className="destination-card-title">{dest.title}</h3>
-                    <p className="experience-card-desc">{dest.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 4. Upcoming Guided Tours */}
+          {/* 3. Tour Packages */}
           <section className="section-wrapper alternate">
-            <span className="section-tag">All-Inclusive Journeys</span>
-            <h2 className="section-title">Upcoming Guided Tours</h2>
+            <span className="section-tag">Plan Your Trip</span>
+            <h2 className="section-title">Exclusive Packages</h2>
             <p className="section-subtitle">
               Join curated luxury groups led by master local guides, historical experts, and premium safety hosts.
             </p>
@@ -813,7 +797,7 @@ function App() {
             </div>
           </section>
 
-          {/* 5. Flavor in India */}
+          {/* 4. Flavor in India */}
           <section className="section-wrapper flavor-home-section">
             <span className="section-tag">Flavor in India</span>
             <h2 className="section-title">Regional Flavors</h2>
@@ -822,7 +806,7 @@ function App() {
             </p>
 
             <div className="home-feature-grid">
-              {mockFoods.slice(0, 3).map((food) => (
+              {mockFoods.slice(0, 6).map((food) => (
                 <article className="home-feature-card" key={food.id}>
                   <img src={food.img} alt={food.name} />
                   <div>
@@ -835,7 +819,7 @@ function App() {
             </div>
           </section>
 
-          {/* 6. Traditions */}
+          {/* 5. Traditions */}
           <section className="section-wrapper alternate traditions-home-section">
             <span className="section-tag">Living Heritage</span>
             <h2 className="section-title">Traditions</h2>
@@ -846,6 +830,7 @@ function App() {
             <div className="home-feature-grid">
               {mockTraditions.slice(0, 3).map((tradition) => (
                 <article className="home-feature-card compact" key={tradition.id}>
+                  <img src={tradition.img} alt={tradition.title} />
                   <div>
                     <span>{tradition.date} | {tradition.place}</span>
                     <h3>{tradition.title}</h3>
@@ -856,7 +841,7 @@ function App() {
             </div>
           </section>
 
-          {/* 7. Social Gallery */}
+          {/* 6. Social Gallery */}
           <section className="section-wrapper social-gallery-section">
             <div className="section-heading-row">
               <div>
@@ -870,7 +855,7 @@ function App() {
             </div>
 
             <div className="social-gallery-grid">
-              {socialGalleryItems.slice(0, 4).map((item) => (
+              {socialGalleryItems.slice(0, 9).map((item) => (
                 <article className="social-gallery-card" key={item.title}>
                   <img src={item.image} alt={item.title} />
                   <span>{item.title}</span>
@@ -879,7 +864,7 @@ function App() {
             </div>
           </section>
 
-          {/* 8. Brochures */}
+          {/* 7. Brochures */}
           <section className="section-wrapper compact-rail-section">
             <span className="section-tag">Brochures</span>
             <h2 className="section-title">Travel Brochures</h2>
@@ -900,7 +885,7 @@ function App() {
             </div>
           </section>
 
-          {/* 9. Newsletters */}
+          {/* 8. Newsletters */}
           <section className="section-wrapper compact-rail-section alternate">
             <span className="section-tag">News Letter</span>
             <h2 className="section-title">Tourism News Letter</h2>
@@ -922,7 +907,7 @@ function App() {
             </div>
           </section>
 
-          {/* 10. Plan Your Trip */}
+          {/* 9. Plan Your Trip */}
           <section className="section-wrapper plan-trip-section">
             <div className="plan-trip-layout">
               <div className="plan-trip-video-frame" aria-label="Maharashtra destination preview video">

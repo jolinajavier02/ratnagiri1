@@ -5400,3 +5400,193 @@ body {
     min-height: 230px;
   }
 }
+
+/* Homepage refinements: guide, food, traditions, gallery and rails */
+.curated-guide-section {
+  background: #fffaf7;
+}
+
+.curated-guide-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.curated-guide-heading .section-tag,
+.curated-guide-heading .section-title {
+  text-align: left;
+}
+
+.curated-guide-heading .section-title {
+  max-width: 780px;
+  margin-bottom: 0;
+}
+
+.curated-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+.curated-guide-card {
+  min-height: 330px;
+  border-radius: 8px;
+  background: rgba(255, 250, 241, 0.86);
+  border: 1px solid rgba(139, 99, 36, 0.14);
+  padding: clamp(1.4rem, 3vw, 2.35rem);
+  box-shadow: 0 18px 42px rgba(90, 62, 35, 0.08);
+}
+
+.curated-guide-icon {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #efe4d5;
+  color: #a46105;
+  margin-bottom: 1.8rem;
+}
+
+.curated-guide-icon.summer {
+  background: #dcebe8;
+  color: #0f766e;
+}
+
+.curated-guide-icon.travel {
+  background: #eee8dc;
+  color: #8a6500;
+}
+
+.curated-guide-card h3 {
+  color: var(--text-primary);
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.4vw, 2.35rem);
+  line-height: 1.08;
+  margin-bottom: 1rem;
+}
+
+.curated-guide-card p {
+  color: #5f5047;
+  font-size: clamp(0.98rem, 1.25vw, 1.12rem);
+  font-weight: 600;
+  line-height: 1.65;
+  margin-bottom: 1.4rem;
+}
+
+.curated-guide-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.curated-guide-card li {
+  color: #4f423a;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.curated-guide-card li::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  border-radius: 50%;
+  background: #a46105;
+  margin-right: 0.4rem;
+  vertical-align: 0.08em;
+}
+
+.home-feature-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.flavor-home-section .home-feature-card,
+.traditions-home-section .home-feature-card {
+  min-height: 100%;
+}
+
+.flavor-home-section .home-feature-card img,
+.traditions-home-section .home-feature-card img {
+  height: 180px;
+}
+
+.traditions-home-section .home-feature-card.compact {
+  display: block;
+}
+
+.section-wrapper.alternate .tours-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.social-gallery-section .section-heading-row {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.social-gallery-section .section-heading-row .section-tag,
+.social-gallery-section .section-heading-row .section-title {
+  text-align: center;
+}
+
+.social-gallery-section .see-all-link {
+  margin-top: 0.6rem;
+}
+
+.social-gallery-section .social-gallery-grid {
+  width: min(100%, 930px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: clamp(95px, 9vw, 128px);
+  gap: 0.65rem;
+}
+
+.social-gallery-section .social-gallery-card:nth-child(n) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.home-horizontal-rail {
+  scrollbar-color: #d77b2d #f2dfc6;
+  scrollbar-width: thin;
+}
+
+.home-horizontal-rail::-webkit-scrollbar {
+  height: 10px;
+}
+
+.home-horizontal-rail::-webkit-scrollbar-track {
+  background: #f2dfc6;
+  border-radius: 999px;
+}
+
+.home-horizontal-rail::-webkit-scrollbar-thumb {
+  background: #d77b2d;
+  border-radius: 999px;
+}
+
+@media (max-width: 1024px) {
+  .curated-guide-grid,
+  .home-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .curated-guide-heading {
+    display: block;
+  }
+
+  .curated-guide-grid,
+  .home-feature-grid,
+  .section-wrapper.alternate .tours-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .social-gallery-section .social-gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 82px;
+  }
+}
