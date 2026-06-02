@@ -146,18 +146,6 @@ const slides = [
 
 const HERO_PREVIEW_INTERVAL_MS = 7000;
 
-function GeneratedCategoryVideo({ slide, className = '' }) {
-  return (
-    <div className={`generated-video-scene generated-video-${slide.id} ${className}`} aria-label={`${slide.category} generated video`}>
-      <img src={slide.thumbnail} alt="" className="generated-video-image" aria-hidden="true" />
-      <span className="generated-video-wash" aria-hidden="true" />
-      <span className="generated-video-sweep" aria-hidden="true" />
-      <span className="generated-video-detail detail-one" aria-hidden="true" />
-      <span className="generated-video-detail detail-two" aria-hidden="true" />
-    </div>
-  );
-}
-
 const districtList = [
   'Ahilyanagar',
   'Akola',
@@ -318,6 +306,10 @@ function App() {
     return () => clearTimeout(timer);
   }, [activeSlide]);
 
+  const selectSlide = (index) => {
+    setActiveSlide(index);
+  };
+
   const previewSlides = Array.from({ length: slides.length - 1 }, (_, index) => {
     const originalIndex = (activeSlide + index + 1) % slides.length;
     return { ...slides[originalIndex], originalIndex };
@@ -434,10 +426,11 @@ function App() {
           <section className="hero-container">
             <div className="hero-video-wrapper">
               {slides.map((slide, idx) => (
-                <GeneratedCategoryVideo
+                <img
                   key={slide.id}
+                  src={slide.imageUrl}
+                  alt={`${slide.title} tourism preview`}
                   className={`hero-video ${idx === activeSlide ? 'active' : ''}`}
-                  slide={slide}
                 />
               ))}
             </div>
@@ -450,22 +443,21 @@ function App() {
                   <div className="hero-preview-item" key={card.id}>
                     <div
                       className="carousel-card"
-                      onClick={() => {
-                        window.location.hash = card.link;
-                      }}
+                      onClick={() => selectSlide(card.originalIndex)}
                       role="button"
                       tabIndex={0}
                       onKeyDown={(event) => {
                         if (event.key === 'Enter' || event.key === ' ') {
                           event.preventDefault();
-                          window.location.hash = card.link;
+                          selectSlide(card.originalIndex);
                         }
                       }}
-                      aria-label={`Open ${card.category}`}
+                      aria-label={`Preview ${card.category}`}
                     >
-                      <GeneratedCategoryVideo
+                      <img
+                        src={card.thumbnail}
+                        alt={`${card.category} preview`}
                         className="carousel-card-img"
-                        slide={card}
                       />
                       <div className="carousel-card-overlay">
                         <div className="carousel-card-copy">
