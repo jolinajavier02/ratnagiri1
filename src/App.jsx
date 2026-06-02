@@ -779,10 +779,6 @@ function App() {
                 <span className="section-tag">Maharashtra Tourism</span>
                 <h2 className="section-title">Heritage, Coastlines and Living Culture</h2>
                 <p>{maharashtraIntroParagraphs[0]}</p>
-                <a href="#/destinations" className="story-link">
-                  Explore Regions
-                  <ArrowRight size={18} />
-                </a>
               </div>
 
               <div className="maharashtra-focus-grid">
@@ -1010,7 +1006,7 @@ function App() {
                 </ul>
 
                 <button className="plan-trip-button" type="button" onClick={() => window.location.hash = '#/booking'}>
-                  Plan Your Trip Now
+                  Book Your Trip Now
                 </button>
               </div>
             </div>

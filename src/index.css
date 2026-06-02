@@ -5961,3 +5961,101 @@ body {
     grid-row: span 1;
   }
 }
+
+/* Social gallery final alignment and full-width collage scale */
+.social-gallery-section {
+  padding-block: clamp(4.2rem, 6vw, 7rem);
+}
+
+.social-gallery-section .section-heading-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+  min-height: 0;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.social-gallery-section .section-heading-row > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.social-gallery-section .section-heading-row .section-tag,
+.social-gallery-section .section-heading-row .section-title {
+  width: 100%;
+  max-width: none;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.social-gallery-section .section-heading-row .section-title {
+  font-size: clamp(3rem, 5.8vw, 6.4rem);
+  line-height: 0.95;
+}
+
+.social-gallery-section .see-all-link {
+  margin: 0.35rem auto 0;
+}
+
+.social-gallery-section .social-gallery-grid {
+  width: min(calc(100vw - 2rem), 1960px);
+  max-width: none;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  grid-auto-rows: clamp(135px, 10vw, 210px);
+  gap: 6px;
+}
+
+@media (max-width: 1024px) {
+  .social-gallery-section .section-heading-row .section-title {
+    font-size: clamp(2.7rem, 7vw, 4.8rem);
+  }
+
+  .social-gallery-section .social-gallery-grid {
+    width: min(calc(100vw - 1.25rem), 1120px);
+    grid-auto-rows: clamp(120px, 15vw, 180px);
+  }
+}
+
+@media (max-width: 768px) {
+  .social-gallery-section .section-heading-row .section-title {
+    font-size: clamp(2.4rem, 12vw, 3.8rem);
+  }
+
+  .social-gallery-section .social-gallery-grid {
+    width: calc(100vw - 1rem);
+    grid-auto-rows: 128px;
+  }
+}
+
+/* Site-highlight button color fix */
+.book-btn,
+.plan-trip-button,
+.tour-book-btn.solid {
+  background: var(--script-orange);
+  border-color: var(--script-orange);
+  color: #24170f;
+}
+
+.book-btn:hover,
+.book-btn:focus-visible,
+.plan-trip-button:hover,
+.plan-trip-button:focus-visible,
+.tour-book-btn.solid:hover,
+.tour-book-btn.solid:focus-visible {
+  background: #ff8f2f;
+  border-color: #ff8f2f;
+  color: #24170f;
+}
+
+.plan-trip-list svg {
+  background: var(--script-orange);
+  color: #24170f;
+}
