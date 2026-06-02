@@ -68,97 +68,8 @@ const sectionImages = {
   traditions: coverImage('traditions-india-summer-cover.png')
 };
 
-const videoPath = (filename) => `${import.meta.env.BASE_URL}videos/${filename}`;
-
-const sectionVideos = {
-  welcome: videoPath('welcome.mp4'),
-  destinations: videoPath('destinations.mp4'),
-  tours: videoPath('tours.mp4'),
-  booking: videoPath('booking.mp4'),
-  foods: videoPath('foods.mp4'),
-  traditions: videoPath('traditions.mp4')
-};
-
 const pageHeaderBackground = (image) =>
   `linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('${image}')`;
-
-// Slide categories in the requested preview order.
-const slides = [
-  {
-    id: 'cover',
-    category: 'Welcome',
-    location: 'Summer Escapes - Coastal India',
-    title: 'WELCOME TO INDIA',
-    subtitle: 'Sunlit Shores & Timeless Journeys',
-    description: 'A warm coastal welcome into India: golden beaches, blue water, palm shadows, relaxed resort stays, flavorful food, and culture glowing under the summer sun.',
-    imageUrl: sectionImages.welcome,
-    thumbnail: sectionImages.welcome,
-    videoUrl: sectionVideos.welcome,
-    link: '#/'
-  },
-  {
-    id: 'destinations',
-    category: 'Destinations',
-    location: 'Andaman Islands - India',
-    title: 'DESTINATIONS',
-    subtitle: 'Beach Sands & Island Light',
-    description: 'The destination preview highlights India’s tropical side: white sand, turquoise water, palm-lined beaches, island cliffs, and quiet coastal escapes made for summer travel.',
-    imageUrl: sectionImages.destinations,
-    thumbnail: sectionImages.destinations,
-    videoUrl: sectionVideos.destinations,
-    link: '#/destinations'
-  },
-  {
-    id: 'tours',
-    category: 'Tours',
-    location: 'Goa Coast - India',
-    title: 'TOURS',
-    subtitle: 'Golden Hour Beach Walks',
-    description: 'The tours preview is about guided beach walks, sunset conversations, boat rides, local hosts, and easy routes through India’s brightest coastal experiences.',
-    imageUrl: sectionImages.tours,
-    thumbnail: sectionImages.tours,
-    videoUrl: sectionVideos.tours,
-    link: '#/tours'
-  },
-  {
-    id: 'booking',
-    category: 'Bookings',
-    location: 'Kerala Beach Resort - India',
-    title: 'BOOKINGS',
-    subtitle: 'Beach Resorts & Easy Arrivals',
-    description: 'The bookings preview focuses on smooth arrivals: beach resorts, private stays, concierge planning, luggage-ready comfort, and sunlit check-ins by the sea.',
-    imageUrl: sectionImages.booking,
-    thumbnail: sectionImages.booking,
-    videoUrl: sectionVideos.booking,
-    link: '#/booking'
-  },
-  {
-    id: 'foods',
-    category: 'Foods',
-    location: 'Goa Food Trail - India',
-    title: 'FOODS',
-    subtitle: 'Coastal Flavors & Tropical Plates',
-    description: 'The food preview celebrates coastal India: grilled seafood, coconut drinks, mango, banana leaf plates, fresh chutneys, and spice-rich dishes beside the beach.',
-    imageUrl: sectionImages.foods,
-    thumbnail: sectionImages.foods,
-    videoUrl: sectionVideos.foods,
-    link: '#/foods'
-  },
-  {
-    id: 'tradition',
-    category: 'Tradition',
-    location: 'Kerala Coast - India',
-    title: 'TRADITIONS',
-    subtitle: 'Festivals by the Sea',
-    description: 'The traditions preview shows India’s coastal celebrations: diyas on sand, marigold rituals, music, dance, colorful clothing, and festival evenings by the water.',
-    imageUrl: sectionImages.traditions,
-    thumbnail: sectionImages.traditions,
-    videoUrl: sectionVideos.traditions,
-    link: '#/tradition'
-  }
-];
-
-const HERO_VIDEO_DURATION_MS = 10 * 60 * 1000;
 
 function LogoArrangement() {
   return (
@@ -281,10 +192,6 @@ function App() {
   const [currentRoute, setCurrentRoute] = useState(window.location.hash || '#/');
   const [scrolled, setScrolled] = useState(false);
 
-  // Hero Carousel State
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [progress, setProgress] = useState(0);
-
   // Custom Trip Planner State
   const [plannerBudget, setPlannerBudget] = useState('luxury');
   const [plannerDays, setPlannerDays] = useState(7);
@@ -323,32 +230,6 @@ function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Cycle each landing video section every 10 minutes.
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => Math.min(prev + (100 / (HERO_VIDEO_DURATION_MS / 1000)), 100));
-    }, 1000);
-    const timer = setTimeout(() => {
-      setProgress(0);
-      setActiveSlide((slide) => (slide + 1) % slides.length);
-    }, HERO_VIDEO_DURATION_MS);
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timer);
-    };
-  }, [activeSlide]);
-
-  const selectSlide = (index) => {
-    setActiveSlide(index);
-    setProgress(0);
-  };
-
-  const previewSlides = Array.from({ length: slides.length - 1 }, (_, index) => {
-    const originalIndex = (activeSlide + index + 1) % slides.length;
-    return { ...slides[originalIndex], originalIndex };
-  });
 
   // Dynamic Trip Planner Function
   const calculatePlan = (e) => {
@@ -444,70 +325,6 @@ function App() {
           {/* HERO SECTION CONTAINER */}
           <section className="hero-container">
             <LogoArrangement />
-
-            <div className="hero-video-wrapper">
-              {slides.map((slide, idx) => (
-                <video
-                  key={slide.id}
-                  className={`hero-video ${idx === activeSlide ? 'active' : ''}`}
-                  poster={slide.thumbnail}
-                  muted
-                  playsInline
-                  autoPlay={idx === activeSlide}
-                  loop
-                  preload={idx === activeSlide ? 'auto' : 'metadata'}
-                  aria-label={`${slide.category} tourism video`}
-                >
-                  <source src={slide.videoUrl} type="video/mp4" />
-                </video>
-              ))}
-            </div>
-
-            <div className="hero-overlay" />
-
-            <div className="hero-rail" aria-hidden="true">
-              <span>01</span>
-              <div className="hero-rail-line">
-                <i style={{ height: `${Math.max(progress, 8)}%` }} />
-                <b>{activeSlide + 1}</b>
-              </div>
-              <span>{String(activeSlide + 1).padStart(2, '0')}/{String(slides.length).padStart(2, '0')}</span>
-            </div>
-
-            <div className="hero-carousel-panel">
-              <div className="carousel-cards-container">
-                {previewSlides.map((card) => (
-                  <div className="hero-preview-item" key={card.id}>
-                    <div
-                      className="carousel-card"
-                      onClick={() => selectSlide(card.originalIndex)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(event) => {
-                        if (event.key === 'Enter' || event.key === ' ') {
-                          event.preventDefault();
-                          selectSlide(card.originalIndex);
-                        }
-                      }}
-                      aria-label={`Show ${card.title}`}
-                    >
-                      <video
-                        className="carousel-card-img"
-                        poster={card.thumbnail}
-                        muted
-                        playsInline
-                        loop
-                        autoPlay
-                        preload="metadata"
-                        aria-label={`${card.category} preview video`}
-                      >
-                        <source src={card.videoUrl} type="video/mp4" />
-                      </video>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </section>
 
           {/* BODY SECTION */}
