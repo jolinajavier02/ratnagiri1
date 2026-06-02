@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Play, Pause, ChevronLeft, ChevronRight, MapPin, Star, Calendar,
+  MapPin, Star, Calendar,
   Compass, Award, Users, ArrowRight, Plane,
   Train, Hotel, Filter, Utensils, Sparkles,
   Search, Globe, Check, Info
 } from 'lucide-react';
+import brandLogo from './assets/logo.png';
+import badgeLogo from './assets/badge.png';
+import signLogo from './assets/sign.png';
+import stickerLogo from './assets/sticker.png';
 import './App.css';
 
 const socialLinks = [
@@ -65,6 +68,17 @@ const sectionImages = {
   traditions: coverImage('traditions-india-summer-cover.png')
 };
 
+const videoPath = (filename) => `${import.meta.env.BASE_URL}videos/${filename}`;
+
+const sectionVideos = {
+  welcome: videoPath('welcome.mp4'),
+  destinations: videoPath('destinations.mp4'),
+  tours: videoPath('tours.mp4'),
+  booking: videoPath('booking.mp4'),
+  foods: videoPath('foods.mp4'),
+  traditions: videoPath('traditions.mp4')
+};
+
 const pageHeaderBackground = (image) =>
   `linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('${image}')`;
 
@@ -79,6 +93,7 @@ const slides = [
     description: 'A warm coastal welcome into India: golden beaches, blue water, palm shadows, relaxed resort stays, flavorful food, and culture glowing under the summer sun.',
     imageUrl: sectionImages.welcome,
     thumbnail: sectionImages.welcome,
+    videoUrl: sectionVideos.welcome,
     link: '#/'
   },
   {
@@ -90,6 +105,7 @@ const slides = [
     description: 'The destination preview highlights India’s tropical side: white sand, turquoise water, palm-lined beaches, island cliffs, and quiet coastal escapes made for summer travel.',
     imageUrl: sectionImages.destinations,
     thumbnail: sectionImages.destinations,
+    videoUrl: sectionVideos.destinations,
     link: '#/destinations'
   },
   {
@@ -101,6 +117,7 @@ const slides = [
     description: 'The tours preview is about guided beach walks, sunset conversations, boat rides, local hosts, and easy routes through India’s brightest coastal experiences.',
     imageUrl: sectionImages.tours,
     thumbnail: sectionImages.tours,
+    videoUrl: sectionVideos.tours,
     link: '#/tours'
   },
   {
@@ -112,6 +129,7 @@ const slides = [
     description: 'The bookings preview focuses on smooth arrivals: beach resorts, private stays, concierge planning, luggage-ready comfort, and sunlit check-ins by the sea.',
     imageUrl: sectionImages.booking,
     thumbnail: sectionImages.booking,
+    videoUrl: sectionVideos.booking,
     link: '#/booking'
   },
   {
@@ -123,6 +141,7 @@ const slides = [
     description: 'The food preview celebrates coastal India: grilled seafood, coconut drinks, mango, banana leaf plates, fresh chutneys, and spice-rich dishes beside the beach.',
     imageUrl: sectionImages.foods,
     thumbnail: sectionImages.foods,
+    videoUrl: sectionVideos.foods,
     link: '#/foods'
   },
   {
@@ -134,9 +153,24 @@ const slides = [
     description: 'The traditions preview shows India’s coastal celebrations: diyas on sand, marigold rituals, music, dance, colorful clothing, and festival evenings by the water.',
     imageUrl: sectionImages.traditions,
     thumbnail: sectionImages.traditions,
+    videoUrl: sectionVideos.traditions,
     link: '#/tradition'
   }
 ];
+
+const HERO_VIDEO_DURATION_MS = 10 * 60 * 1000;
+
+function LogoArrangement() {
+  return (
+    <div className="logo-arrangement" aria-label="Maharashtra Tourism brand arrangement">
+      <img src={brandLogo} alt="Maharashtra Tourism logo" className="arrangement-logo" />
+      <img src={badgeLogo} alt="Maharashtra Tourism badge" className="arrangement-badge" />
+      <img src={signLogo} alt="Incredible India" className="arrangement-sign" />
+      <img src={stickerLogo} alt="Maharashtra unlimited" className="arrangement-sticker" />
+      <h1 className="arrangement-title">Maharashtra Tourism</h1>
+    </div>
+  );
+}
 
 const districtList = [
   'Ahilyanagar',
@@ -249,7 +283,6 @@ function App() {
 
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
 
   // Custom Trip Planner State
@@ -291,38 +324,24 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 8 Second Autoplay Interval with Ticker
+  // Cycle each landing video section every 10 minutes.
   useEffect(() => {
-    let interval = null;
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) {
-            setActiveSlide((slide) => (slide + 1) % slides.length);
-            return 0;
-          }
-          return prev + 1.25; // 8000ms total / 100ms ticker = 80 steps -> 100 / 80 = 1.25% per step
-        });
-      }, 100);
-    } else {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isPlaying, activeSlide]);
+    const interval = setInterval(() => {
+      setProgress((prev) => Math.min(prev + (100 / (HERO_VIDEO_DURATION_MS / 1000)), 100));
+    }, 1000);
+    const timer = setTimeout(() => {
+      setProgress(0);
+      setActiveSlide((slide) => (slide + 1) % slides.length);
+    }, HERO_VIDEO_DURATION_MS);
 
-  // Restart progress when user changes slide manually
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timer);
+    };
+  }, [activeSlide]);
+
   const selectSlide = (index) => {
     setActiveSlide(index);
-    setProgress(0);
-  };
-
-  const handlePrevSlide = () => {
-    setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setProgress(0);
-  };
-
-  const handleNextSlide = () => {
-    setActiveSlide((prev) => (prev + 1) % slides.length);
     setProgress(0);
   };
 
@@ -396,10 +415,7 @@ function App() {
       {/* Dynamic Navigation Bar */}
       <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <a href="#/" className="logo-container">
-          <svg className="logo-icon" viewBox="0 0 50 50">
-            <path d="M25 2C16.8 2 10.2 8.6 10.2 16.8c0 4.1 1.7 7.8 4.4 10.5L25 45l10.4-17.7c2.7-2.7 4.4-6.4 4.4-10.5C39.8 8.6 33.2 2 25 2zm0 22c-2.9 0-5.2-2.3-5.2-5.2s2.3-5.2 5.2-5.2 5.2 2.3 5.2 5.2S27.9 24 25 24z" />
-            <circle cx="25" cy="18.8" r="4.5" fill="#FFFFFF" />
-          </svg>
+          <img src={brandLogo} alt="Maharashtra Tourism" className="logo-icon" />
           <div className="logo-text">
             <span className="logo-main">Incredible India</span>
             <span className="logo-sub">Maharashtra Tourism</span>
@@ -427,15 +443,23 @@ function App() {
         <>
           {/* HERO SECTION CONTAINER */}
           <section className="hero-container">
-            {/* Edge-to-edge image covers with fade-in crossfade */}
+            <LogoArrangement />
+
             <div className="hero-video-wrapper">
               {slides.map((slide, idx) => (
-                <img
+                <video
                   key={slide.id}
-                  src={slide.imageUrl}
-                  alt={`${slide.title} tourism cover`}
                   className={`hero-video ${idx === activeSlide ? 'active' : ''}`}
-                />
+                  poster={slide.thumbnail}
+                  muted
+                  playsInline
+                  autoPlay={idx === activeSlide}
+                  loop
+                  preload={idx === activeSlide ? 'auto' : 'metadata'}
+                  aria-label={`${slide.category} tourism video`}
+                >
+                  <source src={slide.videoUrl} type="video/mp4" />
+                </video>
               ))}
             </div>
 
@@ -450,34 +474,6 @@ function App() {
               <span>{String(activeSlide + 1).padStart(2, '0')}/{String(slides.length).padStart(2, '0')}</span>
             </div>
 
-            {/* Slide Typography Left Content */}
-            <div className="hero-content">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeSlide}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -30 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <span className="hero-location-badge">{slides[activeSlide].location}</span>
-                  <h1 className="hero-title">{slides[activeSlide].title}</h1>
-                  <h2 className="hero-active-place">{slides[activeSlide].subtitle}</h2>
-                  <p className="hero-description">{slides[activeSlide].description}</p>
-
-                  <div className="hero-cta-wrapper">
-                    <a href={slides[activeSlide].link} className="hero-explore-btn">
-                      Explore Now
-                      <div className="bookmark-icon">
-                        <ChevronRight size={18} />
-                      </div>
-                    </a>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Next 4 Upcoming Slide Cards Carousel Right */}
             <div className="hero-carousel-panel">
               <div className="carousel-cards-container">
                 {previewSlides.map((card) => (
@@ -495,51 +491,21 @@ function App() {
                       }}
                       aria-label={`Show ${card.title}`}
                     >
-                      <img src={card.thumbnail} alt={card.title} className="carousel-card-img" />
-                      <div className="carousel-card-overlay">
-                        <span className="carousel-card-location">{card.location}</span>
-                        <h4 className="carousel-card-title">{card.title}</h4>
-                      </div>
+                      <video
+                        className="carousel-card-img"
+                        poster={card.thumbnail}
+                        muted
+                        playsInline
+                        loop
+                        autoPlay
+                        preload="metadata"
+                        aria-label={`${card.category} preview video`}
+                      >
+                        <source src={card.videoUrl} type="video/mp4" />
+                      </video>
                     </div>
                   </div>
                 ))}
-              </div>
-            </div>
-
-            {/* Bottom Panel Controls */}
-            <div className="hero-bottom-controls">
-              {/* Social Media Links left */}
-              <div className="social-links">
-                {socialLinks.map((social) => (
-                  <a key={social.label} href={social.href} className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label={social.label}>
-                    <SocialIconMark mark={social.mark} />
-                  </a>
-                ))}
-              </div>
-
-              {/* Progress bar and Counter right */}
-              <div className="progress-and-counter">
-                <div className="playback-controls">
-                  <button className="control-btn" onClick={handlePrevSlide} title="Previous Slide">
-                    <ChevronLeft size={20} />
-                  </button>
-                  <button
-                    className="control-btn play-pause"
-                    onClick={() => setIsPlaying(!isPlaying)}
-                    title={isPlaying ? "Pause Auto-Rotate" : "Start Auto-Rotate"}
-                  >
-                    {isPlaying ? <Pause size={22} /> : <Play size={22} fill="#FFFFFF" />}
-                  </button>
-                  <button className="control-btn" onClick={handleNextSlide} title="Next Slide">
-                    <ChevronRight size={20} />
-                  </button>
-                </div>
-                <div className="progress-bar-container">
-                  <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
-                </div>
-                <span className="slide-counter">
-                  0{activeSlide + 1}
-                </span>
               </div>
             </div>
           </section>
@@ -1239,10 +1205,7 @@ function App() {
         <div className="footer-grid">
           <div className="footer-brand">
             <a href="#/" className="logo-container" style={{ alignSelf: 'flex-start' }}>
-              <svg className="logo-icon" viewBox="0 0 50 50">
-                <path d="M25 2C16.8 2 10.2 8.6 10.2 16.8c0 4.1 1.7 7.8 4.4 10.5L25 45l10.4-17.7c2.7-2.7 4.4-6.4 4.4-10.5C39.8 8.6 33.2 2 25 2zm0 22c-2.9 0-5.2-2.3-5.2-5.2s2.3-5.2 5.2-5.2 5.2 2.3 5.2 5.2S27.9 24 25 24z" />
-                <circle cx="25" cy="18.8" r="4.5" fill="#FFFFFF" />
-              </svg>
+              <img src={brandLogo} alt="Maharashtra Tourism" className="logo-icon" />
               <div className="logo-text">
                 <span className="logo-main" style={{ fontSize: '1.25rem' }}>Incredible India</span>
                 <span className="logo-sub" style={{ fontSize: '0.7rem' }}>Maharashtra Tourism</span>
