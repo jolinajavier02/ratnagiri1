@@ -623,10 +623,9 @@ function App() {
   };
 
   const wheelSlides = slides.map((slide, originalIndex) => ({ ...slide, originalIndex }));
-  const activeWheelIndex = activeSlide;
-  const previewSlides = Array.from({ length: 3 }, (_, slotIndex) => {
-    const slide = wheelSlides[(activeWheelIndex + slotIndex) % wheelSlides.length];
-    return { ...slide, fixedSlot: slotIndex };
+  const previewSlides = wheelSlides.map((slide, index) => {
+    const relativeSlot = (index - activeSlide + wheelSlides.length) % wheelSlides.length;
+    return { ...slide, relativeSlot };
   });
 
   const activeRegionFeature = activeIndiaPlace === ratnagiriRegionFeature.id
@@ -736,7 +735,7 @@ function App() {
               </div>
               <div className="carousel-cards-container">
                 {previewSlides.map((card) => (
-                  <div className={`hero-preview-item preview-slot-${card.fixedSlot}`} key={`${card.id}-${card.fixedSlot}`}>
+                  <div className={`hero-preview-item preview-slot-${card.relativeSlot}`} key={card.id}>
                     <div
                       className="carousel-card"
                       onClick={() => selectSlide(card.originalIndex)}
