@@ -7259,3 +7259,74 @@ body {
   color: rgba(255, 250, 241, 0.94);
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.72);
 }
+
+/* Ratnagiri5: fixed shape block, rotating video content only */
+.hero-preview-item:nth-child(n) {
+  opacity: 1;
+  filter: none;
+  pointer-events: auto;
+  transition: opacity 420ms ease;
+}
+
+.hero-preview-item.preview-slot-0 {
+  z-index: 6;
+  transform: translate3d(-116%, -104%, 0) rotate(-60deg);
+}
+
+.hero-preview-item.preview-slot-1 {
+  z-index: 7;
+  transform: translate3d(-128%, -34%, 0) rotate(0deg);
+}
+
+.hero-preview-item.preview-slot-2 {
+  z-index: 6;
+  transform: translate3d(-116%, 36%, 0) rotate(60deg);
+}
+
+.hero-preview-item.preview-slot-3,
+.hero-preview-item.preview-slot-4,
+.hero-preview-item.preview-slot-5 {
+  display: none;
+}
+
+.hero-preview-item:nth-child(n) .carousel-card,
+.carousel-card {
+  box-shadow:
+    0 0 0 3px rgba(255, 250, 241, 0.98),
+    0 18px 42px rgba(5, 16, 32, 0.24);
+}
+
+.hero-preview-item:nth-child(n) .carousel-card::before,
+.hero-preview-item:nth-child(n) .carousel-card::after {
+  display: none;
+}
+
+.carousel-card-copy {
+  width: min(70%, 24ch);
+}
+
+.preview-slot-0 .carousel-card-copy {
+  --card-copy-rotation: 60deg;
+}
+
+.preview-slot-1 .carousel-card-copy {
+  --card-copy-rotation: 0deg;
+}
+
+.preview-slot-2 .carousel-card-copy {
+  --card-copy-rotation: -60deg;
+}
+
+@media (max-width: 720px) {
+  .hero-preview-item.preview-slot-0 {
+    transform: translate3d(-110%, -98%, 0) rotate(-60deg);
+  }
+
+  .hero-preview-item.preview-slot-1 {
+    transform: translate3d(-122%, -34%, 0) rotate(0deg);
+  }
+
+  .hero-preview-item.preview-slot-2 {
+    transform: translate3d(-110%, 30%, 0) rotate(60deg);
+  }
+}
