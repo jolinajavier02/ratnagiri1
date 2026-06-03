@@ -693,7 +693,6 @@ function App() {
             <li><a href="#/" className={`nav-link ${routePath === '#/' ? 'active' : ''}`}>Home</a></li>
             <li><a href="#about" className="nav-link">About</a></li>
             <li><a href="#/destinations" className={`nav-link ${routePath === '#/destinations' ? 'active' : ''}`}>Discover Maharashtra</a></li>
-            <li><a href="#/tours" className={`nav-link ${routePath === '#/tours' ? 'active' : ''}`}>Tourist Interest</a></li>
             <li><a href="#/booking" className={`nav-link nav-trip-button ${routePath === '#/booking' ? 'active' : ''}`}>Plan Your Trip</a></li>
           </ul>
 
