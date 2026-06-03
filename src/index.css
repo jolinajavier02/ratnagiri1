@@ -7187,3 +7187,75 @@ body {
     font-size: 0.72rem;
   }
 }
+
+/* Ratnagiri5 final shape correction: hexagon-slice video cards */
+.hero-preview-item:nth-child(n) .carousel-card,
+.carousel-card {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: rgba(255, 250, 241, 0.96);
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  box-shadow:
+    0 0 0 2px rgba(36, 23, 15, 0.72),
+    0 22px 52px rgba(5, 16, 32, 0.28);
+}
+
+.carousel-card-img,
+.carousel-card-overlay {
+  position: absolute;
+  inset: 5px;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+.carousel-card-img {
+  opacity: 1;
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.carousel-card-overlay {
+  padding: clamp(1rem, 1.35vw, 1.6rem);
+  background:
+    linear-gradient(180deg, rgba(36, 23, 15, 0.5) 0%, rgba(36, 23, 15, 0.18) 48%, rgba(36, 23, 15, 0.62) 100%);
+}
+
+.hero-preview-item:nth-child(n) .carousel-card::before,
+.hero-preview-item:nth-child(n) .carousel-card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  width: 3px;
+  height: 88%;
+  background: rgba(255, 250, 241, 0.84);
+  transform-origin: 50% 100%;
+  pointer-events: none;
+}
+
+.hero-preview-item:nth-child(n) .carousel-card::before {
+  transform: translate(-50%, -50%) rotate(-31deg);
+}
+
+.hero-preview-item:nth-child(n) .carousel-card::after {
+  transform: translate(-50%, -50%) rotate(31deg);
+}
+
+.carousel-card-copy {
+  z-index: 4;
+  width: min(68%, 24ch);
+  transform: translateY(-6%) rotate(var(--card-copy-rotation, 0deg));
+}
+
+.carousel-card-title {
+  color: #fffaf1;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.72);
+}
+
+.carousel-card-desc {
+  color: rgba(255, 250, 241, 0.94);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.72);
+}
