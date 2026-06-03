@@ -7,6 +7,7 @@ import {
   Search, Globe, Check
 } from 'lucide-react';
 import brandLogo from './assets/logo.png';
+import welcomeVideo from './assets/welcome.mp4';
 import destinationVideo from './assets/Destination.mp4';
 import tourVideo from './assets/Tour.mp4';
 import bookingVideo from './assets/Booking.mp4';
@@ -80,7 +81,7 @@ const sectionImages = {
 };
 
 const sectionVideos = {
-  welcome: destinationVideo,
+  welcome: welcomeVideo,
   destinations: destinationVideo,
   tours: tourVideo,
   booking: bookingVideo,
@@ -621,10 +622,9 @@ function App() {
     setActiveSlide(index);
   };
 
-  const previewSlides = Array.from({ length: slides.length - 1 }, (_, index) => {
-    const originalIndex = (activeSlide + index + 1) % slides.length;
-    return { ...slides[originalIndex], originalIndex };
-  });
+  const previewSlides = slides
+    .map((slide, originalIndex) => ({ ...slide, originalIndex }))
+    .filter((slide) => slide.id !== 'cover');
 
   const activeRegionFeature = activeIndiaPlace === ratnagiriRegionFeature.id
     ? ratnagiriRegionFeature
