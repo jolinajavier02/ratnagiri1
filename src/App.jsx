@@ -691,11 +691,10 @@ function App() {
 
           <ul className="nav-links">
             <li><a href="#/" className={`nav-link ${routePath === '#/' ? 'active' : ''}`}>Home</a></li>
-            <li><a href="#/destinations" className={`nav-link ${routePath === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
-            <li><a href="#/tours" className={`nav-link ${routePath === '#/tours' ? 'active' : ''}`}>Guided Tours</a></li>
-            <li><a href="#/booking" className={`nav-link ${routePath === '#/booking' ? 'active' : ''}`}>Bookings</a></li>
-            <li><a href="#/foods" className={`nav-link ${routePath === '#/foods' ? 'active' : ''}`}>Regional Foods</a></li>
-            <li><a href="#/tradition" className={`nav-link ${routePath === '#/tradition' ? 'active' : ''}`}>Traditions</a></li>
+            <li><a href="#about" className="nav-link">About</a></li>
+            <li><a href="#/destinations" className={`nav-link ${routePath === '#/destinations' ? 'active' : ''}`}>Discover Maharashtra</a></li>
+            <li><a href="#/tours" className={`nav-link ${routePath === '#/tours' ? 'active' : ''}`}>Tourist Interest</a></li>
+            <li><a href="#travel-guide" className="nav-link">Travel Guide</a></li>
           </ul>
 
           <div className="nav-actions">
@@ -775,7 +774,7 @@ function App() {
           {/* BODY SECTION */}
 
           {/* 1. Maharashtra Tourism */}
-          <section className="section-wrapper maharashtra-story-section">
+          <section id="about" className="section-wrapper maharashtra-story-section">
             <div className="maharashtra-story-layout">
               <div className="maharashtra-story-copy">
                 <span className="section-tag">Maharashtra Tourism</span>
@@ -796,7 +795,7 @@ function App() {
           </section>
 
           {/* 2. Curated Travel Guide */}
-          <section className="section-wrapper curated-guide-section">
+          <section id="travel-guide" className="section-wrapper curated-guide-section">
             <div className="curated-guide-heading">
               <span className="section-tag">Essential Intelligence</span>
               <h2 className="section-title">Curated Travel Guide</h2>
