@@ -6185,7 +6185,7 @@ body {
 .navbar.scrolled {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(230px, 0.78fr) minmax(210px, 0.9fr) minmax(520px, 1.55fr);
+  grid-template-columns: minmax(260px, 1fr) minmax(290px, 1fr) minmax(520px, 1fr);
   align-items: center;
   gap: clamp(0.65rem, 1.2vw, 1.25rem);
   width: 100%;
@@ -6206,11 +6206,13 @@ body {
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
-  color: var(--script-orange);
-  font-family: var(--script);
-  font-size: clamp(1.1rem, 1.45vw, 1.95rem);
-  font-weight: 500;
-  line-height: 1;
+  color: var(--text-primary);
+  font-family: var(--sans);
+  font-size: clamp(0.78rem, 0.95vw, 1.02rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+  text-transform: uppercase;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -6226,6 +6228,27 @@ body {
 .nav-link {
   white-space: nowrap;
   font-size: clamp(0.78rem, 0.86vw, 0.95rem);
+}
+
+.nav-trip-button {
+  padding: 0.72rem 1.18rem;
+  border: 1px solid rgba(255, 151, 55, 0.72);
+  border-radius: 999px;
+  background: var(--script-orange);
+  color: #24170f;
+  box-shadow: 0 14px 30px rgba(255, 151, 55, 0.2);
+}
+
+.nav-trip-button::after {
+  display: none;
+}
+
+.nav-trip-button:hover,
+.nav-trip-button:focus-visible,
+.nav-trip-button.active {
+  color: #24170f;
+  background: #ff8f2f;
+  transform: translateY(-1px);
 }
 
 .nav-actions {
@@ -6292,12 +6315,12 @@ body {
 @media (max-width: 1280px) {
   .navbar,
   .navbar.scrolled {
-    grid-template-columns: minmax(220px, auto) minmax(190px, 0.7fr) minmax(420px, 1.4fr);
+    grid-template-columns: minmax(230px, 0.85fr) minmax(250px, 0.8fr) minmax(450px, 1.35fr);
   }
 
   .header-official-title {
     display: block;
-    font-size: clamp(1rem, 1.25vw, 1.45rem);
+    font-size: clamp(0.72rem, 0.86vw, 0.88rem);
   }
 
   .nav-links {
