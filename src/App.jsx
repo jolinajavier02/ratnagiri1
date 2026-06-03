@@ -687,6 +687,8 @@ function App() {
             </div>
           </a>
 
+          <span className="header-official-title">The Official Site of Maharashtra Tourism</span>
+
           <ul className="nav-links">
             <li><a href="#/" className={`nav-link ${routePath === '#/' ? 'active' : ''}`}>Home</a></li>
             <li><a href="#/destinations" className={`nav-link ${routePath === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
@@ -731,7 +733,7 @@ function App() {
               <div className="hero-browse-cue" aria-hidden="true">
                 <span>Browse Categories</span>
               </div>
-              <div className="carousel-cards-container" key={activeSlide}>
+              <div className="carousel-cards-container">
                 {previewSlides.map((card) => (
                   <div className="hero-preview-item" key={card.id}>
                     <div
@@ -754,7 +756,7 @@ function App() {
                         muted
                         loop
                         playsInline
-                        preload="metadata"
+                        preload="auto"
                         aria-label={`${card.category} preview video`}
                       />
                       <div className="carousel-card-overlay">
