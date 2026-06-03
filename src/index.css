@@ -7879,3 +7879,62 @@ body {
     width: 150px;
   }
 }
+
+/* Ratnagiri5: inner browse circle and seamless segment edges */
+.carousel-cards-container {
+  background: rgba(36, 23, 15, 0.28);
+}
+
+.carousel-cards-container::before {
+  inset: auto;
+  top: 50%;
+  left: 43%;
+  z-index: 10;
+  width: clamp(152px, 12vw, 220px);
+  height: clamp(152px, 12vw, 220px);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 250, 241, 0.96) 0%, rgba(255, 244, 226, 0.9) 64%, rgba(255, 151, 55, 0.14) 100%);
+  box-shadow: 0 14px 38px rgba(5, 16, 32, 0.2);
+  transform: translate(-50%, -50%);
+}
+
+.hero-preview-item.preview-slot-1 .carousel-card-overlay,
+.hero-preview-item.preview-slot-0 .carousel-card-overlay {
+  border-bottom: 0;
+}
+
+.carousel-card-overlay {
+  background:
+    linear-gradient(90deg, rgba(36, 23, 15, 0.56), rgba(36, 23, 15, 0.08)),
+    linear-gradient(0deg, rgba(255, 151, 55, 0.08), rgba(255, 151, 55, 0));
+}
+
+.hero-wheel-hub {
+  left: 43%;
+  z-index: 12;
+  width: clamp(132px, 10.5vw, 190px);
+  color: var(--text-primary);
+  text-shadow: none;
+}
+
+.hero-wheel-hub strong {
+  color: var(--script-orange);
+  font-size: clamp(1.75rem, 2.45vw, 3.3rem);
+}
+
+.hero-wheel-hub span {
+  color: var(--text-primary);
+  font-size: clamp(0.62rem, 0.76vw, 0.92rem);
+}
+
+@media (max-width: 900px) {
+  .carousel-cards-container::before {
+    width: 132px;
+    height: 132px;
+  }
+
+  .hero-wheel-hub {
+    width: 112px;
+  }
+}
