@@ -622,9 +622,16 @@ function App() {
     setActiveSlide(index);
   };
 
-  const previewSlides = slides
+  const categorySlides = slides
     .map((slide, originalIndex) => ({ ...slide, originalIndex }))
     .filter((slide) => slide.id !== 'cover');
+  const activeCategoryIndex = activeSlide === 0
+    ? 0
+    : categorySlides.findIndex((slide) => slide.originalIndex === activeSlide);
+  const previewSlides = categorySlides.map((slide, index) => {
+    const relativeSlot = (index - activeCategoryIndex + categorySlides.length) % categorySlides.length;
+    return { ...slide, relativeSlot };
+  });
 
   const activeRegionFeature = activeIndiaPlace === ratnagiriRegionFeature.id
     ? ratnagiriRegionFeature
@@ -733,7 +740,7 @@ function App() {
               </div>
               <div className="carousel-cards-container">
                 {previewSlides.map((card) => (
-                  <div className="hero-preview-item" key={card.id}>
+                  <div className={`hero-preview-item preview-slot-${card.relativeSlot}`} key={card.id}>
                     <div
                       className="carousel-card"
                       onClick={() => selectSlide(card.originalIndex)}
