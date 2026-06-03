@@ -622,14 +622,9 @@ function App() {
     setActiveSlide(index);
   };
 
-  const categorySlides = slides
-    .map((slide, originalIndex) => ({ ...slide, originalIndex }))
-    .filter((slide) => slide.id !== 'cover');
-  const activeCategoryIndex = activeSlide === 0
-    ? 0
-    : categorySlides.findIndex((slide) => slide.originalIndex === activeSlide);
-  const previewSlides = categorySlides.map((slide, index) => {
-    const relativeSlot = (index - activeCategoryIndex + categorySlides.length) % categorySlides.length;
+  const wheelSlides = slides.map((slide, originalIndex) => ({ ...slide, originalIndex }));
+  const previewSlides = wheelSlides.map((slide, index) => {
+    const relativeSlot = (index - activeSlide + wheelSlides.length) % wheelSlides.length;
     return { ...slide, relativeSlot };
   });
 
@@ -773,6 +768,10 @@ function App() {
                     </div>
                   </div>
                 ))}
+                <div className="hero-wheel-hub" aria-hidden="true">
+                  <strong>06</strong>
+                  <span>Journeys</span>
+                </div>
               </div>
             </div>
           </section>
