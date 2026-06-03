@@ -7938,3 +7938,352 @@ body {
     width: 112px;
   }
 }
+
+/* Ratnagiri5 sketch structure: right half-circle with three outer sections and inner browse section */
+.hero-carousel-panel {
+  top: 52%;
+  right: clamp(-18rem, -16vw, -8rem);
+  width: clamp(560px, 43vw, 760px);
+  height: clamp(620px, 48vw, 840px);
+  transform: translateY(-50%);
+}
+
+.carousel-cards-container {
+  overflow: hidden;
+  border-radius: 50% 0 0 50%;
+  background: rgba(36, 23, 15, 0.36);
+  box-shadow: 0 24px 76px rgba(5, 16, 32, 0.26);
+}
+
+.carousel-cards-container::before {
+  display: none;
+}
+
+.hero-preview-item:nth-child(n) {
+  top: auto;
+  left: auto;
+  width: auto;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  transform: none;
+  filter: brightness(0.7) saturate(0.85);
+}
+
+.hero-preview-item.preview-slot-1,
+.hero-preview-item.preview-slot-0,
+.hero-preview-item.preview-slot-5 {
+  opacity: 1;
+  pointer-events: auto;
+  filter: none;
+}
+
+.hero-preview-item.preview-slot-1 {
+  top: 4%;
+  right: 0;
+  z-index: 4;
+  width: 76%;
+  height: 33%;
+  clip-path: polygon(24% 0, 100% 0, 100% 100%, 42% 100%, 0 45%);
+}
+
+.hero-preview-item.preview-slot-0 {
+  top: 29%;
+  left: 0;
+  z-index: 5;
+  width: 56%;
+  height: 35%;
+  clip-path: polygon(0 8%, 100% 0, 82% 100%, 0 88%);
+}
+
+.hero-preview-item.preview-slot-5 {
+  right: 0;
+  bottom: 4%;
+  z-index: 4;
+  width: 88%;
+  height: 34%;
+  clip-path: polygon(0 32%, 37% 0, 100% 0, 100% 100%, 32% 100%, 0 70%);
+}
+
+.hero-preview-item.preview-slot-2,
+.hero-preview-item.preview-slot-3,
+.hero-preview-item.preview-slot-4 {
+  right: -14%;
+  top: 33%;
+  width: 52%;
+  height: 34%;
+}
+
+.hero-preview-item:nth-child(n) .carousel-card,
+.carousel-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  clip-path: none;
+  box-shadow: none;
+}
+
+.carousel-card-img,
+.carousel-card-overlay {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: none;
+}
+
+.carousel-card-img {
+  opacity: 1;
+  filter: saturate(1.06) contrast(1.02);
+}
+
+.carousel-card-overlay {
+  background:
+    linear-gradient(90deg, rgba(36, 23, 15, 0.62), rgba(36, 23, 15, 0.12)),
+    linear-gradient(0deg, rgba(255, 151, 55, 0.1), rgba(255, 151, 55, 0));
+}
+
+.carousel-card-copy {
+  width: min(76%, 26ch);
+  transform: none;
+}
+
+.preview-slot-0 .carousel-card-copy,
+.preview-slot-1 .carousel-card-copy,
+.preview-slot-5 .carousel-card-copy {
+  --card-copy-rotation: 0deg;
+}
+
+.carousel-card-title {
+  color: #fffaf1;
+  font-size: clamp(1.05rem, 1.25vw, 1.5rem);
+}
+
+.carousel-card-desc {
+  max-width: 20ch;
+  font-size: clamp(0.66rem, 0.72vw, 0.86rem);
+}
+
+.hero-wheel-hub {
+  top: 50%;
+  left: auto;
+  right: 0;
+  z-index: 8;
+  display: flex;
+  width: 46%;
+  height: 39%;
+  padding-left: clamp(1rem, 2vw, 2.2rem);
+  transform: translateY(-50%);
+  border-radius: 999px 0 0 999px;
+  background:
+    linear-gradient(90deg, rgba(255, 151, 55, 0.82), rgba(255, 111, 31, 0.68)),
+    rgba(36, 23, 15, 0.58);
+  color: #fffaf1;
+  text-align: center;
+  text-shadow: 0 5px 22px rgba(0, 0, 0, 0.4);
+}
+
+.hero-wheel-hub strong {
+  color: #fffaf1;
+  font-size: clamp(1.9rem, 2.9vw, 4.1rem);
+}
+
+.hero-wheel-hub span {
+  color: #fffaf1;
+  font-size: clamp(0.72rem, 0.9vw, 1.1rem);
+}
+
+@media (max-width: 900px) {
+  .hero-carousel-panel {
+    right: -220px;
+    width: 520px;
+    height: 590px;
+  }
+
+  .hero-wheel-hub {
+    width: 48%;
+    height: 36%;
+  }
+}
+
+/* Ratnagiri5 final section geometry: simple drawn trapeze layout */
+.hero-carousel-panel {
+  top: 52%;
+  right: clamp(-17rem, -14vw, -7.5rem);
+  width: clamp(560px, 43vw, 760px);
+  height: clamp(620px, 48vw, 840px);
+  transform: translateY(-50%);
+}
+
+.carousel-cards-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 52% 0 0 52%;
+  background: rgba(36, 23, 15, 0.34);
+  box-shadow: 0 24px 72px rgba(5, 16, 32, 0.26);
+}
+
+.carousel-cards-container::before {
+  display: none;
+}
+
+.hero-preview-item:nth-child(n) {
+  position: absolute;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  display: block;
+  width: auto;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  transform: none;
+  filter: brightness(0.78) saturate(0.88);
+  transition: opacity 560ms ease, filter 560ms ease;
+}
+
+.hero-preview-item.preview-slot-1,
+.hero-preview-item.preview-slot-0,
+.hero-preview-item.preview-slot-5 {
+  opacity: 1;
+  pointer-events: auto;
+  filter: none;
+}
+
+.hero-preview-item.preview-slot-1 {
+  top: 0;
+  right: 0;
+  z-index: 4;
+  width: 100%;
+  height: 37%;
+  clip-path: polygon(42% 0, 100% 0, 100% 100%, 58% 100%, 20% 74%, 0 45%, 14% 17%);
+}
+
+.hero-preview-item.preview-slot-0 {
+  top: 29%;
+  left: 0;
+  z-index: 5;
+  width: 59%;
+  height: 39%;
+  clip-path: polygon(0 9%, 100% 0, 92% 100%, 0 91%);
+}
+
+.hero-preview-item.preview-slot-5 {
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  width: 100%;
+  height: 39%;
+  clip-path: polygon(0 34%, 38% 0, 100% 0, 100% 100%, 31% 100%, 7% 80%);
+}
+
+.hero-preview-item.preview-slot-2,
+.hero-preview-item.preview-slot-3,
+.hero-preview-item.preview-slot-4 {
+  top: 31%;
+  right: -12%;
+  width: 52%;
+  height: 38%;
+}
+
+.hero-preview-item:nth-child(n) .carousel-card,
+.carousel-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  clip-path: none;
+  box-shadow: none;
+}
+
+.carousel-card-img,
+.carousel-card-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: none;
+  border-radius: 0;
+}
+
+.carousel-card-img {
+  opacity: 1;
+  filter: saturate(1.05) contrast(1.03);
+}
+
+.carousel-card-overlay {
+  padding: clamp(1rem, 1.5vw, 1.8rem);
+  background:
+    linear-gradient(90deg, rgba(36, 23, 15, 0.62), rgba(36, 23, 15, 0.08)),
+    linear-gradient(0deg, rgba(255, 151, 55, 0.08), rgba(255, 151, 55, 0));
+  border: 0;
+}
+
+.hero-preview-item.preview-slot-1 .carousel-card-overlay,
+.hero-preview-item.preview-slot-0 .carousel-card-overlay,
+.hero-preview-item.preview-slot-5 .carousel-card-overlay {
+  border: 0;
+}
+
+.carousel-card-copy {
+  width: min(72%, 25ch);
+  transform: none;
+}
+
+.carousel-card-title {
+  color: #fffaf1;
+  font-size: clamp(1.05rem, 1.2vw, 1.45rem);
+}
+
+.carousel-card-desc {
+  max-width: 20ch;
+  color: rgba(255, 250, 241, 0.94);
+  font-size: clamp(0.64rem, 0.7vw, 0.84rem);
+}
+
+.hero-wheel-hub {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: auto;
+  z-index: 8;
+  width: 49%;
+  height: 37%;
+  padding-left: clamp(1rem, 1.8vw, 2rem);
+  transform: translateY(-50%);
+  border-radius: 999px 0 0 999px;
+  background:
+    linear-gradient(90deg, rgba(255, 151, 55, 0.86), rgba(255, 111, 31, 0.68)),
+    rgba(36, 23, 15, 0.5);
+  box-shadow: none;
+  color: #fffaf1;
+  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.34);
+}
+
+.hero-wheel-hub strong {
+  color: #fffaf1;
+  font-size: clamp(1.9rem, 2.8vw, 4rem);
+}
+
+.hero-wheel-hub span {
+  color: #fffaf1;
+  font-size: clamp(0.7rem, 0.86vw, 1.06rem);
+}
+
+@media (max-width: 900px) {
+  .hero-carousel-panel {
+    right: -220px;
+    width: 520px;
+    height: 590px;
+  }
+
+  .hero-wheel-hub {
+    width: 50%;
+    height: 35%;
+  }
+}
