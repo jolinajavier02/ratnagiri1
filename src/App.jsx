@@ -729,6 +729,8 @@ function App() {
 
             <div className="hero-overlay" />
 
+            <div className="hero-preview-heading" aria-hidden="true">Preview Videos</div>
+
             <div className="hero-carousel-panel">
               <div className="hero-browse-cue" aria-hidden="true">
                 <span>Browse Categories</span>
