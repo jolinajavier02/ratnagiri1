@@ -623,8 +623,9 @@ function App() {
   };
 
   const wheelSlides = slides.map((slide, originalIndex) => ({ ...slide, originalIndex }));
+  const activeWheelIndex = activeSlide;
   const previewSlides = wheelSlides.map((slide, index) => {
-    const relativeSlot = (index - activeSlide + wheelSlides.length) % wheelSlides.length;
+    const relativeSlot = (index - activeWheelIndex + wheelSlides.length) % wheelSlides.length;
     return { ...slide, relativeSlot };
   });
 
@@ -769,8 +770,8 @@ function App() {
                   </div>
                 ))}
                 <div className="hero-wheel-hub" aria-hidden="true">
-                  <strong>06</strong>
-                  <span>Journeys</span>
+                  <strong>Browse</strong>
+                  <span>Categories</span>
                 </div>
               </div>
             </div>
