@@ -6460,10 +6460,12 @@ body {
   width: 100%;
   height: 100%;
   aspect-ratio: 1;
-  border: 2px solid rgba(255, 250, 241, 0.72);
+  border: 2px solid var(--script-orange);
   border-radius: 50%;
   background: rgba(36, 23, 15, 0.62);
-  box-shadow: 0 20px 55px rgba(5, 16, 32, 0.34);
+  box-shadow:
+    0 0 0 5px rgba(255, 151, 55, 0.14),
+    0 20px 55px rgba(5, 16, 32, 0.34);
   pointer-events: auto;
 }
 
@@ -6484,18 +6486,25 @@ body {
 }
 
 .carousel-card-copy {
-  width: 90%;
+  width: 86%;
 }
 
 .carousel-card-title {
-  color: #fffaf1;
-  font-size: clamp(1rem, 1.4vw, 1.55rem);
+  color: var(--script-orange);
+  font-size: clamp(0.95rem, 1.28vw, 1.42rem);
   line-height: 1;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.58);
 }
 
 .carousel-card-desc {
-  display: none;
+  display: block;
+  max-width: 16ch;
+  margin-top: 0.35rem;
+  color: #fffaf1;
+  font-size: clamp(0.58rem, 0.64vw, 0.72rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.66);
 }
 
 @media (max-width: 1024px) {
@@ -6556,6 +6565,11 @@ body {
   }
 
   .carousel-card-title {
-    font-size: 0.84rem;
+    font-size: 0.78rem;
+  }
+
+  .carousel-card-desc {
+    max-width: 13ch;
+    font-size: 0.52rem;
   }
 }
