@@ -645,8 +645,8 @@ function App() {
     setProgress(0);
   };
 
-  const previewSlides = Array.from({ length: slides.length - 1 }, (_, index) => {
-    const originalIndex = (activeSlide + index + 1) % slides.length;
+  const previewSlides = Array.from({ length: slides.length }, (_, index) => {
+    const originalIndex = (activeSlide + index) % slides.length;
     return { ...slides[originalIndex], originalIndex };
   });
 
@@ -688,26 +688,6 @@ function App() {
     <div ref={topRef}>
       {/* Dynamic Navigation Bar */}
       <div className={`site-chrome ${scrolled ? 'scrolled' : ''}`}>
-        <div className="utility-bar">
-          <div className="utility-left">
-            <div className="utility-socials" aria-label="Social links">
-              {socialLinks.slice(0, 5).map((social) => (
-                <a key={social.label} href={social.href} className="utility-social-link" target="_blank" rel="noreferrer" aria-label={social.label}>
-                  <SocialIconMark mark={social.mark} />
-                </a>
-              ))}
-            </div>
-            <a href="tel:+9118004254747" className="utility-contact-link">+91 1800-425-4747</a>
-          </div>
-          <span className="utility-official">The Official Site of Maharashtra Tourism</span>
-          <div className="utility-right">
-            <a href="mailto:info@maharashtratourism.gov.in" className="utility-contact-link">info@maharashtratourism.gov.in</a>
-            <button className="utility-action-btn" title="Search Site" aria-label="Search Site"><Search size={15} /></button>
-            <button className="utility-action-btn" title="Change Language" aria-label="Change Language"><Globe size={15} /></button>
-            <a href="#/" className="utility-sitemap-link">Sitemap</a>
-          </div>
-        </div>
-
         <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
           <a href="#/" className="logo-container">
             <img src={brandLogo} alt="Maharashtra Tourism" className="logo-icon" />
@@ -820,8 +800,9 @@ function App() {
                         aria-label={`${card.category} preview video`}
                       />
                       <div className="carousel-card-overlay">
-                        <span className="carousel-card-location">{card.location}</span>
+                        <span className="carousel-card-location">{card.category}</span>
                         <h4 className="carousel-card-title">{card.title}</h4>
+                        <p className="carousel-card-desc">{card.previewText}</p>
                       </div>
                     </div>
                   </div>
