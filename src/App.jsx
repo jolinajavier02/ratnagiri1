@@ -764,7 +764,7 @@ function App() {
                       <div className="carousel-card-overlay">
                         <div className="carousel-card-copy">
                           <h4 className="carousel-card-title">{card.category}</h4>
-                          <p className="carousel-card-desc">{card.previewText}</p>
+                          <p className="carousel-card-desc">{card.description}</p>
                         </div>
                       </div>
                     </div>
