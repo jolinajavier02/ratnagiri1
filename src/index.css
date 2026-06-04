@@ -6897,14 +6897,14 @@ body {
   align-items: center;
   padding: 1.2rem 4%;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%);
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 0;
   backdrop-filter: blur(10px);
 }
 
 .navbar.scrolled {
   padding: 0.8rem 4%;
   background-color: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid var(--saffron);
+  border-bottom: 0;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
@@ -7070,7 +7070,7 @@ body {
 .ratnagiri1-landing .hero-carousel-panel {
   left: 46%;
   right: auto;
-  top: 28%;
+  top: 34%;
   bottom: auto;
   display: block;
   width: 53vw;
@@ -7188,7 +7188,7 @@ body {
 }
 
 .ratnagiri1-landing .progress-and-counter {
-  display: flex;
+  display: none;
   width: min(720px, 48vw);
   gap: 1.05rem;
 }

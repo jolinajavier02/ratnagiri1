@@ -785,7 +785,16 @@ function App() {
                       }}
                       aria-label={`Show ${card.title}`}
                     >
-                      <img src={card.thumbnail} alt={card.title} className="carousel-card-img" />
+                      <video
+                        src={card.videoUrl}
+                        className="carousel-card-img"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-label={`${card.category} preview video`}
+                      />
                       <div className="carousel-card-overlay">
                         <span className="carousel-card-location">{card.location}</span>
                         <h4 className="carousel-card-title">{card.title}</h4>
