@@ -622,14 +622,9 @@ function App() {
     setActiveSlide(index);
   };
 
-  const categorySlides = slides
-    .map((slide, originalIndex) => ({ ...slide, originalIndex }))
-    .filter((slide) => slide.id !== 'cover');
-  const activeCategoryIndex = activeSlide === 0
-    ? 0
-    : categorySlides.findIndex((slide) => slide.originalIndex === activeSlide);
-  const previewSlides = categorySlides.map((slide, index) => {
-    const relativeSlot = (index - activeCategoryIndex + categorySlides.length) % categorySlides.length;
+  const wheelSlides = slides.map((slide, originalIndex) => ({ ...slide, originalIndex }));
+  const previewSlides = wheelSlides.map((slide, index) => {
+    const relativeSlot = (index - activeSlide + wheelSlides.length) % wheelSlides.length;
     return { ...slide, relativeSlot };
   });
 
@@ -672,16 +667,22 @@ function App() {
       {/* Dynamic Navigation Bar */}
       <div className={`site-chrome ${scrolled ? 'scrolled' : ''}`}>
         <div className="utility-bar">
-          <div className="utility-contact">
-            <span>+91 1800-425-4747</span>
-            <span>info@maharashtratourism.gov.in</span>
+          <div className="utility-left">
+            <div className="utility-socials" aria-label="Social links">
+              {socialLinks.slice(0, 5).map((social) => (
+                <a key={social.label} href={social.href} className="utility-social-link" target="_blank" rel="noreferrer" aria-label={social.label}>
+                  <SocialIconMark mark={social.mark} />
+                </a>
+              ))}
+            </div>
+            <a href="tel:+9118004254747" className="utility-contact-link">+91 1800-425-4747</a>
           </div>
           <span className="utility-official">The Official Site of Maharashtra Tourism</span>
-          <div className="utility-languages">
-            <span>Language</span>
-            <strong>English</strong>
-            <span>मराठी</span>
-            <span>हिन्दी</span>
+          <div className="utility-right">
+            <a href="mailto:info@maharashtratourism.gov.in" className="utility-contact-link">info@maharashtratourism.gov.in</a>
+            <button className="utility-action-btn" title="Search Site" aria-label="Search Site"><Search size={15} /></button>
+            <button className="utility-action-btn" title="Change Language" aria-label="Change Language"><Globe size={15} /></button>
+            <a href="#/" className="utility-sitemap-link">Sitemap</a>
           </div>
         </div>
 
@@ -693,8 +694,6 @@ function App() {
               <span className="logo-sub">Maharashtra Tourism</span>
             </div>
           </a>
-
-          <span className="header-official-title">The Official Site of Maharashtra Tourism</span>
 
           <ul className="nav-links">
             <li><a href="#/" className={`nav-link ${routePath === '#/' ? 'active' : ''}`}>Home</a></li>
@@ -733,6 +732,8 @@ function App() {
             </div>
 
             <div className="hero-overlay" />
+
+            <div className="hero-preview-heading" aria-hidden="true">Preview Videos</div>
 
             <div className="hero-carousel-panel">
               <div className="hero-browse-cue" aria-hidden="true">
@@ -773,6 +774,10 @@ function App() {
                     </div>
                   </div>
                 ))}
+                <div className="hero-wheel-hub" aria-hidden="true">
+                  <strong>Browse</strong>
+                  <span>Categories</span>
+                </div>
               </div>
             </div>
           </section>

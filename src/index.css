@@ -6573,3 +6573,249 @@ body {
     font-size: 0.52rem;
   }
 }
+
+/* Ratnagiri4 header: official strip, socials/contact left, tools right */
+.site-chrome,
+.site-chrome.scrolled {
+  padding: 0 clamp(1rem, 3vw, 3.25rem);
+}
+
+.utility-bar {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) auto minmax(360px, 1fr);
+  align-items: center;
+  gap: clamp(0.8rem, 1.4vw, 1.6rem);
+  min-height: 42px;
+  padding: 0.42rem 0;
+  border-bottom: 1px solid rgba(90, 62, 35, 0.18);
+}
+
+.utility-left,
+.utility-right,
+.utility-socials {
+  display: flex;
+  align-items: center;
+}
+
+.utility-left {
+  justify-content: flex-start;
+  gap: clamp(0.75rem, 1.2vw, 1.2rem);
+  min-width: 0;
+}
+
+.utility-right {
+  justify-content: flex-end;
+  gap: clamp(0.65rem, 1vw, 1rem);
+  min-width: 0;
+}
+
+.utility-socials {
+  gap: 0.42rem;
+}
+
+.utility-social-link,
+.utility-action-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(139, 99, 36, 0.42);
+  border-radius: 50%;
+  background: rgba(255, 250, 241, 0.92);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.utility-social-link:hover,
+.utility-action-btn:hover,
+.utility-sitemap-link:hover,
+.utility-contact-link:hover {
+  color: var(--saffron);
+}
+
+.utility-social-link:hover,
+.utility-action-btn:hover {
+  border-color: rgba(201, 151, 63, 0.62);
+  background: rgba(255, 250, 241, 0.95);
+  transform: translateY(-1px);
+}
+
+.utility-social-link .social-svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+  color: currentColor;
+  fill: currentColor;
+}
+
+.utility-social-link .social-svg rect,
+.utility-social-link .social-svg circle,
+.utility-social-link .social-svg path {
+  stroke: currentColor;
+  stroke-width: 2.4;
+}
+
+.utility-social-link .social-svg text {
+  fill: currentColor;
+  font-size: 14px;
+}
+
+.utility-action-btn {
+  padding: 0;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.utility-action-btn svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  color: currentColor;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+.utility-contact-link,
+.utility-sitemap-link {
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: clamp(0.76rem, 0.82vw, 0.9rem);
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.utility-official {
+  justify-self: center;
+  color: #5f3f17;
+  font-family: var(--sans);
+  font-size: clamp(0.82rem, 0.9vw, 1rem);
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.navbar,
+.navbar.scrolled {
+  grid-template-columns: minmax(250px, 0.9fr) minmax(440px, 1.2fr);
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.nav-links {
+  justify-content: flex-end;
+}
+
+.header-official-title {
+  display: none;
+}
+
+@media (max-width: 1180px) {
+  .utility-bar {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    row-gap: 0.35rem;
+    padding: 0.5rem 0;
+  }
+
+  .utility-left,
+  .utility-right {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .utility-official {
+    grid-row: 1;
+  }
+
+  .navbar,
+  .navbar.scrolled {
+    grid-template-columns: 1fr;
+    row-gap: 0.65rem;
+  }
+
+  .logo-container,
+  .nav-links {
+    justify-self: center;
+  }
+
+  .nav-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-chrome,
+  .site-chrome.scrolled {
+    padding: 0 0.85rem;
+  }
+
+  .utility-contact-link[href^="mailto"] {
+    display: none;
+  }
+
+  .utility-official {
+    font-size: 0.9rem;
+  }
+
+  .utility-socials {
+    gap: 0.32rem;
+  }
+
+  .utility-social-link,
+  .utility-action-btn {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* Ratnagiri4 browse title above circular preview cards */
+.hero-carousel-panel {
+  display: grid;
+  justify-items: end;
+  gap: clamp(0.45rem, 0.8vw, 0.8rem);
+}
+
+.hero-browse-cue {
+  display: block;
+  position: relative;
+  z-index: 5;
+  width: min(520px, 42vw);
+  color: var(--text-primary);
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 2.35vw, 2.9rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-align: right;
+  text-shadow: 0 8px 28px rgba(36, 23, 15, 0.24);
+  pointer-events: none;
+}
+
+.hero-browse-cue span {
+  display: inline-block;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+@media (max-width: 1024px) {
+  .hero-browse-cue {
+    width: min(420px, 74vw);
+    font-size: clamp(1.25rem, 3.4vw, 2rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-browse-cue {
+    width: min(330px, 92vw);
+    font-size: 1.2rem;
+  }
+}
