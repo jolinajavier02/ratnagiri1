@@ -8350,3 +8350,269 @@ body {
     width: 45%;
   }
 }
+
+/* Drawing match: six labeled videos around the right-side circular grid */
+.hero-carousel-panel {
+  top: 52%;
+  right: clamp(-17rem, -14vw, -7rem);
+  width: clamp(600px, 46vw, 800px);
+  height: clamp(640px, 49vw, 860px);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.carousel-cards-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 52% 0 0 52%;
+  background: rgba(34, 23, 15, 0.42);
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 250, 241, 0.92),
+    0 24px 72px rgba(5, 16, 32, 0.28);
+}
+
+.carousel-cards-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  border-radius: inherit;
+  background:
+    linear-gradient(27deg, transparent 0 48.8%, rgba(255, 250, 241, 0.78) 49.1% 49.7%, transparent 50%),
+    linear-gradient(153deg, transparent 0 48.8%, rgba(255, 250, 241, 0.78) 49.1% 49.7%, transparent 50%),
+    linear-gradient(90deg, transparent 0 61%, rgba(255, 250, 241, 0.68) 61.2% 61.8%, transparent 62%),
+    radial-gradient(circle at 58% 50%, transparent 0 22%, rgba(255, 250, 241, 0.9) 22.3% 23.2%, transparent 23.5%);
+  pointer-events: none;
+}
+
+.hero-preview-item:nth-child(n) {
+  position: absolute;
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+  filter: none;
+  transform: none;
+  transition:
+    opacity 560ms ease,
+    filter 560ms ease;
+}
+
+.hero-preview-item.preview-slot-1 {
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 98%;
+  height: 36%;
+  clip-path: polygon(35% 0, 100% 0, 100% 100%, 58% 100%, 22% 78%, 0 47%, 14% 15%);
+}
+
+.hero-preview-item.preview-slot-2 {
+  top: 12%;
+  right: 0;
+  z-index: 2;
+  width: 48%;
+  height: 39%;
+  clip-path: polygon(10% 0, 100% 0, 100% 100%, 8% 100%, 34% 52%);
+}
+
+.hero-preview-item.preview-slot-3 {
+  top: 37%;
+  right: 0;
+  z-index: 2;
+  width: 45%;
+  height: 28%;
+  clip-path: polygon(4% 0, 100% 0, 100% 100%, 4% 100%, 34% 50%);
+}
+
+.hero-preview-item.preview-slot-4 {
+  right: 0;
+  bottom: 12%;
+  z-index: 2;
+  width: 48%;
+  height: 39%;
+  clip-path: polygon(34% 48%, 8% 0, 100% 0, 100% 100%, 10% 100%);
+}
+
+.hero-preview-item.preview-slot-5 {
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 98%;
+  height: 38%;
+  clip-path: polygon(0 35%, 38% 0, 100% 0, 100% 100%, 31% 100%, 7% 80%);
+}
+
+.hero-preview-item.preview-slot-0 {
+  top: 28%;
+  left: 0;
+  z-index: 4;
+  width: 72%;
+  height: 44%;
+  clip-path: polygon(0 12%, 100% 0, 88% 100%, 0 88%);
+}
+
+.hero-preview-item:nth-child(n) .carousel-card,
+.carousel-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  clip-path: none;
+  box-shadow: none;
+}
+
+.carousel-card-img,
+.carousel-card-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: none;
+  border-radius: 0;
+}
+
+.carousel-card-img {
+  opacity: 1;
+  filter: saturate(1.04) contrast(1.03);
+}
+
+.carousel-card-overlay {
+  display: flex;
+  align-items: center;
+  padding: clamp(1rem, 1.6vw, 1.85rem);
+  background:
+    linear-gradient(90deg, rgba(36, 23, 15, 0.68), rgba(36, 23, 15, 0.18)),
+    linear-gradient(0deg, rgba(255, 151, 55, 0.1), rgba(255, 151, 55, 0));
+}
+
+.preview-slot-1 .carousel-card-overlay,
+.preview-slot-5 .carousel-card-overlay {
+  padding-left: clamp(7rem, 9vw, 11.5rem);
+}
+
+.preview-slot-2 .carousel-card-overlay,
+.preview-slot-3 .carousel-card-overlay,
+.preview-slot-4 .carousel-card-overlay {
+  justify-content: flex-end;
+  padding-right: clamp(1.3rem, 2vw, 2.6rem);
+  padding-left: clamp(2.8rem, 3vw, 4rem);
+}
+
+.carousel-card-copy {
+  width: min(78%, 25ch);
+  min-height: 0;
+  transform: none;
+}
+
+.preview-slot-2 .carousel-card-copy,
+.preview-slot-3 .carousel-card-copy,
+.preview-slot-4 .carousel-card-copy {
+  width: min(88%, 16ch);
+}
+
+.carousel-card-title {
+  position: relative;
+  display: inline-block;
+  color: #fffaf1;
+  font-size: clamp(1rem, 1.2vw, 1.45rem);
+  letter-spacing: 0;
+  line-height: 1.05;
+  text-transform: none;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.72);
+}
+
+.carousel-card-title::after {
+  content: "";
+  display: block;
+  width: min(7.5rem, 100%);
+  height: 1.75rem;
+  margin-top: 0.3rem;
+  background:
+    linear-gradient(#fffaf1, #fffaf1) 0 0 / 100% 3px no-repeat,
+    linear-gradient(#fffaf1, #fffaf1) 0 10px / 78% 3px no-repeat,
+    linear-gradient(#fffaf1, #fffaf1) 0 20px / 52% 3px no-repeat;
+  opacity: 0.86;
+}
+
+.carousel-card-desc {
+  display: block;
+  max-width: 18ch;
+  margin-top: 0.1rem;
+  color: rgba(255, 250, 241, 0.92);
+  font-size: clamp(0.58rem, 0.66vw, 0.78rem);
+  line-height: 1.24;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.72);
+}
+
+.hero-wheel-hub {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: auto;
+  z-index: 8;
+  display: flex;
+  width: 44%;
+  height: 38%;
+  padding-left: clamp(0.8rem, 1.4vw, 1.7rem);
+  transform: translateY(-50%);
+  border-radius: 999px 0 0 999px;
+  background:
+    radial-gradient(circle at 28% 50%, rgba(255, 250, 241, 0.96) 0%, rgba(255, 244, 226, 0.93) 58%, rgba(255, 151, 55, 0.24) 100%);
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 250, 241, 0.9),
+    0 14px 34px rgba(5, 16, 32, 0.22);
+  color: var(--text-primary);
+  text-align: center;
+  text-shadow: none;
+  pointer-events: none;
+}
+
+.hero-wheel-hub strong {
+  color: var(--script-orange);
+  font-family: var(--script);
+  font-size: clamp(2.05rem, 3vw, 4.3rem);
+  font-weight: 500;
+  line-height: 0.82;
+}
+
+.hero-wheel-hub span {
+  color: var(--text-primary);
+  font-family: var(--serif);
+  font-size: clamp(0.68rem, 0.84vw, 1.06rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 900px) {
+  .hero-carousel-panel {
+    right: -230px;
+    width: 540px;
+    height: 610px;
+  }
+
+  .hero-preview-item.preview-slot-0 {
+    width: 73%;
+  }
+
+  .preview-slot-1 .carousel-card-overlay,
+  .preview-slot-5 .carousel-card-overlay {
+    padding-left: 5.5rem;
+  }
+
+  .carousel-card-title {
+    font-size: 0.94rem;
+  }
+
+  .carousel-card-desc {
+    max-width: 15ch;
+    font-size: 0.58rem;
+  }
+
+  .hero-wheel-hub {
+    width: 45%;
+    height: 36%;
+  }
+}
