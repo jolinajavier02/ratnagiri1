@@ -9,7 +9,7 @@ import {
   Search, Globe, Check
 } from 'lucide-react';
 import brandLogo from './assets/logo.png';
-import welcomeVideo from './assets/welcome.mp4';
+import welcomeVideo from './assets/welcome-deploy.mp4';
 import destinationVideo from './assets/Destination.mp4';
 import tourVideo from './assets/Tour.mp4';
 import bookingVideo from './assets/Booking.mp4';
