@@ -7068,13 +7068,13 @@ body {
 }
 
 .ratnagiri1-landing .hero-carousel-panel {
-  left: 46%;
-  right: auto;
-  top: 34%;
+  left: auto;
+  right: 4.5%;
+  top: 58%;
   bottom: auto;
   display: block;
-  width: 53vw;
-  transform: none;
+  width: min(780px, 50vw);
+  transform: translateY(-50%);
   z-index: 5;
   pointer-events: none;
 }
@@ -7235,7 +7235,9 @@ body {
     top: auto;
     left: auto;
     right: auto;
+    bottom: 8.5rem;
     width: 100%;
+    transform: none;
   }
 
   .ratnagiri1-landing .hero-content {
