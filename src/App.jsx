@@ -1,11 +1,28 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Play, Pause, ChevronLeft, ChevronRight, MapPin, Star, Calendar,
-  Compass, Award, Users, ArrowRight, Plane,
-  Train, Hotel, Filter, Utensils, Sparkles,
-  Search, Globe, Check, Info
+  Play, Pause, ChevronLeft, ChevronRight,
+  Star,
+  ArrowRight,
+  Heart, Car, Home,
+  Utensils, Sparkles,
+  Search, Globe, Check
 } from 'lucide-react';
+import brandLogo from './assets/logo.png';
+import welcomeVideo from './assets/welcome.mp4';
+import destinationVideo from './assets/Destination.mp4';
+import tourVideo from './assets/Tour.mp4';
+import bookingVideo from './assets/Booking.mp4';
+import foodVideo from './assets/Food.mp4';
+import traditionsVideo from './assets/Traditions.mp4';
+import fortBrochure1 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-01.jpg';
+import fortBrochure2 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-02.jpg';
+import fortBrochure3 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-03.jpg';
+import fortBrochure4 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-04.jpg';
+import shrineBrochure1 from "./assets/Brochures/Shiva's sacred shrine/MH-Digital-Standee-Jyotirlinga-01.webp";
+import shrineBrochure2 from "./assets/Brochures/Shiva's sacred shrine/MH-Digital-Standee-Jyotirlinga-02.jpg";
+import shrineBrochure3 from "./assets/Brochures/Shiva's sacred shrine/MH-Digital-Standee-Jyotirlinga-03.jpg";
+import shrineBrochure4 from "./assets/Brochures/Shiva's sacred shrine/MH-Digital-Standee-Jyotirlinga-04.jpg";
 import './App.css';
 
 const socialLinks = [
@@ -65,8 +82,30 @@ const sectionImages = {
   traditions: coverImage('traditions-india-summer-cover.png')
 };
 
-const pageHeaderBackground = (image) =>
-  `linear-gradient(to bottom, rgba(8,10,16,0.9) 0%, rgba(8,10,16,0.7) 100%), url('${image}')`;
+const sectionVideos = {
+  welcome: welcomeVideo,
+  destinations: destinationVideo,
+  tours: tourVideo,
+  booking: bookingVideo,
+  foods: foodVideo,
+  traditions: traditionsVideo
+};
+
+function VideoPageHeader({ videoSrc }) {
+  return (
+    <section className="destination-video-landing">
+      <video
+        className="destination-landing-video"
+        src={videoSrc}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
+    </section>
+  );
+}
 
 // Slide categories in the requested preview order.
 const slides = [
@@ -76,8 +115,10 @@ const slides = [
     location: 'Summer Escapes - Coastal India',
     title: 'WELCOME TO INDIA',
     subtitle: 'Sunlit Shores & Timeless Journeys',
+    previewText: 'Begin with the full coastal welcome experience.',
     description: 'A warm coastal welcome into India: golden beaches, blue water, palm shadows, relaxed resort stays, flavorful food, and culture glowing under the summer sun.',
     imageUrl: sectionImages.welcome,
+    videoUrl: sectionVideos.welcome,
     thumbnail: sectionImages.welcome,
     link: '#/'
   },
@@ -87,8 +128,10 @@ const slides = [
     location: 'Andaman Islands - India',
     title: 'DESTINATIONS',
     subtitle: 'Beach Sands & Island Light',
+    previewText: 'Explore beaches, islands, forts, and scenic escapes.',
     description: 'The destination preview highlights India’s tropical side: white sand, turquoise water, palm-lined beaches, island cliffs, and quiet coastal escapes made for summer travel.',
     imageUrl: sectionImages.destinations,
+    videoUrl: sectionVideos.destinations,
     thumbnail: sectionImages.destinations,
     link: '#/destinations'
   },
@@ -98,93 +141,127 @@ const slides = [
     location: 'Goa Coast - India',
     title: 'TOURS',
     subtitle: 'Golden Hour Beach Walks',
+    previewText: 'Follow curated routes, guided walks, and hosted trips.',
     description: 'The tours preview is about guided beach walks, sunset conversations, boat rides, local hosts, and easy routes through India’s brightest coastal experiences.',
     imageUrl: sectionImages.tours,
+    videoUrl: sectionVideos.tours,
     thumbnail: sectionImages.tours,
     link: '#/tours'
   },
   {
     id: 'booking',
-    category: 'Bookings',
+    category: 'Booking',
     location: 'Kerala Beach Resort - India',
     title: 'BOOKINGS',
     subtitle: 'Beach Resorts & Easy Arrivals',
+    previewText: 'Plan stays, arrivals, transport, and travel details.',
     description: 'The bookings preview focuses on smooth arrivals: beach resorts, private stays, concierge planning, luggage-ready comfort, and sunlit check-ins by the sea.',
     imageUrl: sectionImages.booking,
+    videoUrl: sectionVideos.booking,
     thumbnail: sectionImages.booking,
     link: '#/booking'
   },
   {
     id: 'foods',
-    category: 'Foods',
+    category: 'Food',
     location: 'Goa Food Trail - India',
     title: 'FOODS',
     subtitle: 'Coastal Flavors & Tropical Plates',
+    previewText: 'Taste coastal plates, local spices, and fresh dishes.',
     description: 'The food preview celebrates coastal India: grilled seafood, coconut drinks, mango, banana leaf plates, fresh chutneys, and spice-rich dishes beside the beach.',
     imageUrl: sectionImages.foods,
+    videoUrl: sectionVideos.foods,
     thumbnail: sectionImages.foods,
     link: '#/foods'
   },
   {
     id: 'tradition',
-    category: 'Tradition',
+    category: 'Traditions',
     location: 'Kerala Coast - India',
     title: 'TRADITIONS',
     subtitle: 'Festivals by the Sea',
+    previewText: 'Discover festivals, rituals, music, and heritage moments.',
     description: 'The traditions preview shows India’s coastal celebrations: diyas on sand, marigold rituals, music, dance, colorful clothing, and festival evenings by the water.',
     imageUrl: sectionImages.traditions,
+    videoUrl: sectionVideos.traditions,
     thumbnail: sectionImages.traditions,
     link: '#/tradition'
   }
 ];
 
-const districtList = [
-  'Ahilyanagar',
-  'Akola',
-  'Amravati',
-  'Beed',
-  'Bhandara',
-  'Buldhana',
-  'Chandrapur',
-  'Chh. Sambhaji Nagar',
-  'Dharashiv',
-  'Dhule',
-  'Gadchiroli',
-  'Gondia',
-  'Hingoli',
-  'Jalgaon',
-  'Jalna',
-  'Kolhapur',
-  'Latur',
-  'Madha',
-  'Mumbai City',
-  'Mumbai Suburban',
-  'Nagpur',
-  'Nanded',
-  'Nandurbar',
-  'Nashik',
-  'Palghar',
-  'Parbhani',
-  'Pune',
-  'Raigad',
-  'Ratnagiri',
-  'Sangli',
-  'Satara',
-  'Sindhudurg',
-  'Solapur',
-  'Thane',
-  'Wardha',
-  'Washim',
-  'Yavatmal'
+const HERO_PREVIEW_INTERVAL_MS = 7000;
+
+const indiaRegionLabels = [
+  { label: 'North India', x: 198, y: 122 },
+  { label: 'West India', x: 128, y: 255 },
+  { label: 'Central India', x: 238, y: 260 },
+  { label: 'East India', x: 338, y: 258 },
+  { label: 'South India', x: 246, y: 448 },
+  { label: 'Northeast India', x: 410, y: 178 }
 ];
 
-const mockDestinations = [
-  { id: 1, title: 'Taj Mahal, Agra', state: 'Uttar Pradesh', region: 'North', category: 'Heritage', rating: 4.9, reviews: 45200, price: 45, img: sectionImages.destinations, desc: 'The world\'s most famous monument of love, built in stunning white marble along the Yamuna River.' },
-  { id: 2, title: 'Munnar Tea Hills', state: 'Kerala', region: 'South', category: 'Nature', rating: 4.8, reviews: 12400, price: 30, img: sectionImages.welcome, desc: 'Rolling tea gardens, pristine mist, and exotic flora nestled in the Western Ghats of Southern India.' },
-  { id: 3, title: 'Hampi Ruins', state: 'Karnataka', region: 'South', category: 'Heritage', rating: 4.9, reviews: 9800, price: 35, img: sectionImages.traditions, desc: 'An awe-inspiring open-air museum showcasing the grand ruins of the historic Vijayanagara Empire.' },
-  { id: 4, title: 'Leh Ladakh Passes', state: 'Jammu & Kashmir', region: 'North', category: 'Adventure', rating: 4.9, reviews: 8500, price: 80, img: sectionImages.tours, desc: 'Rugged mountains, deep blue high-altitude lakes, and some of the world\'s highest motorable passes.' },
-  { id: 5, title: 'Jaisalmer Desert Dunes', state: 'Rajasthan', region: 'West', category: 'Adventure', rating: 4.7, reviews: 7100, price: 50, img: sectionImages.booking, desc: 'Golden sandstone forts, desert safaris under starry skies, and rich Rajasthani traditional performances.' },
-  { id: 6, title: 'Sundarbans Mangrove', state: 'West Bengal', region: 'East', category: 'Nature', rating: 4.6, reviews: 5400, price: 40, img: sectionImages.foods, desc: 'The largest mangrove forest in the world, home to the elusive Royal Bengal Tiger.' },
+const ratnagiriRegionFeature = {
+  id: 'ratnagiri',
+  name: 'Ratnagiri',
+  region: 'Maharashtra, West India',
+  title: 'Ratnagiri, Maharashtra',
+  subtitle: 'Konkan coast, Alphonso mangoes and sea forts',
+  description: 'Ratnagiri is the active destination on this India regions map. Hover the coastal marker to highlight its Konkan shoreline, quiet beaches, hill roads, temples, mango orchards and historic sea-facing forts.',
+  image: sectionImages.destinations,
+  places: [
+    'Ganpatipule Beach and Temple',
+    'Ratnadurg Fort',
+    'Thibaw Palace',
+    'Pawas coastal villages'
+  ]
+};
+
+const maharashtraIntroParagraphs = [
+  'Government of Maharashtra, is dedicated to promoting and developing tourism in the state by showcasing Maharashtra\'s diverse attractions both within India and internationally. Our core objectives include enhancing tourism infrastructure, formulating strategic plans, and implementing sustainable tourism initiatives. We aim to provide comprehensive tourist services, including travel guides and information centers, to ensure a seamless and enjoyable experience for visitors.',
+  'By organizing and promoting cultural, historical, and recreational events and festivals, such as the Ganesh Festival and the Hindavi Swarajya Mahotsav, we strive to highlight the unique heritage and vibrant culture of Maharashtra. Maharashtra boasts UNESCO World Heritage Sites like the Ajanta and Ellora Caves, picturesque hill stations such as Mahabaleshwar and Lonavala, and bustling urban centers like Mumbai and Pune.'
+];
+
+const maharashtraFocusItems = [
+  {
+    title: 'Heritage Circuits',
+    desc: 'UNESCO caves, sea forts, temples, museums and historic cities arranged into easy cultural routes.'
+  },
+  {
+    title: 'Coastal Escapes',
+    desc: 'Konkan beaches, mango towns, fishing villages, quiet resorts and scenic drives toward Ratnagiri.'
+  },
+  {
+    title: 'Festival Calendar',
+    desc: 'Ganesh Festival, Hindavi Swarajya celebrations, food fairs and local cultural events across districts.'
+  },
+  {
+    title: 'Visitor Services',
+    desc: 'Travel information, guide support, district discovery and planning tools for a smoother Maharashtra visit.'
+  }
+];
+
+const curatedTravelGuide = [
+  {
+    id: 'local-etiquette',
+    title: 'Local Etiquette',
+    icon: 'namaste',
+    desc: 'Respecting traditions is key to authentic experiences. Remove shoes before entering temples or homes, greet hosts warmly, and dress modestly in sacred spaces.',
+    notes: ['Namaste is the universal greeting', 'Use your right hand for greetings and dining']
+  },
+  {
+    id: 'summer-essentials',
+    title: 'Summer Essentials',
+    icon: 'summer',
+    desc: 'Maharashtra is vibrant but warm. Pack breathable linens, high SPF protection, sunglasses, hats, and a reusable water bottle for long district explorations.',
+    notes: ['Light-colored cotton fabrics', 'Hydration for forts, beaches and city walks']
+  },
+  {
+    id: 'travel-logistics',
+    title: 'Travel Logistics',
+    icon: 'travel',
+    desc: 'Plan transfers between Mumbai, Pune, Ratnagiri and heritage districts early. Keep digital and physical copies of IDs, bookings and transport details.',
+    notes: ['Book guided slots in advance', 'Carry copies of permits and tickets']
+  }
 ];
 
 const mockTours = [
@@ -195,6 +272,7 @@ const mockTours = [
     price: '$799',
     rating: '4.9',
     category: 'Heritage & Culture',
+    location: 'Delhi, Agra, Jaipur',
     highlights: ['Agra Taj Mahal Sunrise Guided Tour', 'Jaipur Amer Fort Elephant Ride Experience', 'Delhi Chandni Chowk Food Crawl', 'Jodhpur Golden Palace Homestay'],
     img: sectionImages.booking,
     date: 'Starting 12 June, 2026'
@@ -206,6 +284,7 @@ const mockTours = [
     price: '$599',
     rating: '4.8',
     category: 'Nature & Wellness',
+    location: 'Kerala Coast',
     highlights: ['Overnight Luxury Houseboat Cruise', 'Kathakali Traditional Dance Performance', 'Munnar Organic Tea Garden Walk', 'Kovalam Beach Yoga Session'],
     img: sectionImages.welcome,
     date: 'Starting 20 June, 2026'
@@ -217,9 +296,46 @@ const mockTours = [
     price: '$999',
     rating: '4.9',
     category: 'Adventure & Spirituality',
+    location: 'Himalayan Foothills',
     highlights: ['Ganges Ganga Aarti Ceremony in Rishikesh', 'High Altitude Valley Trek in Dharamshala', 'Meditation Retreat with Masters', 'White Water River Rafting Class IV'],
     img: sectionImages.tours,
     date: 'Starting 05 July, 2026'
+  },
+  {
+    id: 4,
+    title: 'Ratnagiri Konkan Coastal Escape',
+    duration: '5 Days',
+    price: '$449',
+    rating: '4.8',
+    category: 'Coastal Maharashtra',
+    location: 'Ratnagiri, Konkan',
+    highlights: ['Ganpatipule Temple Visit', 'Ratnadurg Fort Sunset Walk', 'Alphonso Mango Orchard Stop', 'Konkan Coastal Food Trail'],
+    img: sectionImages.destinations,
+    date: 'Starting 18 July, 2026'
+  },
+  {
+    id: 5,
+    title: 'Ajanta Ellora Heritage Route',
+    duration: '4 Days',
+    price: '$529',
+    rating: '4.9',
+    category: 'UNESCO Heritage',
+    location: 'Chh. Sambhaji Nagar',
+    highlights: ['Ajanta Cave Murals Tour', 'Ellora Kailasa Temple Walk', 'Bibi Ka Maqbara Visit', 'Deccan Heritage Dinner'],
+    img: sectionImages.traditions,
+    date: 'Starting 08 August, 2026'
+  },
+  {
+    id: 6,
+    title: 'Mumbai Pune Culture Weekend',
+    duration: '3 Days',
+    price: '$399',
+    rating: '4.7',
+    category: 'City Culture',
+    location: 'Mumbai and Pune',
+    highlights: ['Mumbai Heritage Precinct Walk', 'Marine Drive Evening', 'Pune Wada Trail', 'Local Market Food Stops'],
+    img: sectionImages.foods,
+    date: 'Starting 22 August, 2026'
   }
 ];
 
@@ -229,41 +345,247 @@ const luxuryHotels = [
   { id: 3, name: 'Evolve Back Kabini', type: 'Eco Lodge', location: 'Kabini Forest, Karnataka', price: '₹34,000/N', img: sectionImages.destinations }
 ];
 
+const bookingTabs = [
+  { id: 'homes', label: 'Homes', icon: Home, badge: null },
+  { id: 'experiences', label: 'Experiences', icon: Sparkles, badge: 'NEW' },
+  { id: 'services', label: 'Services', icon: Car, badge: 'NEW' }
+];
+
+const bookingRows = {
+  homes: [
+    {
+      title: 'Popular homes in Mumbai',
+      items: [
+        { id: 'mum-1', title: 'Sea-view apartment in Bandra', meta: 'Mumbai, Maharashtra', price: '₹7,850 for 2 nights', rating: '4.94', image: sectionImages.booking },
+        { id: 'mum-2', title: 'Heritage suite near Colaba', meta: 'Mumbai, Maharashtra', price: '₹9,420 for 2 nights', rating: '4.89', image: sectionImages.destinations },
+        { id: 'mum-3', title: 'Boutique room in Juhu', meta: 'Mumbai, Maharashtra', price: '₹6,180 for 2 nights', rating: '4.82', image: sectionImages.welcome },
+        { id: 'mum-4', title: 'Modern stay by Marine Drive', meta: 'Mumbai, Maharashtra', price: '₹11,250 for 2 nights', rating: '4.96', image: sectionImages.tours },
+        { id: 'mum-5', title: 'Garden villa in Powai', meta: 'Mumbai, Maharashtra', price: '₹8,760 for 2 nights', rating: '4.91', image: sectionImages.traditions },
+        { id: 'mum-6', title: 'City studio near airport', meta: 'Mumbai, Maharashtra', price: '₹5,430 for 2 nights', rating: '4.78', image: sectionImages.foods }
+      ]
+    },
+    {
+      title: 'Available in Goa this weekend',
+      items: [
+        { id: 'goa-1', title: 'Beach hut in Palolem', meta: 'South Goa, Goa', price: '₹4,950 for 2 nights', rating: '4.88', image: sectionImages.welcome },
+        { id: 'goa-2', title: 'Villa with private pool', meta: 'Assagao, Goa', price: '₹18,500 for 2 nights', rating: '4.97', image: sectionImages.booking },
+        { id: 'goa-3', title: 'Portuguese home in Fontainhas', meta: 'Panaji, Goa', price: '₹7,300 for 2 nights', rating: '4.85', image: sectionImages.traditions },
+        { id: 'goa-4', title: 'Palm cottage near Anjuna', meta: 'North Goa, Goa', price: '₹6,820 for 2 nights', rating: '4.92', image: sectionImages.destinations },
+        { id: 'goa-5', title: 'Designer condo by the coast', meta: 'Candolim, Goa', price: '₹9,640 for 2 nights', rating: '4.9', image: sectionImages.tours },
+        { id: 'goa-6', title: 'Riverside stay in Siolim', meta: 'Siolim, Goa', price: '₹5,970 for 2 nights', rating: '4.81', image: sectionImages.foods }
+      ]
+    },
+    {
+      title: 'Palace and resort stays in Rajasthan',
+      items: [
+        { id: 'raj-1', title: 'Lake palace suite', meta: 'Udaipur, Rajasthan', price: '₹32,000 for 2 nights', rating: '4.98', image: luxuryHotels[0].img },
+        { id: 'raj-2', title: 'Desert haveli room', meta: 'Jaisalmer, Rajasthan', price: '₹12,400 for 2 nights', rating: '4.87', image: sectionImages.booking },
+        { id: 'raj-3', title: 'Pink city heritage stay', meta: 'Jaipur, Rajasthan', price: '₹10,250 for 2 nights', rating: '4.9', image: sectionImages.traditions },
+        { id: 'raj-4', title: 'Fort-view boutique hotel', meta: 'Jodhpur, Rajasthan', price: '₹13,890 for 2 nights', rating: '4.92', image: sectionImages.destinations },
+        { id: 'raj-5', title: 'Courtyard resort retreat', meta: 'Pushkar, Rajasthan', price: '₹8,100 for 2 nights', rating: '4.84', image: sectionImages.welcome }
+      ]
+    }
+  ],
+  experiences: [
+    {
+      title: 'Tour packages by city',
+      items: [
+        { id: 'exp-1', title: 'Mumbai city heritage walk', meta: '3 hours · Hosted tour', price: '₹1,800 per guest', rating: '4.91', image: sectionImages.destinations },
+        { id: 'exp-2', title: 'Goa sunset cruise and food trail', meta: '5 hours · Coastal package', price: '₹3,400 per guest', rating: '4.88', image: sectionImages.foods },
+        { id: 'exp-3', title: 'Jaipur forts day tour', meta: 'Full day · Guided package', price: '₹5,200 per guest', rating: '4.96', image: sectionImages.traditions },
+        { id: 'exp-4', title: 'Kerala backwater houseboat', meta: 'Overnight · Scenic package', price: '₹9,800 per guest', rating: '4.94', image: sectionImages.welcome },
+        { id: 'exp-5', title: 'Himalayan sunrise trek', meta: '2 days · Adventure tour', price: '₹7,500 per guest', rating: '4.89', image: sectionImages.tours }
+      ]
+    },
+    {
+      title: 'Maharashtra weekend experiences',
+      items: [
+        { id: 'mh-1', title: 'Ratnagiri coastal food trail', meta: 'Ratnagiri · Local host', price: '₹2,200 per guest', rating: '4.92', image: sectionImages.foods },
+        { id: 'mh-2', title: 'Ajanta and Ellora heritage route', meta: 'Chh. Sambhaji Nagar · 2 days', price: '₹6,900 per guest', rating: '4.95', image: sectionImages.traditions },
+        { id: 'mh-3', title: 'Lonavala monsoon escape', meta: 'Lonavala · Day tour', price: '₹3,100 per guest', rating: '4.84', image: sectionImages.destinations },
+        { id: 'mh-4', title: 'Konkan beach hopping tour', meta: 'Konkan Coast · 3 days', price: '₹8,450 per guest', rating: '4.9', image: sectionImages.welcome }
+      ]
+    }
+  ],
+  services: [
+    {
+      title: 'Flights across India',
+      items: [
+        { id: 'flt-1', title: 'Mumbai to Goa flights', meta: 'Daily departures · Economy to business', price: 'From ₹3,450', rating: '4.8', image: sectionImages.booking },
+        { id: 'flt-2', title: 'Delhi to Jaipur flights', meta: 'Quick hops · Flexible fares', price: 'From ₹2,980', rating: '4.76', image: sectionImages.tours },
+        { id: 'flt-3', title: 'Bengaluru to Kochi flights', meta: 'South India route', price: 'From ₹3,850', rating: '4.82', image: sectionImages.welcome },
+        { id: 'flt-4', title: 'Mumbai to Udaipur flights', meta: 'Royal Rajasthan route', price: 'From ₹5,120', rating: '4.86', image: sectionImages.traditions }
+      ]
+    },
+    {
+      title: 'Car booking and taxis in India',
+      items: [
+        { id: 'cab-1', title: 'Airport taxi in Mumbai', meta: 'Sedan, SUV, premium cars', price: 'From ₹799', rating: '4.87', image: sectionImages.destinations },
+        { id: 'cab-2', title: 'Goa private driver', meta: 'Hourly and full-day rental', price: 'From ₹2,400/day', rating: '4.91', image: sectionImages.welcome },
+        { id: 'cab-3', title: 'Jaipur fort route cab', meta: 'Local driver · 8 hours', price: 'From ₹2,900/day', rating: '4.85', image: sectionImages.booking },
+        { id: 'cab-4', title: 'Kerala coastal taxi', meta: 'Kochi, Alleppey, Munnar', price: 'From ₹3,200/day', rating: '4.88', image: sectionImages.foods },
+        { id: 'cab-5', title: 'Ratnagiri local transfers', meta: 'Beach and temple routes', price: 'From ₹1,850/day', rating: '4.83', image: sectionImages.traditions }
+      ]
+    }
+  ]
+};
+
+const bookingSearchOptions = {
+  homes: {
+    whereLabel: 'Where',
+    wherePlaceholder: 'Search places',
+    dateLabel: 'When',
+    datePlaceholder: 'Add dates',
+    guestLabel: 'Who',
+    guestPlaceholder: 'Add guests',
+    panelTitle: 'Search hotels, resorts, and accommodations',
+    suggestions: ['Mumbai', 'Goa', 'Rajasthan', 'Udaipur', 'Jaipur', 'Ratnagiri'],
+    quickDates: ['June 12-14', 'This weekend', 'Next week', 'Flexible dates'],
+    guestUnits: ['1 guest', '2 guests', '4 guests', 'Family stay']
+  },
+  experiences: {
+    whereLabel: 'Tour',
+    wherePlaceholder: 'Search tour packages',
+    dateLabel: 'When',
+    datePlaceholder: 'Add tour dates',
+    guestLabel: 'Who',
+    guestPlaceholder: 'Add travelers',
+    panelTitle: 'Search guided tours and experiences',
+    suggestions: ['Mumbai city heritage walk', 'Goa sunset cruise', 'Jaipur forts', 'Kerala houseboat', 'Ratnagiri coastal food trail'],
+    quickDates: ['Today', 'Tomorrow', 'This weekend', 'Next month'],
+    guestUnits: ['1 traveler', '2 travelers', 'Small group', 'Private tour']
+  },
+  services: {
+    whereLabel: 'Transport',
+    wherePlaceholder: 'Search flights, taxi, or car',
+    dateLabel: 'When',
+    datePlaceholder: 'Add pickup date',
+    guestLabel: 'Who',
+    guestPlaceholder: 'Add passengers',
+    panelTitle: 'Search flights, taxis, and car booking',
+    suggestions: ['Flights', 'Taxi', 'Car', 'Mumbai airport taxi', 'Goa private driver', 'Kerala coastal taxi'],
+    quickDates: ['Today', 'Tomorrow', 'This weekend', 'Flexible pickup'],
+    guestUnits: ['1 passenger', '2 passengers', '4 passengers', 'Group transfer']
+  }
+};
+
 const mockFoods = [
   { id: 1, name: 'Butter Chicken & Naan', region: 'North India', type: 'non-veg', spiciness: 'Medium', desc: 'A rich, creamy, tomato-based curry loaded with tandoor-roasted chicken, served with hot butter garlic naan.', img: sectionImages.foods },
   { id: 2, name: 'Traditional Ghee Dosa', region: 'South India', type: 'veg', spiciness: 'Mild', desc: 'A super-crisp, thin fermented crepe made of rice and lentils, served with fresh coconut chutney and piping hot sambar.', img: sectionImages.welcome },
   { id: 3, name: 'Misal Pav & Farsan', region: 'West India', type: 'veg', spiciness: 'High', desc: 'A spicy curry made of sprouted moth beans, topped with crunchy savory farsan, onions, coriander, and soft pav buns.', img: sectionImages.booking },
-  { id: 4, name: 'Shorba & Biryani Feast', region: 'East India', type: 'non-veg', spiciness: 'Medium', desc: 'Aromatic basmati rice cooked slowly with delicate herbs, spices, and marinated mutton, served with hot spiced gravy.', img: sectionImages.traditions }
+  { id: 4, name: 'Shorba & Biryani Feast', region: 'East India', type: 'non-veg', spiciness: 'Medium', desc: 'Aromatic basmati rice cooked slowly with delicate herbs, spices, and marinated mutton, served with hot spiced gravy.', img: sectionImages.traditions },
+  { id: 5, name: 'Ratnagiri Alphonso Mangoes', region: 'Konkan', type: 'veg', spiciness: 'Sweet', desc: 'Golden seasonal mangoes from the Konkan belt, loved for their rich aroma, smooth pulp, and bright summer flavor.', img: sectionImages.destinations },
+  { id: 6, name: 'Maharashtrian Cuisine Thali', region: 'Maharashtra', type: 'veg', spiciness: 'Medium', desc: 'A balanced regional plate with bhakri, usal, chutney, vegetables, rice, dal, and coastal or Deccan flavors.', img: sectionImages.foods },
+  { id: 7, name: 'Puran Poli & Festival Sweets', region: 'Maharashtra', type: 'veg', spiciness: 'Sweet', desc: 'Soft festive flatbread filled with jaggery and dal, served with ghee alongside modak and local sweets.', img: sectionImages.welcome }
 ];
 
 const mockTraditions = [
-  { id: 1, title: 'Diwali - The Festival of Lights', date: 'November', place: 'Nationwide', desc: 'India’s biggest and most stunning celebration, symbolizing the victory of light over darkness. The entire nation illuminates with millions of clay oil lamps (diyas), lanterns, and vibrant firework displays.' },
-  { id: 2, title: 'Holi - The Festival of Colors', date: 'March', place: 'Mathura & Nationwide', desc: 'A chaotic, breathtaking festival celebrating spring, love, and colors. People smear organic colored powders on each other, dance to massive temple drum beats, and share traditional milk-based sweets.' },
-  { id: 3, title: 'Kathakali Dance Drama', date: 'Year-Round', place: 'Kerala', desc: 'A spectacular, highly stylized classical dance drama known for its colorful makeup, elaborate costumes, and deep expressive hand gestures (mudras) describing ancient epics.' },
-  { id: 4, title: 'Pushkar Camel Fair', date: 'November', place: 'Pushkar, Rajasthan', desc: 'One of the world\'s largest camel and livestock fairs, transforming a desert oasis into a vibrant carnival of folk dancers, musicians, camel races, and local bazaars.' }
+  { id: 1, title: 'Diwali - The Festival of Lights', date: 'November', place: 'Nationwide', desc: 'India’s biggest and most stunning celebration, symbolizing the victory of light over darkness. The entire nation illuminates with millions of clay oil lamps (diyas), lanterns, and vibrant firework displays.', img: sectionImages.traditions },
+  { id: 2, title: 'Holi - The Festival of Colors', date: 'March', place: 'Mathura & Nationwide', desc: 'A chaotic, breathtaking festival celebrating spring, love, and colors. People smear organic colored powders on each other, dance to massive temple drum beats, and share traditional milk-based sweets.', img: sectionImages.welcome },
+  { id: 3, title: 'Kathakali Dance Drama', date: 'Year-Round', place: 'Kerala', desc: 'A spectacular, highly stylized classical dance drama known for its colorful makeup, elaborate costumes, and deep expressive hand gestures (mudras) describing ancient epics.', img: sectionImages.tours },
+  { id: 4, title: 'Pushkar Camel Fair', date: 'November', place: 'Pushkar, Rajasthan', desc: 'One of the world\'s largest camel and livestock fairs, transforming a desert oasis into a vibrant carnival of folk dancers, musicians, camel races, and local bazaars.', img: sectionImages.booking }
+];
+
+const traditionCategoryCards = [
+  {
+    title: 'Events',
+    desc: 'Festival calendars, public celebrations, fairs and seasonal gatherings across Maharashtra.',
+    img: sectionImages.traditions
+  },
+  {
+    title: 'Cultures',
+    desc: 'Local art, dress, music, dance, community rituals and regional ways of welcoming visitors.',
+    img: sectionImages.tours
+  },
+  {
+    title: 'Traditions',
+    desc: 'Temple practices, food customs, family festivals and heritage moments carried through generations.',
+    img: sectionImages.welcome
+  }
+];
+
+const socialGalleryItems = [
+  { title: 'Konkan Coast', image: sectionImages.destinations },
+  { title: 'Guided Walks', image: sectionImages.tours },
+  { title: 'Resort Stays', image: sectionImages.booking },
+  { title: 'Coastal Plates', image: sectionImages.foods },
+  { title: 'Festival Nights', image: sectionImages.traditions },
+  { title: 'Summer Welcome', image: sectionImages.welcome },
+  { title: 'Sea Fort Trails', image: fortBrochure1 },
+  { title: 'Sacred Shrines', image: shrineBrochure1 },
+  { title: 'Travel Brochures', image: fortBrochure2 }
+];
+
+const brochureItems = [
+  { title: 'Guardians of History I', image: fortBrochure1, tag: 'Forts' },
+  { title: 'Guardians of History II', image: fortBrochure2, tag: 'Forts' },
+  { title: 'Guardians of History III', image: fortBrochure3, tag: 'Forts' },
+  { title: 'Guardians of History IV', image: fortBrochure4, tag: 'Forts' },
+  { title: 'Shiva\'s Sacred Shrine I', image: shrineBrochure1, tag: 'Jyotirlinga' },
+  { title: 'Shiva\'s Sacred Shrine II', image: shrineBrochure2, tag: 'Jyotirlinga' },
+  { title: 'Shiva\'s Sacred Shrine III', image: shrineBrochure3, tag: 'Jyotirlinga' },
+  { title: 'Shiva\'s Sacred Shrine IV', image: shrineBrochure4, tag: 'Jyotirlinga' }
+];
+
+const newsletterItems = [
+  { title: 'Konkan Weekend Routes', date: 'June 2026', image: sectionImages.destinations },
+  { title: 'Monsoon Fort Trails', date: 'July 2026', image: fortBrochure2 },
+  { title: 'Festival Travel Notes', date: 'August 2026', image: sectionImages.traditions },
+  { title: 'Coastal Food Guide', date: 'September 2026', image: sectionImages.foods },
+  { title: 'Heritage Stay Edit', date: 'October 2026', image: sectionImages.booking },
+  { title: 'Guided Tour Calendar', date: 'November 2026', image: sectionImages.tours },
+  { title: 'Sacred Maharashtra', date: 'December 2026', image: shrineBrochure2 },
+  { title: 'New Year Escape Ideas', date: 'January 2027', image: sectionImages.welcome }
+];
+
+const planTripHighlights = [
+  'Explore forts, caves, beaches and hill stations',
+  'Book stays, tours, taxis and flight services',
+  'Experience food trails, festivals and local culture'
+];
+
+const galleryPageItems = [
+  ...socialGalleryItems,
+  ...brochureItems.map((item) => ({
+    title: item.title,
+    image: item.image
+  })),
+  ...newsletterItems.map((item) => ({
+    title: item.title,
+    image: item.image
+  }))
+];
+
+const digitalGalleryVideos = [
+  { title: 'Welcome Preview', video: sectionVideos.welcome },
+  { title: 'Destinations Video', video: sectionVideos.destinations },
+  { title: 'Tours Video', video: sectionVideos.tours },
+  { title: 'Booking Video', video: sectionVideos.booking },
+  { title: 'Food Video', video: sectionVideos.foods },
+  { title: 'Traditions Video', video: sectionVideos.traditions }
 ];
 
 function App() {
   const [currentRoute, setCurrentRoute] = useState(window.location.hash || '#/');
   const [scrolled, setScrolled] = useState(false);
+  const routePath = currentRoute.split('?')[0];
+  const routeParams = new URLSearchParams(currentRoute.includes('?') ? currentRoute.split('?')[1] : '');
 
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  // Custom Trip Planner State
-  const [plannerBudget, setPlannerBudget] = useState('luxury');
-  const [plannerDays, setPlannerDays] = useState(7);
-  const [plannedItinerary, setPlannedItinerary] = useState(null);
-
-  // Destinations page filter state
-  const [destFilterRegion, setDestFilterRegion] = useState('All');
-  const [destFilterCat, setDestFilterCat] = useState('All');
+  const [activeIndiaPlace, setActiveIndiaPlace] = useState(ratnagiriRegionFeature.id);
 
   // Booking page state
-  const [bookingTab, setBookingTab] = useState('flight');
-  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingTab, setBookingTab] = useState('homes');
+  const [bookingSearchFocus, setBookingSearchFocus] = useState(null);
+  const [bookingSearch, setBookingSearch] = useState({
+    homes: { where: '', when: '', who: '' },
+    experiences: { where: '', when: '', who: '' },
+    services: { where: '', when: '', who: '' }
+  });
 
   // Subpages refs
   const topRef = useRef(null);
@@ -291,7 +613,7 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 8 Second Autoplay Interval with Ticker
+  // Ratnagiri1 keeps the original landing carousel controls and progress.
   useEffect(() => {
     let interval = null;
     if (isPlaying) {
@@ -301,16 +623,13 @@ function App() {
             setActiveSlide((slide) => (slide + 1) % slides.length);
             return 0;
           }
-          return prev + 1.25; // 8000ms total / 100ms ticker = 80 steps -> 100 / 80 = 1.25% per step
+          return prev + 1.25;
         });
       }, 100);
-    } else {
-      clearInterval(interval);
     }
     return () => clearInterval(interval);
   }, [isPlaying, activeSlide]);
 
-  // Restart progress when user changes slide manually
   const selectSlide = (index) => {
     setActiveSlide(index);
     setProgress(0);
@@ -331,65 +650,39 @@ function App() {
     return { ...slides[originalIndex], originalIndex };
   });
 
-  // Dynamic Trip Planner Function
-  const calculatePlan = (e) => {
-    e.preventDefault();
-    let hotelChoice;
-    let routeDesc;
-    let cost;
+  const activeRegionFeature = activeIndiaPlace === ratnagiriRegionFeature.id
+    ? ratnagiriRegionFeature
+    : ratnagiriRegionFeature;
+  const selectedTourId = Number(routeParams.get('package')) || mockTours[0].id;
+  const selectedTour = mockTours.find((tour) => tour.id === selectedTourId) || mockTours[0];
+  const currentBookingSearch = bookingSearch[bookingTab];
+  const bookingSearchConfig = bookingSearchOptions[bookingTab];
+  const searchTerm = currentBookingSearch.where.trim().toLowerCase();
+  const activeBookingRows = bookingRows[bookingTab]
+    .map((row) => ({
+      ...row,
+      items: searchTerm
+        ? row.items.filter((item) =>
+          `${row.title} ${item.title} ${item.meta}`.toLowerCase().includes(searchTerm)
+        )
+        : row.items
+    }))
+    .filter((row) => row.items.length > 0);
 
-    if (plannerBudget === 'luxury') {
-      hotelChoice = luxuryHotels[0];
-      routeDesc = 'You will experience the ultimate royal luxury. Charter flights or private saloon trains to Udaipur & Jaipur, staying in legendary heritage palace hotels with private butler service and fine-dining gourmet trails.';
-      cost = plannerDays * 65000;
-    } else if (plannerBudget === 'premium') {
-      hotelChoice = luxuryHotels[1];
-      routeDesc = 'Indulge in wellness, beaches, and pristine backwaters. Stay in award-winning lakefront resorts, travel via premium Vande Bharat train executive classes, and enjoy guided organic spice trails.';
-      cost = plannerDays * 25000;
-    } else {
-      hotelChoice = luxuryHotels[2];
-      routeDesc = 'Connect with raw nature and local wildlife. Stay in sustainably managed premium eco-lodges near Kabini Reserve, travel with local premium cars, and embark on authentic wilderness safaris and heritage walks.';
-      cost = plannerDays * 15000;
-    }
-
-    setPlannedItinerary({
-      hotel: hotelChoice,
-      route: routeDesc,
-      totalCost: cost.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }),
-      days: plannerDays
-    });
+  const updateBookingSearch = (field, value) => {
+    setBookingSearch((current) => ({
+      ...current,
+      [bookingTab]: {
+        ...current[bookingTab],
+        [field]: value
+      }
+    }));
   };
 
-  // Booked trigger
-  const handleBookingSubmit = (e) => {
-    e.preventDefault();
-    setBookingSuccess(true);
-    setTimeout(() => {
-      setBookingSuccess(false);
-    }, 5000);
+  const selectBookingSearchValue = (field, value) => {
+    updateBookingSearch(field, value);
+    setBookingSearchFocus(null);
   };
-
-  // Destinations page data combines main destinations and Maharashtra districts
-  const districtObjects = districtList.map((name, idx) => ({
-    id: 100 + idx,
-    title: `${name}, Maharashtra`,
-    state: 'Maharashtra',
-    region: 'West',
-    category: 'District',
-    rating: 5,
-    reviews: 0,
-    price: 0,
-    img: sectionImages.destinations,
-    desc: `${name} district in Maharashtra.`
-  }));
-  const allDestinations = [...mockDestinations, ...districtObjects];
-
-  // Filters for destinations
-  const filteredDestinations = allDestinations.filter(d => {
-    const matchesRegion = destFilterRegion === 'All' || d.region === destFilterRegion;
-    const matchesCat = destFilterCat === 'All' || d.category === destFilterCat;
-    return matchesRegion && matchesCat;
-  });
 
   return (
     <div ref={topRef}>
@@ -407,12 +700,12 @@ function App() {
         </a>
 
         <ul className="nav-links">
-          <li><a href="#/" className={`nav-link ${currentRoute === '#/' ? 'active' : ''}`}>Home</a></li>
-          <li><a href="#/destinations" className={`nav-link ${currentRoute === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
-          <li><a href="#/tours" className={`nav-link ${currentRoute === '#/tours' ? 'active' : ''}`}>Guided Tours</a></li>
-          <li><a href="#/booking" className={`nav-link ${currentRoute === '#/booking' ? 'active' : ''}`}>Bookings</a></li>
-          <li><a href="#/foods" className={`nav-link ${currentRoute === '#/foods' ? 'active' : ''}`}>Regional Foods</a></li>
-          <li><a href="#/tradition" className={`nav-link ${currentRoute === '#/tradition' ? 'active' : ''}`}>Traditions</a></li>
+          <li><a href="#/" className={`nav-link ${routePath === '#/' ? 'active' : ''}`}>Home</a></li>
+          <li><a href="#/destinations" className={`nav-link ${routePath === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
+          <li><a href="#/tours" className={`nav-link ${routePath === '#/tours' ? 'active' : ''}`}>Guided Tours</a></li>
+          <li><a href="#/booking" className={`nav-link ${routePath === '#/booking' ? 'active' : ''}`}>Bookings</a></li>
+          <li><a href="#/foods" className={`nav-link ${routePath === '#/foods' ? 'active' : ''}`}>Regional Foods</a></li>
+          <li><a href="#/tradition" className={`nav-link ${routePath === '#/tradition' ? 'active' : ''}`}>Traditions</a></li>
         </ul>
 
         <div className="nav-actions">
@@ -423,11 +716,10 @@ function App() {
       </header>
 
       {/* RENDER PAGES BASED ON SPA ROUTE */}
-      {currentRoute === '#/' && (
+      {routePath === '#/' && (
         <>
           {/* HERO SECTION CONTAINER */}
-          <section className="hero-container">
-            {/* Edge-to-edge image covers with fade-in crossfade */}
+          <section className="hero-container ratnagiri1-landing">
             <div className="hero-video-wrapper">
               {slides.map((slide, idx) => (
                 <img
@@ -450,7 +742,6 @@ function App() {
               <span>{String(activeSlide + 1).padStart(2, '0')}/{String(slides.length).padStart(2, '0')}</span>
             </div>
 
-            {/* Slide Typography Left Content */}
             <div className="hero-content">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -477,7 +768,6 @@ function App() {
               </AnimatePresence>
             </div>
 
-            {/* Next 4 Upcoming Slide Cards Carousel Right */}
             <div className="hero-carousel-panel">
               <div className="carousel-cards-container">
                 {previewSlides.map((card) => (
@@ -506,9 +796,7 @@ function App() {
               </div>
             </div>
 
-            {/* Bottom Panel Controls */}
             <div className="hero-bottom-controls">
-              {/* Social Media Links left */}
               <div className="social-links">
                 {socialLinks.map((social) => (
                   <a key={social.label} href={social.href} className="social-icon social-brand" target="_blank" rel="noreferrer" aria-label={social.label}>
@@ -517,7 +805,6 @@ function App() {
                 ))}
               </div>
 
-              {/* Progress bar and Counter right */}
               <div className="progress-and-counter">
                 <div className="playback-controls">
                   <button className="control-btn" onClick={handlePrevSlide} title="Previous Slide">
@@ -546,163 +833,64 @@ function App() {
 
           {/* BODY SECTION */}
 
-          {/* 1. Experience Categories Grid */}
-          <section className="section-wrapper">
-            <span className="section-tag">Find Your Passion</span>
-            <h2 className="section-title">Experience India By Theme</h2>
-            <p className="section-subtitle">
-              From snow-capped peaks in the north to deep tropical shores in the south, find itineraries customized to your desires.
-            </p>
-
-            <div className="experience-grid">
-              <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src={sectionImages.tours} alt="Mountains" className="experience-card-img" />
-                <div className="experience-card-overlay">
-                  <div className="experience-icon"><Compass size={24} /></div>
-                  <h3 className="experience-card-title">Mountains</h3>
-                  <p className="experience-card-desc">Trek the misty valleys of Himachal and scale high altitude mountain passes.</p>
-                  <span className="experience-card-count">12 Active Trails</span>
-                </div>
+          {/* 1. Maharashtra Tourism */}
+          <section id="about" className="section-wrapper maharashtra-story-section">
+            <div className="maharashtra-story-layout">
+              <div className="maharashtra-story-copy">
+                <span className="section-tag">Maharashtra Tourism</span>
+                <h2 className="section-title">Heritage, Coastlines and Living Culture</h2>
+                <p>{maharashtraIntroParagraphs[0]}</p>
               </div>
 
-              <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src={sectionImages.welcome} alt="Beaches" className="experience-card-img" />
-                <div className="experience-card-overlay">
-                  <div className="experience-icon"><Globe size={24} /></div>
-                  <h3 className="experience-card-title">Beaches</h3>
-                  <p className="experience-card-desc">Swaying palms, golden sands, and majestic coastal water cruises in Kerala.</p>
-                  <span className="experience-card-count">24 Coastal Stays</span>
-                </div>
-              </div>
-
-              <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src={sectionImages.destinations} alt="Wildlife" className="experience-card-img" />
-                <div className="experience-card-overlay">
-                  <div className="experience-icon"><Award size={24} /></div>
-                  <h3 className="experience-card-title">Wildlife</h3>
-                  <p className="experience-card-desc">Spot Bengal tigers, Asiatic lions, and curations of exotic tropical bird species.</p>
-                  <span className="experience-card-count">9 Safaris Open</span>
-                </div>
-              </div>
-
-              <div className="experience-card" onClick={() => window.location.hash = '#/destinations'}>
-                <img src={sectionImages.traditions} alt="Heritage" className="experience-card-img" />
-                <div className="experience-card-overlay">
-                  <div className="experience-icon"><Sparkles size={24} /></div>
-                  <h3 className="experience-card-title">Heritage</h3>
-                  <p className="experience-card-desc">Marvel at ancient temples, palace architecture, and UNESCO sites dating back millennia.</p>
-                  <span className="experience-card-count">36 Monument Walks</span>
-                </div>
+              <div className="maharashtra-focus-grid">
+                {maharashtraFocusItems.map((item) => (
+                  <article className="maharashtra-focus-card" key={item.title}>
+                    <Check size={18} />
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                  </article>
+                ))}
               </div>
             </div>
           </section>
 
-          {/* 2. Popular Destinations Showcase */}
-          <section className="section-wrapper alternate">
-            <span className="section-tag">Handpicked for You</span>
-            <h2 className="section-title">Most Popular Destinations</h2>
-            <p className="section-subtitle">
-              Discover the locations that captures travelers’ hearts across the Indian subcontinent.
-            </p>
+          {/* 2. Curated Travel Guide */}
+          <section id="travel-guide" className="section-wrapper curated-guide-section">
+            <div className="curated-guide-heading">
+              <span className="section-tag">Essential Intelligence</span>
+              <h2 className="section-title">Curated Travel Guide</h2>
+            </div>
 
-            <div className="destinations-showcase">
-              {mockDestinations.slice(0, 3).map((dest) => (
-                <div key={dest.id} className="destination-card">
-                  <div className="destination-card-img-wrapper">
-                    <img src={dest.img} alt={dest.title} className="destination-card-img" />
-                    <span className="destination-tag-badge">{dest.category}</span>
-                    <div className="destination-rating-badge">
-                      <Star size={12} fill="#FFFFFF" />
-                      {dest.rating}
-                    </div>
+            <div className="curated-guide-grid">
+              {curatedTravelGuide.map((guide) => (
+                <article className="curated-guide-card" key={guide.id}>
+                  <div className={`curated-guide-icon ${guide.icon}`}>
+                    <Check size={28} />
                   </div>
-                  <div className="destination-card-content">
-                    <div className="destination-card-location">
-                      <MapPin size={14} className="location-icon" />
-                      <span>{dest.state}, India</span>
-                    </div>
-                    <h3 className="destination-card-title">{dest.title}</h3>
-                    <p className="experience-card-desc">{dest.desc}</p>
-                    <div className="destination-card-footer">
-                      <div className="destination-card-stats">
-                        <span className="destination-stats-label">Travelers</span>
-                        <span className="destination-stats-value">{dest.reviews.toLocaleString()}+</span>
-                      </div>
-                      <div className="destination-card-price">
-                        <span className="destination-price-label">Avg. Cost</span>
-                        <span className="destination-price-value">${dest.price}/day</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  <h3>{guide.title}</h3>
+                  <p>{guide.desc}</p>
+                  <ul>
+                    {guide.notes.map((note) => (
+                      <li key={note}>{note}</li>
+                    ))}
+                  </ul>
+                </article>
               ))}
             </div>
-
-            <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
-              <a href="#/destinations" className="book-btn" style={{ padding: '0.8rem 2.2rem' }}>View All Destinations</a>
-            </div>
           </section>
 
-          {/* 3. Why Choose India Section with Stats & Overlapping Collage */}
-          <section className="section-wrapper">
-            <div className="why-choose-grid">
-              <div className="why-choose-content">
-                <span className="section-tag" style={{ textAlign: 'left' }}>The Land of Diversity</span>
-                <h2 className="why-choose-heading">Why Choose India For Your Next Adventure?</h2>
-                <p className="why-choose-desc">
-                  India offers a unique sensory celebration unmatched by any other destination. From spiritual retreats in ancient Ganges ghats to absolute luxury in Maharaja palaces, organic street foods, and rich cultural traditions, your perspective of life will change forever.
-                </p>
-
-                <div className="stats-grid">
-                  <div className="stat-item">
-                    <span className="stat-number">5,000+</span>
-                    <span className="stat-label">Years</span>
-                    <span className="stat-desc">Of continuous living history & culture</span>
-                  </div>
-                  <div className="stat-item">
-                    <span className="stat-number">28</span>
-                    <span className="stat-label">States</span>
-                    <span className="stat-desc">Each offering distinct language & cuisines</span>
-                  </div>
-                  <div className="stat-item">
-                    <span className="stat-number">36</span>
-                    <span className="stat-label">UNESCO</span>
-                    <span className="stat-desc">World Heritage archaeological masterpieces</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Overlapping Collage */}
-              <div className="collage-container">
-                <div className="collage-img collage-img-1">
-                  <img src={sectionImages.destinations} alt="Collage 1" />
-                </div>
-                <div className="collage-img collage-img-2">
-                  <img src={sectionImages.booking} alt="Collage 2" />
-                </div>
-                <div className="collage-img collage-img-3">
-                  <img src={sectionImages.traditions} alt="Collage 3" />
-                </div>
-                <div className="collage-accent-badge">
-                  <span className="collage-accent-num">#1</span>
-                  <span className="collage-accent-text">Travel Choice</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 4. Upcoming Tours Section */}
+          {/* 3. Tour Packages */}
           <section className="section-wrapper alternate">
-            <span className="section-tag">All-Inclusive Journeys</span>
-            <h2 className="section-title">Upcoming Guided Tours</h2>
+            <span className="section-tag">Plan Your Trip</span>
+            <h2 className="section-title">Exclusive Packages</h2>
             <p className="section-subtitle">
               Join curated luxury groups led by master local guides, historical experts, and premium safety hosts.
             </p>
 
             <div className="tours-grid">
-              {mockTours.slice(0, 2).map((tour) => (
-                <div key={tour.id} className="tour-card">
-                  <div className="tour-img-wrapper">
+              {mockTours.slice(0, 6).map((tour) => (
+                <div key={tour.id} className="tour-card home-tour-package-card">
+                  <div className="tour-img-wrapper home-tour-image">
                     <img src={tour.img} alt={tour.title} className="tour-img" />
                     <span className="tour-duration-badge">{tour.duration}</span>
                   </div>
@@ -710,21 +898,15 @@ function App() {
                     <div>
                       <span className="tour-date">{tour.date}</span>
                       <h3 className="tour-title">{tour.title}</h3>
-                      <ul className="tour-highlights">
-                        {tour.highlights.map((h, i) => (
-                          <li key={i} className="tour-highlight-item">
-                            <Check size={14} className="saffron-check" style={{ color: 'var(--saffron)' }} />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <p className="home-tour-desc">{tour.highlights.slice(0, 2).join(' · ')}</p>
+                      <span className="home-tour-location">{tour.location}</span>
                     </div>
                     <div className="tour-footer">
                       <div className="tour-price">
-                        <span className="tour-price-label">Price/Guest</span>
+                        <span className="tour-price-label">From</span>
                         <span className="tour-price-value">{tour.price}</span>
                       </div>
-                      <button className="tour-book-btn" onClick={() => window.location.hash = '#/booking'}>Book Slots</button>
+                      <button className="tour-book-btn" onClick={() => window.location.hash = `#/tours?package=${tour.id}`}>Book Slot</button>
                     </div>
                   </div>
                 </div>
@@ -732,18 +914,161 @@ function App() {
             </div>
           </section>
 
-          {/* 5. Call to Action Banner */}
-          <section className="section-wrapper">
-            <div className="cta-banner">
-              <div className="cta-banner-content">
-                <h2 className="cta-title">Start Planning Your Custom Journey</h2>
-                <p className="cta-desc">
-                  Subscribe to our premium catalog, or request customized itinerary guides from our travel planners. Let us curate your perfect vacation today.
+          {/* 4. Flavor in India */}
+          <section className="section-wrapper flavor-home-section">
+            <span className="section-tag">Flavor in India</span>
+            <h2 className="section-title">Regional Flavors</h2>
+            <p className="section-subtitle">
+              Explore Maharashtra food trails alongside broader Indian culinary favorites.
+            </p>
+
+            <div className="home-feature-grid">
+              {mockFoods.slice(0, 6).map((food) => (
+                <article className="home-feature-card" key={food.id}>
+                  <img src={food.img} alt={food.name} />
+                  <div>
+                    <span>{food.region}</span>
+                    <h3>{food.name}</h3>
+                    <p>{food.desc}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 5. Traditions */}
+          <section className="section-wrapper alternate traditions-home-section">
+            <span className="section-tag">Living Heritage</span>
+            <h2 className="section-title">Traditions</h2>
+            <p className="section-subtitle">
+              Festivals, rituals, music and historic celebrations keep Maharashtra's culture vivid across the year.
+            </p>
+
+            <div className="tradition-category-grid">
+              {traditionCategoryCards.map((card) => (
+                <article className="tradition-category-card" key={card.title}>
+                  <img src={card.img} alt={card.title} />
+                  <div>
+                    <h3>{card.title}</h3>
+                    <p>{card.desc}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="home-feature-grid">
+              {mockTraditions.slice(0, 3).map((tradition) => (
+                <article className="home-feature-card compact" key={tradition.id}>
+                  <img src={tradition.img} alt={tradition.title} />
+                  <div>
+                    <span>{tradition.date} | {tradition.place}</span>
+                    <h3>{tradition.title}</h3>
+                    <p>{tradition.desc}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 6. Social Gallery */}
+          <section className="section-wrapper social-gallery-section">
+            <div className="section-heading-row">
+              <div>
+                <span className="section-tag">Social Gallery</span>
+                <h2 className="section-title">Moments From Maharashtra</h2>
+              </div>
+              <a href="#/gallery" className="see-all-link">
+                See All
+                <ArrowRight size={18} />
+              </a>
+            </div>
+
+            <div className="social-gallery-grid">
+              {socialGalleryItems.slice(0, 9).map((item) => (
+                <article className="social-gallery-card" key={item.title}>
+                  <img src={item.image} alt={item.title} />
+                  <span>{item.title}</span>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 7. Brochures */}
+          <section className="section-wrapper compact-rail-section">
+            <span className="section-tag">Brochures</span>
+            <h2 className="section-title">Travel Brochures</h2>
+            <p className="section-subtitle">
+              Browse official visual guides for Maharashtra forts, shrines and cultural routes.
+            </p>
+
+            <div className="home-horizontal-rail" aria-label="Travel brochures">
+              {brochureItems.map((item) => (
+                <article className="document-card brochure-card" key={item.title}>
+                  <img src={item.image} alt={item.title} />
+                  <div>
+                    <span>{item.tag}</span>
+                    <h3>{item.title}</h3>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 8. Newsletters */}
+          <section className="section-wrapper compact-rail-section alternate">
+            <span className="section-tag">News Letter</span>
+            <h2 className="section-title">Tourism News Letter</h2>
+            <p className="section-subtitle">
+              Eight short travel updates for routes, festivals, stays and seasonal experiences.
+            </p>
+
+            <div className="home-horizontal-rail" aria-label="Tourism newsletters">
+              {newsletterItems.map((item) => (
+                <article className="document-card newsletter-card" key={item.title}>
+                  <img src={item.image} alt={item.title} />
+                  <div>
+                    <span>{item.date}</span>
+                    <h3>{item.title}</h3>
+                    <p>Read the latest planning notes and destination highlights.</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* 9. Plan Your Trip */}
+          <section className="section-wrapper plan-trip-section">
+            <div className="plan-trip-layout">
+              <div className="plan-trip-video-frame" aria-label="Maharashtra destination preview video">
+                <video
+                  src={sectionVideos.destinations}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
+              </div>
+
+              <div className="plan-trip-copy">
+                <span className="plan-trip-script">Visit Maharashtra</span>
+                <h2>Plan Your Trip with Us</h2>
+                <p>
+                  Maharashtra brings together sea forts, Konkan beaches, ancient caves, hill stations, city culture and unforgettable food trails. Build your route, choose the right stay, and move through the state with a plan that feels easy from arrival to return.
                 </p>
-                <form className="cta-form" onSubmit={(e) => { e.preventDefault(); alert('Thank you for subscribing! Your travel guide is on the way.'); }}>
-                  <input type="email" placeholder="Enter your email address" className="cta-input" required />
-                  <button type="submit" className="cta-submit-btn">Request Catalog</button>
-                </form>
+
+                <ul className="plan-trip-list">
+                  {planTripHighlights.map((highlight) => (
+                    <li key={highlight}>
+                      <Check size={18} />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <button className="plan-trip-button" type="button" onClick={() => window.location.hash = '#/booking'}>
+                  Book Your Trip Now
+                </button>
               </div>
             </div>
           </section>
@@ -753,151 +1078,177 @@ function App() {
       {/* DESTINATIONS CATEGORY PAGE */}
       {currentRoute === '#/destinations' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.destinations) }}>
-            <span className="page-subtitle">Curated Indian Wonders</span>
-            <h1 className="page-title">Explore Indian Destinations</h1>
-          </div>
+          <VideoPageHeader
+            videoSrc={sectionVideos.destinations}
+          />
 
-          <div className="page-container">
-            {/* Interactive Filters Bar */}
-            <div className="filter-bar">
-              <div className="filters-group">
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', marginRight: '1rem' }}>
-                  <Filter size={16} style={{ marginRight: '0.4rem', color: 'var(--saffron)' }} /> Regions:
-                </span>
-                {['All', 'North', 'South', 'East', 'West'].map((region) => (
-                  <button
-                    key={region}
-                    className={`filter-btn ${destFilterRegion === region ? 'active' : ''}`}
-                    onClick={() => setDestFilterRegion(region)}
-                  >
-                    {region}
-                  </button>
-                ))}
-              </div>
-
-              <div className="filters-group">
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', marginRight: '1rem' }}>
-                  <Compass size={16} style={{ marginRight: '0.4rem', color: 'var(--saffron)' }} /> Theme:
-                </span>
-                {['All', 'Heritage', 'Nature', 'Adventure'].map((cat) => (
-                  <button
-                    key={cat}
-                    className={`filter-btn ${destFilterCat === cat ? 'active' : ''}`}
-                    onClick={() => setDestFilterCat(cat)}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
+          <section className="india-regions-section">
+            <div className="india-regions-heading">
+              <span className="section-tag">Regions of India</span>
+              <h2 className="section-title">Explore India By Region</h2>
             </div>
 
-            {/* Destinations grid list */}
-            {filteredDestinations.length > 0 ? (
-              <div className="destinations-grid">
-                {filteredDestinations.map((dest) => (
-                  <div key={dest.id} className="destination-card">
-                    <div className="destination-card-img-wrapper">
-                      <img src={dest.img} alt={dest.title} className="destination-card-img" />
-                      <span className="destination-tag-badge">{dest.category}</span>
-                      <div className="destination-rating-badge">
-                        <Star size={12} fill="#FFFFFF" />
-                        {dest.rating}
-                      </div>
-                    </div>
-                    <div className="destination-card-content">
-                      <div className="destination-card-location">
-                        <MapPin size={14} className="location-icon" />
-                        <span>{dest.state}, India</span>
-                      </div>
-                      <h3 className="destination-card-title">{dest.title}</h3>
-                      <p className="experience-card-desc" style={{ marginBottom: '1.2rem' }}>{dest.desc}</p>
+            <div className="india-regions-layout">
+              <div className="india-map-panel" aria-label="Map of India regions">
+                <svg className="india-map-svg" viewBox="0 0 520 560" role="img" aria-labelledby="india-map-title">
+                  <title id="india-map-title">Regions of India map with Ratnagiri highlighted</title>
+                  <path
+                    className="india-map-land"
+                    d="M218 38 276 48 306 82 338 99 354 136 393 151 418 196 398 235 413 286 379 309 354 350 333 393 307 420 294 474 257 531 224 466 194 421 158 392 144 337 112 304 124 252 103 215 126 170 157 139 174 92Z"
+                  />
+                  <path className="india-map-region north" d="M177 83 221 44 279 55 319 95 351 142 302 161 235 154 174 132Z" />
+                  <path className="india-map-region west" d="M126 171 174 133 236 155 224 250 169 306 116 296 103 216Z" />
+                  <path className="india-map-region central" d="M235 156 304 162 361 209 338 304 255 318 225 249Z" />
+                  <path className="india-map-region east" d="M362 211 414 198 399 236 413 286 380 308 337 305Z" />
+                  <path className="india-map-region south" d="M169 309 255 319 337 306 353 350 307 421 293 475 257 531 223 466 194 421 158 393 145 338Z" />
+                  <path className="india-map-region northeast" d="M354 137 413 155 459 148 494 174 468 206 421 197 393 151Z" />
 
-                      <div className="destination-card-footer">
-                        <div className="destination-card-stats">
-                          <span className="destination-stats-label">Audience Reviews</span>
-                          <span className="destination-stats-value">{dest.reviews.toLocaleString()}+</span>
-                        </div>
-                        <div className="destination-card-price">
-                          <span className="destination-price-label">Avg. Cost</span>
-                          <span className="destination-price-value">${dest.price}/day</span>
-                        </div>
-                      </div>
+                  {indiaRegionLabels.map((region) => (
+                    <text key={region.label} className="india-region-label" x={region.x} y={region.y}>
+                      {region.label}
+                    </text>
+                  ))}
 
-                      <button
-                        className="book-btn"
-                        onClick={() => window.location.hash = '#/booking'}
-                        style={{ width: '100%', marginTop: '1.2rem', textAlign: 'center' }}
-                      >
-                        Plan Travel to {dest.title.split(',')[0]}
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  <g className="india-map-place static">
+                    <circle cx="203" cy="120" r="5" />
+                    <text x="92" y="113">Delhi</text>
+                    <path d="M105 116H196" />
+                  </g>
+                  <g className="india-map-place static">
+                    <circle cx="370" cy="270" r="5" />
+                    <text x="386" y="273">Kolkata</text>
+                    <path d="M376 270h54" />
+                  </g>
+                  <g className="india-map-place static">
+                    <circle cx="257" cy="438" r="5" />
+                    <text x="278" y="442">Bengaluru</text>
+                    <path d="M263 438h64" />
+                  </g>
+                  <g className="india-map-place static">
+                    <circle cx="147" cy="246" r="5" />
+                    <text x="46" y="250">Mumbai</text>
+                    <path d="M86 247h55" />
+                  </g>
+
+                  <g
+                    className="india-map-ratnagiri"
+                    role="button"
+                    tabIndex={0}
+                    onMouseEnter={() => setActiveIndiaPlace(ratnagiriRegionFeature.id)}
+                    onFocus={() => setActiveIndiaPlace(ratnagiriRegionFeature.id)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setActiveIndiaPlace(ratnagiriRegionFeature.id);
+                      }
+                    }}
+                    aria-label="Ratnagiri, Maharashtra"
+                  >
+                    <circle cx="159" cy="292" r="18" />
+                    <circle cx="159" cy="292" r="7" />
+                  </g>
+                  <g className="india-map-place ratnagiri-label">
+                    <text x="28" y="318">Ratnagiri</text>
+                    <path d="M111 314 151 297" />
+                  </g>
+                </svg>
               </div>
-            ) : (
-              <div style={{ textAlign: 'center', padding: '5rem 0' }}>
-                <Info size={40} style={{ color: 'var(--saffron)', marginBottom: '1rem' }} />
-                <h3>No Destinations Match Selected Filters</h3>
-                <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>Try changing your region or theme criteria.</p>
-              </div>
-            )}
-          </div>
+
+              <aside className="india-place-panel">
+                <img src={activeRegionFeature.image} alt={activeRegionFeature.title} className="india-place-image" />
+                <div className="india-place-content">
+                  <span>Explore</span>
+                  <h3>{activeRegionFeature.name}</h3>
+                  <p className="india-place-region">{activeRegionFeature.region}</p>
+                  <p>{activeRegionFeature.description}</p>
+                  <ul>
+                    {activeRegionFeature.places.map((place) => (
+                      <li key={place}>{place}</li>
+                    ))}
+                  </ul>
+                  <button className="book-btn" type="button" onClick={() => window.location.hash = '#/booking'}>
+                    Plan Ratnagiri Trip
+                  </button>
+                </div>
+              </aside>
+            </div>
+          </section>
         </>
       )}
 
       {/* TOURS CATEGORY PAGE */}
-      {currentRoute === '#/tours' && (
+      {routePath === '#/tours' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.tours) }}>
-            <span className="page-subtitle">Fully Accompanied Tours</span>
-            <h1 className="page-title">Curated Indian Tour Packages</h1>
-          </div>
+          <VideoPageHeader
+            videoSrc={sectionVideos.tours}
+          />
 
-          <div className="page-container">
-            <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '4rem' }}>
-              {mockTours.map((tour) => (
-                <div key={tour.id} className="tour-card" style={{ display: 'flex', flexDirection: 'row', minHeight: '380px' }}>
-                  <div className="tour-img-wrapper" style={{ width: '45%' }}>
-                    <img src={tour.img} alt={tour.title} className="tour-img" style={{ height: '100%' }} />
-                    <span className="tour-duration-badge" style={{ fontSize: '0.9rem', padding: '0.4rem 1.2rem' }}>{tour.duration}</span>
+          <div className="page-container tour-packages-page">
+            <div className="tour-detail-panel">
+              <div className="tour-detail-media">
+                <img src={selectedTour.img} alt={selectedTour.title} />
+                <span className="tour-duration-badge">{selectedTour.duration}</span>
+              </div>
+              <div className="tour-detail-copy">
+                <span className="section-tag">Selected Package</span>
+                <h2 className="section-title">{selectedTour.title}</h2>
+                <div className="tour-detail-meta">
+                  <span>{selectedTour.date}</span>
+                  <span><Star size={14} fill="currentColor" /> {selectedTour.rating}</span>
+                  <span>{selectedTour.category}</span>
+                </div>
+                <p>
+                  This guided package includes curated routes, hosted local experiences, transport-ready planning, and handpicked highlights for a smooth Maharashtra tourism journey.
+                </p>
+                <ul className="tour-detail-list">
+                  {selectedTour.highlights.map((highlight) => (
+                    <li key={highlight}>
+                      <Check size={16} />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="tour-detail-footer">
+                  <div className="tour-price">
+                    <span className="tour-price-label">All-Inclusive Per Guest</span>
+                    <span className="tour-price-value">{selectedTour.price}</span>
                   </div>
-                  <div className="tour-info" style={{ width: '55%', padding: '2.5rem' }}>
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-                        <span className="tour-date">{tour.date}</span>
-                        <span className="destination-rating-badge" style={{ position: 'static' }}>
-                          <Star size={12} fill="#FFFFFF" /> {tour.rating}
-                        </span>
-                      </div>
+                  <button className="tour-book-btn solid" onClick={() => window.location.hash = '#/booking'}>
+                    Reserve This Slot
+                  </button>
+                </div>
+              </div>
+            </div>
 
-                      <h3 className="tour-title" style={{ fontSize: '1.7rem', marginBottom: '1.2rem' }}>{tour.title}</h3>
-                      <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--saffron)', fontWeight: '700', display: 'block', marginBottom: '1rem', letterSpacing: '1px' }}>
-                        Core Tour Inclusions
-                      </span>
+            <div className="tour-packages-heading">
+              <span className="section-tag">Plan Your Trip</span>
+              <h2 className="section-title">Exclusive Packages</h2>
+            </div>
 
-                      <ul className="tour-highlights" style={{ marginBottom: '2rem' }}>
-                        {tour.highlights.map((h, i) => (
-                          <li key={i} className="tour-highlight-item" style={{ fontSize: '0.95rem', marginBottom: '0.6rem' }}>
-                            <Check size={16} className="saffron-check" style={{ color: 'var(--saffron)' }} />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
+            <div className="tour-packages-grid">
+              {mockTours.map((tour) => (
+                <div key={tour.id} className={`tour-package-card ${selectedTour.id === tour.id ? 'is-selected' : ''}`}>
+                  <div className="tour-package-image">
+                    <img src={tour.img} alt={tour.title} />
+                    <span>{tour.category}</span>
+                  </div>
+                  <div className="tour-package-content">
+                    <div className="tour-package-topline">
+                      <span>{tour.date}</span>
+                      <span><Star size={13} fill="currentColor" /> {tour.rating}</span>
                     </div>
-
-                    <div className="tour-footer" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1.5rem' }}>
+                    <h3>{tour.title}</h3>
+                    <p>{tour.highlights.slice(0, 2).join(' · ')}</p>
+                    <div className="tour-package-footer">
                       <div className="tour-price">
-                        <span className="tour-price-label">All-Inclusive Per Guest</span>
-                        <span className="tour-price-value" style={{ fontSize: '1.7rem', color: 'var(--saffron)' }}>{tour.price}</span>
+                        <span className="tour-price-label">From</span>
+                        <span className="tour-price-value">{tour.price}</span>
                       </div>
-
                       <button
-                        className="book-btn"
-                        onClick={() => window.location.hash = '#/booking'}
-                        style={{ padding: '0.8rem 2.2rem' }}
+                        className="tour-book-btn"
+                        onClick={() => window.location.hash = `#/tours?package=${tour.id}`}
                       >
-                        Enquire slots
+                        Book Slot
                       </button>
                     </div>
                   </div>
@@ -908,236 +1259,196 @@ function App() {
         </>
       )}
 
-      {/* BOOKING CATEGORY PAGE WITH CUSTOM TRIP PLANNER */}
+      {/* BOOKING CATEGORY PAGE */}
       {currentRoute === '#/booking' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.booking) }}>
-            <span className="page-subtitle">Hassle-Free Reservations</span>
-            <h1 className="page-title">Book Flight, Train & Palace Stays</h1>
-          </div>
+          <VideoPageHeader
+            videoSrc={sectionVideos.booking}
+          />
 
-          <div className="page-container">
-            <div className="booking-panel">
-              {/* Form card left */}
-              <div className="booking-card-main">
-                {/* Tab selector */}
-                <div className="booking-tabs">
-                  <button className={`booking-tab ${bookingTab === 'flight' ? 'active' : ''}`} onClick={() => setBookingTab('flight')}>
-                    <Plane size={18} />
-                    <span>Flights</span>
-                  </button>
-                  <button className={`booking-tab ${bookingTab === 'train' ? 'active' : ''}`} onClick={() => setBookingTab('train')}>
-                    <Train size={18} />
-                    <span>Trains</span>
-                  </button>
-                  <button className={`booking-tab ${bookingTab === 'hotel' ? 'active' : ''}`} onClick={() => setBookingTab('hotel')}>
-                    <Hotel size={18} />
-                    <span>Palace Hotels & Resorts</span>
-                  </button>
-                </div>
-
-                {bookingSuccess ? (
-                  <div style={{ textAlign: 'center', padding: '3rem 0', animation: 'scaleUp 0.5s ease' }}>
-                    <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(76, 175, 80, 0.1)', color: '#4CAF50', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem auto' }}>
-                      <Check size={40} />
-                    </div>
-                    <h2 style={{ fontFamily: 'var(--serif)', color: 'var(--text-primary)', marginBottom: '0.8rem' }}>Reservation Request Received!</h2>
-                    <p style={{ color: 'var(--text-muted)', maxWidth: '450px', margin: '0 auto' }}>
-                      Our luxury concierge team is verifying seat and suite availability. A customized voucher has been sent to your registered email address.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleBookingSubmit}>
-                    <div className="booking-form-grid">
-                      <div className="booking-input-group">
-                        <label className="booking-label">From (Departure City)</label>
-                        <div className="booking-input-wrapper">
-                          <Plane size={16} className="booking-input-icon" />
-                          <input type="text" placeholder="e.g. Mumbai (BOM)" className="booking-input" required />
-                        </div>
-                      </div>
-
-                      <div className="booking-input-group">
-                        <label className="booking-label">To (Destination)</label>
-                        <div className="booking-input-wrapper">
-                          <MapPin size={16} className="booking-input-icon" />
-                          <input type="text" placeholder="e.g. Udaipur (UDR)" className="booking-input" required />
-                        </div>
-                      </div>
-
-                      <div className="booking-input-group">
-                        <label className="booking-label">Departure Date</label>
-                        <div className="booking-input-wrapper">
-                          <Calendar size={16} className="booking-input-icon" />
-                          <input type="date" className="booking-input" defaultValue="2026-06-15" required />
-                        </div>
-                      </div>
-
-                      <div className="booking-input-group">
-                        <label className="booking-label">Class Category</label>
-                        <div className="booking-input-wrapper">
-                          <Award size={16} className="booking-input-icon" />
-                          <select className="booking-select">
-                            {bookingTab === 'flight' && (
-                              <>
-                                <option>First Class Suite</option>
-                                <option>Club Business Class</option>
-                                <option>Premium Economy</option>
-                              </>
-                            )}
-                            {bookingTab === 'train' && (
-                              <>
-                                <option>AC Executive Chair Car (EC)</option>
-                                <option>AC First Class Coupe (1A)</option>
-                                <option>AC 2 Tier Sleeper (2A)</option>
-                              </>
-                            )}
-                            {bookingTab === 'hotel' && (
-                              <>
-                                <option>Grand Maharaja Heritage Suite</option>
-                                <option>Lake View Luxury Room</option>
-                                <option>Forest Luxury Canopy Lodge</option>
-                              </>
-                            )}
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="booking-input-group full-width">
-                        <label className="booking-label">Contact Details</label>
-                        <div className="booking-input-wrapper">
-                          <Users size={16} className="booking-input-icon" />
-                          <input type="email" placeholder="Enter your email for ticket & luxury voucher delivery" className="booking-input" required />
-                        </div>
-                      </div>
-                    </div>
-
-                    <button type="submit" className="booking-submit-btn">
-                      Request Suite & Seat Reservation
-                      <ArrowRight size={18} />
+          <section className="booking-marketplace">
+            <div className="booking-marketplace-top">
+              <div className="booking-mode-tabs">
+                {bookingTabs.map((tab) => {
+                  const TabIcon = tab.icon;
+                  return (
+                    <button
+                      key={tab.id}
+                      className={`booking-mode-tab ${bookingTab === tab.id ? 'active' : ''}`}
+                      type="button"
+                      onClick={() => {
+                        setBookingTab(tab.id);
+                        setBookingSearchFocus(null);
+                      }}
+                    >
+                      {tab.badge && <span className="booking-tab-badge">{tab.badge}</span>}
+                      <TabIcon size={34} strokeWidth={1.7} />
+                      <span>{tab.label}</span>
                     </button>
-                  </form>
-                )}
+                  );
+                })}
               </div>
 
-              {/* Luxury accommodation catalog & interactive trip planner right */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-                <div>
-                  <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.4rem', color: 'var(--text-primary)', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Sparkles size={20} style={{ color: 'var(--saffron)' }} />
-                    Heritage Palace Showcase
-                  </h3>
-
-                  <div className="luxury-hotels-panel">
-                    {luxuryHotels.map((hotel) => (
-                      <div key={hotel.id} className="luxury-hotel-card">
-                        <img src={hotel.img} alt={hotel.name} className="luxury-hotel-img" />
-                        <div className="luxury-hotel-info">
-                          <span className="luxury-hotel-tag">{hotel.type}</span>
-                          <h4 className="luxury-hotel-name">{hotel.name}</h4>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
-                            <MapPin size={12} style={{ color: 'var(--saffron)' }} />
-                            <span>{hotel.location}</span>
-                          </div>
-                        </div>
-                        <span className="luxury-hotel-price">{hotel.price}</span>
-                      </div>
-                    ))}
-                  </div>
+              <div className={`booking-search-pill ${bookingSearchFocus ? 'expanded' : ''}`} role="search">
+                <div className={`booking-search-field ${bookingSearchFocus === 'where' ? 'active' : ''}`}>
+                  <button type="button" onClick={() => setBookingSearchFocus('where')}>
+                    <strong>{bookingSearchConfig.whereLabel}</strong>
+                    <input
+                      type="text"
+                      value={currentBookingSearch.where}
+                      placeholder={bookingSearchConfig.wherePlaceholder}
+                      onChange={(event) => updateBookingSearch('where', event.target.value)}
+                      onFocus={() => setBookingSearchFocus('where')}
+                    />
+                  </button>
                 </div>
+                <div className={`booking-search-field ${bookingSearchFocus === 'when' ? 'active' : ''}`}>
+                  <button type="button" onClick={() => setBookingSearchFocus('when')}>
+                    <strong>{bookingSearchConfig.dateLabel}</strong>
+                    <span>{currentBookingSearch.when || bookingSearchConfig.datePlaceholder}</span>
+                  </button>
+                </div>
+                <div className={`booking-search-field ${bookingSearchFocus === 'who' ? 'active' : ''}`}>
+                  <button type="button" onClick={() => setBookingSearchFocus('who')}>
+                    <strong>{bookingSearchConfig.guestLabel}</strong>
+                    <span>{currentBookingSearch.who || bookingSearchConfig.guestPlaceholder}</span>
+                  </button>
+                </div>
+                <button className="booking-search-btn" type="button" onClick={() => setBookingSearchFocus(null)}>
+                  <Search size={24} />
+                  <span>Search</span>
+                </button>
+              </div>
 
-                {/* TRIP PLANNER WIDGET */}
-                <div style={{ backgroundColor: 'var(--obsidian-card)', border: '1px dashed var(--saffron)', borderRadius: '20px', padding: '1.8rem' }}>
-                  <h3 style={{ fontFamily: 'var(--serif)', fontSize: '1.25rem', color: 'var(--text-primary)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Compass size={18} style={{ color: 'var(--saffron)' }} />
-                    AI-Driven Trip Planner
-                  </h3>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-                    Simulate your luxury budget and days to receive recommendations instantly.
-                  </p>
-
-                  <form onSubmit={calculatePlan}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.2rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
-                        <button
-                          type="button"
-                          className={`filter-btn ${plannerBudget === 'luxury' ? 'active' : ''}`}
-                          onClick={() => setPlannerBudget('luxury')}
-                          style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem' }}
-                        >
-                          Palace Luxury
-                        </button>
-                        <button
-                          type="button"
-                          className={`filter-btn ${plannerBudget === 'premium' ? 'active' : ''}`}
-                          onClick={() => setPlannerBudget('premium')}
-                          style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem' }}
-                        >
-                          Coastal Wellness
-                        </button>
-                        <button
-                          type="button"
-                          className={`filter-btn ${plannerBudget === 'eco' ? 'active' : ''}`}
-                          onClick={() => setPlannerBudget('eco')}
-                          style={{ flex: 1, fontSize: '0.75rem', padding: '0.4rem' }}
-                        >
-                          Eco Safari
-                        </button>
+              {bookingSearchFocus && (
+                <div className="booking-search-panel">
+                  {bookingSearchFocus === 'where' && (
+                    <>
+                      <h3>{bookingSearchConfig.panelTitle}</h3>
+                      <div className="booking-suggestion-grid">
+                        {bookingSearchConfig.suggestions.map((suggestion) => (
+                          <button
+                            key={suggestion}
+                            type="button"
+                            onClick={() => selectBookingSearchValue('where', suggestion)}
+                          >
+                            <Search size={17} />
+                            <span>{suggestion}</span>
+                          </button>
+                        ))}
                       </div>
+                    </>
+                  )}
 
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem' }}>
-                          <span style={{ fontWeight: '600' }}>Journey Duration</span>
-                          <span style={{ color: 'var(--saffron)', fontWeight: '700' }}>{plannerDays} Days</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="3"
-                          max="15"
-                          value={plannerDays}
-                          onChange={(e) => setPlannerDays(parseInt(e.target.value))}
-                          style={{ accentColor: 'var(--saffron)', cursor: 'pointer' }}
-                        />
+                  {bookingSearchFocus === 'when' && (
+                    <>
+                      <div className="booking-date-toggle">
+                        <button type="button" className="active">Dates</button>
+                        <button type="button">Flexible</button>
                       </div>
-                    </div>
-
-                    <button type="submit" className="book-btn" style={{ width: '100%', fontSize: '0.8rem', padding: '0.6rem' }}>
-                      Generate Itinerary Recommendations
-                    </button>
-                  </form>
-
-                  {plannedItinerary && (
-                    <div style={{ marginTop: '1.5rem', backgroundColor: 'var(--obsidian)', borderRadius: '12px', padding: '1rem', border: '1px solid rgba(255,255,255,0.05)', animation: 'fadeIn 0.5s ease' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                        <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: 'var(--saffron)', fontWeight: '700', letterSpacing: '1px' }}>
-                          Recommended Stay
-                        </span>
-                        <span style={{ fontSize: '0.9rem', color: 'var(--gold)', fontWeight: '700' }}>
-                          {plannedItinerary.totalCost} Est.
-                        </span>
+                      <div className="booking-calendar-preview">
+                        {['June 2026', 'July 2026'].map((month, monthIndex) => (
+                          <div className="booking-calendar-month" key={month}>
+                            <h3>{month}</h3>
+                            <div className="booking-calendar-weekdays">
+                              {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
+                                <span key={`${month}-${day}-${index}`}>{day}</span>
+                              ))}
+                            </div>
+                            <div className="booking-calendar-days">
+                              {Array.from({ length: 35 }, (_, index) => {
+                                const offset = monthIndex === 0 ? 1 : 3;
+                                const day = index - offset + 1;
+                                const maxDay = monthIndex === 0 ? 30 : 31;
+                                return (
+                                  <button
+                                    key={`${month}-${index}`}
+                                    type="button"
+                                    disabled={day < 1 || day > maxDay}
+                                    onClick={() => selectBookingSearchValue('when', `${month.split(' ')[0]} ${day}`)}
+                                  >
+                                    {day > 0 && day <= maxDay ? day : ''}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      <h4 style={{ color: 'var(--text-primary)', fontSize: '0.95rem', fontFamily: 'var(--serif)', marginBottom: '0.4rem' }}>
-                        {plannedItinerary.hotel.name}
-                      </h4>
-                      <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                        {plannedItinerary.route}
-                      </p>
-                    </div>
+                      <div className="booking-chip-row">
+                        {bookingSearchConfig.quickDates.map((date) => (
+                          <button key={date} type="button" onClick={() => selectBookingSearchValue('when', date)}>
+                            {date}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {bookingSearchFocus === 'who' && (
+                    <>
+                      <h3>{bookingTab === 'services' ? 'Choose passengers for your transport' : 'Choose guests for your booking'}</h3>
+                      <div className="booking-chip-row large">
+                        {bookingSearchConfig.guestUnits.map((unit) => (
+                          <button key={unit} type="button" onClick={() => selectBookingSearchValue('who', unit)}>
+                            {unit}
+                          </button>
+                        ))}
+                      </div>
+                    </>
                   )}
                 </div>
-              </div>
+              )}
             </div>
-          </div>
+
+            <div className="booking-marketplace-content">
+              {activeBookingRows.length === 0 && (
+                <div className="booking-empty-state">
+                  <h2>No matches yet</h2>
+                  <p>Try another place, tour package, or transport search.</p>
+                </div>
+              )}
+
+              {activeBookingRows.map((row) => (
+                <section className="booking-row" key={row.title}>
+                  <div className="booking-row-header">
+                    <h2>{row.title}</h2>
+                    <button type="button" aria-label={`View more ${row.title}`}>
+                      <ArrowRight size={20} />
+                    </button>
+                  </div>
+
+                  <div className="booking-scroll-row">
+                    {row.items.map((item) => (
+                      <article className="booking-listing-card" key={item.id}>
+                        <div className="booking-listing-image-wrap">
+                          <img src={item.image} alt={item.title} className="booking-listing-image" />
+                          <span className="booking-favorite-badge">Guest favorite</span>
+                          <button className="booking-heart-btn" type="button" aria-label={`Save ${item.title}`}>
+                            <Heart size={24} />
+                          </button>
+                        </div>
+                        <div className="booking-listing-copy">
+                          <h3>{item.title}</h3>
+                          <p>{item.meta}</p>
+                          <span>{item.price} · <Star size={13} fill="currentColor" /> {item.rating}</span>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </section>
         </>
       )}
 
       {/* FOODS CATEGORY PAGE */}
       {currentRoute === '#/foods' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.foods) }}>
-            <span className="page-subtitle">A Sensory Spice Celebration</span>
-            <h1 className="page-title">Regional Indian Cuisines</h1>
-          </div>
+          <VideoPageHeader
+            videoSrc={sectionVideos.foods}
+          />
 
           <div className="page-container">
             <h2 className="section-title" style={{ marginBottom: '0.5rem' }}>Indian Culinary Treasures</h2>
@@ -1186,10 +1497,9 @@ function App() {
       {/* TRADITION CATEGORY PAGE */}
       {currentRoute === '#/tradition' && (
         <>
-          <div className="page-header" style={{ backgroundImage: pageHeaderBackground(sectionImages.traditions) }}>
-            <span className="page-subtitle">Centuries of living soul</span>
-            <h1 className="page-title">Festivals, Culture & Performing Arts</h1>
-          </div>
+          <VideoPageHeader
+            videoSrc={sectionVideos.traditions}
+          />
 
           <div className="page-container">
             <h2 className="section-title" style={{ marginBottom: '0.5rem' }}>Cultural Events Timeline</h2>
@@ -1234,15 +1544,55 @@ function App() {
         </>
       )}
 
+      {/* SOCIAL GALLERY PAGE */}
+      {currentRoute === '#/gallery' && (
+        <div className="page-container gallery-page">
+          <div className="gallery-page-heading">
+            <span className="section-tag">Social Gallery</span>
+            <h2 className="section-title">All Maharashtra Moments</h2>
+            <p className="section-subtitle">
+              Browse the full collection of destination images, brochure visuals, food stories and heritage highlights.
+            </p>
+          </div>
+
+          <div className="gallery-page-grid">
+            {galleryPageItems.map((item, index) => (
+              <article className="gallery-page-card" key={`${item.title}-${index}`}>
+                <img src={item.image} alt={item.title} />
+                <span>{item.title}</span>
+              </article>
+            ))}
+          </div>
+
+          <div className="gallery-page-heading video-gallery-heading">
+            <span className="section-tag">Digital Gallery</span>
+            <h2 className="section-title">Maharashtra Video Stories</h2>
+          </div>
+
+          <div className="gallery-page-grid video-gallery-grid">
+            {digitalGalleryVideos.map((item) => (
+              <article className="gallery-page-card video-gallery-card" key={item.title}>
+                <video
+                  src={item.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
+                <span>{item.title}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* GLOBAL FOOTER */}
       <footer className="footer">
         <div className="footer-grid">
           <div className="footer-brand">
             <a href="#/" className="logo-container" style={{ alignSelf: 'flex-start' }}>
-              <svg className="logo-icon" viewBox="0 0 50 50">
-                <path d="M25 2C16.8 2 10.2 8.6 10.2 16.8c0 4.1 1.7 7.8 4.4 10.5L25 45l10.4-17.7c2.7-2.7 4.4-6.4 4.4-10.5C39.8 8.6 33.2 2 25 2zm0 22c-2.9 0-5.2-2.3-5.2-5.2s2.3-5.2 5.2-5.2 5.2 2.3 5.2 5.2S27.9 24 25 24z" />
-                <circle cx="25" cy="18.8" r="4.5" fill="#FFFFFF" />
-              </svg>
+              <img src={brandLogo} alt="Maharashtra Tourism" className="logo-icon" />
               <div className="logo-text">
                 <span className="logo-main" style={{ fontSize: '1.25rem' }}>Incredible India</span>
                 <span className="logo-sub" style={{ fontSize: '0.7rem' }}>Maharashtra Tourism</span>
