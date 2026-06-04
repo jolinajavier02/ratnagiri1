@@ -6689,7 +6689,7 @@ body {
 
 .utility-official {
   justify-self: center;
-  color: #5f3f17;
+  color: #000;
   font-family: var(--sans);
   font-size: clamp(0.82rem, 0.9vw, 1rem);
   font-weight: 900;
@@ -6778,14 +6778,16 @@ body {
 .hero-carousel-panel {
   display: grid;
   justify-items: end;
-  gap: clamp(0.45rem, 0.8vw, 0.8rem);
+  gap: clamp(0.05rem, 0.22vw, 0.25rem);
+  width: min(600px, 46vw);
 }
 
 .hero-browse-cue {
   display: block;
   position: relative;
   z-index: 5;
-  width: min(520px, 42vw);
+  width: min(600px, 46vw);
+  margin-bottom: -0.15rem;
   color: var(--script-orange, #ffa23f);
   font-family: var(--script, 'Water Brush', cursive);
   font-size: clamp(2.5rem, 4.3vw, 5.7rem);
@@ -6806,16 +6808,78 @@ body {
   line-height: inherit;
 }
 
+.carousel-cards-container {
+  width: min(600px, 46vw);
+  height: clamp(190px, 18vw, 280px);
+}
+
+.hero-preview-item:nth-child(n) {
+  width: clamp(140px, 12.5vw, 210px);
+  height: clamp(140px, 12.5vw, 210px);
+}
+
+.hero-preview-item.preview-slot-1 {
+  transform: translate3d(calc(-1 * clamp(105px, 9.6vw, 160px)), clamp(-22px, -1.8vw, -10px), 0) scale(0.88);
+}
+
+.hero-preview-item.preview-slot-2 {
+  transform: translate3d(calc(-1 * clamp(195px, 18vw, 300px)), clamp(-42px, -3.2vw, -18px), 0) scale(0.76);
+}
+
 @media (max-width: 1024px) {
+  .hero-carousel-panel {
+    width: min(500px, 78vw);
+  }
+
   .hero-browse-cue {
-    width: min(420px, 74vw);
+    width: min(500px, 78vw);
     font-size: clamp(2.1rem, 7vw, 4rem);
+  }
+
+  .carousel-cards-container {
+    width: min(500px, 78vw);
+    height: 180px;
+  }
+
+  .hero-preview-item:nth-child(n) {
+    width: 138px;
+    height: 138px;
+  }
+
+  .hero-preview-item.preview-slot-1 {
+    transform: translate3d(-108px, -12px, 0) scale(0.86);
+  }
+
+  .hero-preview-item.preview-slot-2 {
+    transform: translate3d(-198px, -22px, 0) scale(0.74);
   }
 }
 
 @media (max-width: 640px) {
+  .hero-carousel-panel {
+    width: min(360px, 92vw);
+  }
+
   .hero-browse-cue {
-    width: min(330px, 92vw);
+    width: min(360px, 92vw);
     font-size: 2rem;
+  }
+
+  .carousel-cards-container {
+    width: min(360px, 92vw);
+    height: 145px;
+  }
+
+  .hero-preview-item:nth-child(n) {
+    width: 108px;
+    height: 108px;
+  }
+
+  .hero-preview-item.preview-slot-1 {
+    transform: translate3d(-84px, -8px, 0) scale(0.86);
+  }
+
+  .hero-preview-item.preview-slot-2 {
+    transform: translate3d(-152px, -15px, 0) scale(0.74);
   }
 }
