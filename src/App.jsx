@@ -687,33 +687,52 @@ function App() {
   return (
     <div ref={topRef}>
       {/* Dynamic Navigation Bar */}
-      <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <a href="#/" className="logo-container">
-          <svg className="logo-icon" viewBox="0 0 50 50">
-            <path d="M25 2C16.8 2 10.2 8.6 10.2 16.8c0 4.1 1.7 7.8 4.4 10.5L25 45l10.4-17.7c2.7-2.7 4.4-6.4 4.4-10.5C39.8 8.6 33.2 2 25 2zm0 22c-2.9 0-5.2-2.3-5.2-5.2s2.3-5.2 5.2-5.2 5.2 2.3 5.2 5.2S27.9 24 25 24z" />
-            <circle cx="25" cy="18.8" r="4.5" fill="#FFFFFF" />
-          </svg>
-          <div className="logo-text">
-            <span className="logo-main">Incredible India</span>
-            <span className="logo-sub">Maharashtra Tourism</span>
+      <div className={`site-chrome ${scrolled ? 'scrolled' : ''}`}>
+        <div className="utility-bar">
+          <div className="utility-left">
+            <div className="utility-socials" aria-label="Social links">
+              {socialLinks.slice(0, 5).map((social) => (
+                <a key={social.label} href={social.href} className="utility-social-link" target="_blank" rel="noreferrer" aria-label={social.label}>
+                  <SocialIconMark mark={social.mark} />
+                </a>
+              ))}
+            </div>
+            <a href="tel:+9118004254747" className="utility-contact-link">+91 1800-425-4747</a>
           </div>
-        </a>
-
-        <ul className="nav-links">
-          <li><a href="#/" className={`nav-link ${routePath === '#/' ? 'active' : ''}`}>Home</a></li>
-          <li><a href="#/destinations" className={`nav-link ${routePath === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
-          <li><a href="#/tours" className={`nav-link ${routePath === '#/tours' ? 'active' : ''}`}>Guided Tours</a></li>
-          <li><a href="#/booking" className={`nav-link ${routePath === '#/booking' ? 'active' : ''}`}>Bookings</a></li>
-          <li><a href="#/foods" className={`nav-link ${routePath === '#/foods' ? 'active' : ''}`}>Regional Foods</a></li>
-          <li><a href="#/tradition" className={`nav-link ${routePath === '#/tradition' ? 'active' : ''}`}>Traditions</a></li>
-        </ul>
-
-        <div className="nav-actions">
-          <button className="nav-action-btn" title="Search Site"><Search size={20} /></button>
-          <button className="nav-action-btn" title="Change Language"><Globe size={20} /></button>
-          <a href="#/booking" className="book-btn">Book My Trip</a>
+          <span className="utility-official">The Official Site of Maharashtra Tourism</span>
+          <div className="utility-right">
+            <a href="mailto:info@maharashtratourism.gov.in" className="utility-contact-link">info@maharashtratourism.gov.in</a>
+            <button className="utility-action-btn" title="Search Site" aria-label="Search Site"><Search size={15} /></button>
+            <button className="utility-action-btn" title="Change Language" aria-label="Change Language"><Globe size={15} /></button>
+            <a href="#/" className="utility-sitemap-link">Sitemap</a>
+          </div>
         </div>
-      </header>
+
+        <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+          <a href="#/" className="logo-container">
+            <img src={brandLogo} alt="Maharashtra Tourism" className="logo-icon" />
+            <div className="logo-text">
+              <span className="logo-main">Incredible India</span>
+              <span className="logo-sub">Maharashtra Tourism</span>
+            </div>
+          </a>
+
+          <ul className="nav-links">
+            <li><a href="#/" className={`nav-link ${routePath === '#/' ? 'active' : ''}`}>Home</a></li>
+            <li><a href="#/destinations" className={`nav-link ${routePath === '#/destinations' ? 'active' : ''}`}>Destinations</a></li>
+            <li><a href="#/tours" className={`nav-link ${routePath === '#/tours' ? 'active' : ''}`}>Guided Tours</a></li>
+            <li><a href="#/booking" className={`nav-link ${routePath === '#/booking' ? 'active' : ''}`}>Bookings</a></li>
+            <li><a href="#/foods" className={`nav-link ${routePath === '#/foods' ? 'active' : ''}`}>Regional Foods</a></li>
+            <li><a href="#/tradition" className={`nav-link ${routePath === '#/tradition' ? 'active' : ''}`}>Traditions</a></li>
+          </ul>
+
+          <div className="nav-actions">
+            <button className="nav-action-btn" title="Search Site"><Search size={20} /></button>
+            <button className="nav-action-btn" title="Change Language"><Globe size={20} /></button>
+            <a href="#/booking" className="book-btn">Book My Trip</a>
+          </div>
+        </header>
+      </div>
 
       {/* RENDER PAGES BASED ON SPA ROUTE */}
       {routePath === '#/' && (
@@ -722,11 +741,16 @@ function App() {
           <section className="hero-container ratnagiri1-landing">
             <div className="hero-video-wrapper">
               {slides.map((slide, idx) => (
-                <img
+                <video
                   key={slide.id}
-                  src={slide.imageUrl}
-                  alt={`${slide.title} tourism cover`}
+                  src={slide.videoUrl}
                   className={`hero-video ${idx === activeSlide ? 'active' : ''}`}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label={`${slide.title} tourism cover video`}
                 />
               ))}
             </div>

@@ -6884,47 +6884,38 @@ body {
   }
 }
 
-/* Ratnagiri1: keep the original landing page while sharing the Ratnagiri body/footer. */
-.navbar,
-.navbar.scrolled {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  grid-template-columns: none;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.2rem 4%;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%);
-  border-bottom: 0;
-  backdrop-filter: blur(10px);
+/* Ratnagiri1: keep the landing content while matching the shared Ratnagiri header. */
+.site-chrome,
+.site-chrome.scrolled {
+  padding: 0 clamp(1rem, 3vw, 3.25rem);
 }
 
-.navbar.scrolled {
-  padding: 0.8rem 4%;
-  background-color: rgba(255, 255, 255, 0.95);
+.utility-bar {
   border-bottom: 0;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.navbar,
+.navbar.scrolled {
+  grid-template-columns: minmax(250px, 0.82fr) minmax(600px, 1.45fr) auto;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .navbar .logo-icon {
-  width: 45px;
-  height: 45px;
-  fill: var(--saffron);
-  filter: drop-shadow(0 0 8px rgba(255, 111, 0, 0.5));
+  width: clamp(54px, 4.8vw, 72px);
+  height: clamp(54px, 4.8vw, 72px);
+  filter: none;
 }
 
 .navbar .nav-links {
-  display: flex;
-  justify-content: initial;
-  gap: 2.2rem;
+  justify-content: center;
+  gap: clamp(1rem, 1.6vw, 1.9rem);
 }
 
 .navbar .nav-link {
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-transform: capitalize;
+  font-size: clamp(0.78rem, 0.82vw, 0.92rem);
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .navbar .nav-actions {
@@ -7068,13 +7059,13 @@ body {
 }
 
 .ratnagiri1-landing .hero-carousel-panel {
-  left: clamp(390px, 42vw, 690px);
-  right: -9rem;
-  top: 60%;
-  bottom: auto;
+  left: clamp(390px, 43vw, 700px);
+  right: 0;
+  top: auto;
+  bottom: 7vh;
   display: block;
   width: auto;
-  transform: translateY(-50%);
+  transform: none;
   z-index: 5;
   pointer-events: none;
 }
@@ -7088,7 +7079,7 @@ body {
   flex-direction: row !important;
   flex-wrap: nowrap !important;
   width: 100%;
-  height: clamp(250px, 26vw, 400px);
+  height: clamp(220px, 22vw, 340px);
   overflow: visible;
   pointer-events: auto;
 }
@@ -7099,8 +7090,8 @@ body {
   right: auto;
   bottom: auto;
   display: flex !important;
-  flex: 0 0 clamp(135px, 11.5vw, 205px);
-  width: clamp(135px, 11.5vw, 205px);
+  flex: 0 0 clamp(118px, 10vw, 176px);
+  width: clamp(118px, 10vw, 176px);
   height: 100%;
   min-width: 0;
   opacity: 1;
@@ -7116,14 +7107,18 @@ body {
   height: 100%;
   aspect-ratio: auto;
   border-radius: 8px;
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 24px 44px rgba(0, 0, 0, 0.24);
+  border-color: rgba(255, 255, 255, 0.08);
+  background: transparent;
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.18);
+  opacity: 0.86;
+  overflow: hidden;
 }
 
 .ratnagiri1-landing .carousel-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.84;
 }
 
 .ratnagiri1-landing .carousel-card:hover {
@@ -7136,8 +7131,8 @@ body {
 }
 
 .ratnagiri1-landing .carousel-card-overlay {
-  padding: 1rem;
-  background: linear-gradient(180deg, rgba(5, 20, 35, 0.02) 0%, rgba(5, 20, 35, 0.12) 46%, rgba(5, 20, 35, 0.92) 100%);
+  padding: 0.85rem;
+  background: linear-gradient(180deg, rgba(5, 20, 35, 0) 0%, rgba(5, 20, 35, 0.08) 48%, rgba(5, 20, 35, 0.72) 100%);
 }
 
 .ratnagiri1-landing .carousel-card-location {
@@ -7243,9 +7238,9 @@ body {
 
   .ratnagiri1-landing .hero-carousel-panel {
     top: auto;
-    left: 42%;
-    right: -12rem;
-    bottom: 8.5rem;
+    left: 44%;
+    right: 0;
+    bottom: 6rem;
     width: auto;
     transform: none;
   }
@@ -7255,9 +7250,9 @@ body {
   }
 
   .ratnagiri1-landing .hero-preview-item:nth-child(n) {
-    flex-basis: 170px;
-    width: 170px;
-    height: 245px;
+    flex-basis: 140px;
+    width: 140px;
+    height: 220px;
   }
 
   .ratnagiri1-landing .hero-preview-item:nth-child(n) .carousel-card {
@@ -7292,22 +7287,22 @@ body {
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     width: 100%;
-    height: 220px;
+    height: 185px;
     gap: 0 !important;
     column-gap: 0 !important;
     overflow: visible;
   }
 
   .ratnagiri1-landing .hero-carousel-panel {
-    left: 45%;
-    right: -12rem;
-    bottom: 5rem;
+    left: 46%;
+    right: 0;
+    bottom: 4.8rem;
   }
 
   .ratnagiri1-landing .hero-preview-item:nth-child(n) {
-    flex-basis: 132px;
-    width: 132px;
-    height: 220px;
+    flex-basis: 108px;
+    width: 108px;
+    height: 185px;
   }
 
   .ratnagiri1-landing .hero-content {
