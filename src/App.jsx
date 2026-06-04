@@ -774,10 +774,6 @@ function App() {
                     </div>
                   </div>
                 ))}
-                <div className="hero-wheel-hub" aria-hidden="true">
-                  <strong>Browse</strong>
-                  <span>Categories</span>
-                </div>
               </div>
             </div>
           </section>

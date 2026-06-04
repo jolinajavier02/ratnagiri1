@@ -6786,20 +6786,20 @@ body {
   position: relative;
   z-index: 5;
   width: min(520px, 42vw);
-  color: var(--text-primary);
-  font-family: var(--serif);
-  font-size: clamp(1.45rem, 2.35vw, 2.9rem);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: 0.02em;
+  color: var(--script-orange, #ffa23f);
+  font-family: var(--script, 'Water Brush', cursive);
+  font-size: clamp(2.5rem, 4.3vw, 5.7rem);
+  font-weight: 500;
+  line-height: 0.78;
+  letter-spacing: 0;
   text-align: right;
-  text-shadow: 0 8px 28px rgba(36, 23, 15, 0.24);
+  text-shadow: 0 8px 30px rgba(36, 23, 15, 0.26);
   pointer-events: none;
 }
 
 .hero-browse-cue span {
   display: inline-block;
-  color: var(--text-primary);
+  color: inherit;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -6809,13 +6809,13 @@ body {
 @media (max-width: 1024px) {
   .hero-browse-cue {
     width: min(420px, 74vw);
-    font-size: clamp(1.25rem, 3.4vw, 2rem);
+    font-size: clamp(2.1rem, 7vw, 4rem);
   }
 }
 
 @media (max-width: 640px) {
   .hero-browse-cue {
     width: min(330px, 92vw);
-    font-size: 1.2rem;
+    font-size: 2rem;
   }
 }
