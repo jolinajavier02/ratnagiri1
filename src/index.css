@@ -8287,3 +8287,66 @@ body {
     height: 35%;
   }
 }
+
+/* Ratnagiri5 shape fill adjustment */
+.hero-preview-item.preview-slot-1 {
+  top: 0;
+  right: 0;
+  width: 96%;
+  height: 37%;
+  clip-path: polygon(34% 0, 100% 0, 100% 100%, 56% 100%, 24% 78%, 0 48%, 13% 17%);
+}
+
+.hero-preview-item.preview-slot-0 {
+  top: 28%;
+  left: 0;
+  width: 70%;
+  height: 43%;
+  clip-path: polygon(0 12%, 100% 0, 88% 100%, 0 88%);
+}
+
+.hero-preview-item.preview-slot-5 {
+  right: 0;
+  bottom: 0;
+  width: 98%;
+  height: 39%;
+  clip-path: polygon(0 34%, 38% 0, 100% 0, 100% 100%, 30% 100%, 7% 80%);
+}
+
+.hero-wheel-hub {
+  right: 0;
+  width: 44%;
+  height: 38%;
+  padding-left: clamp(0.8rem, 1.4vw, 1.6rem);
+  border-radius: 999px 0 0 999px;
+  background:
+    radial-gradient(circle at 30% 50%, rgba(255, 250, 241, 0.96) 0%, rgba(255, 244, 226, 0.92) 58%, rgba(255, 151, 55, 0.22) 100%);
+  color: var(--text-primary);
+  text-shadow: none;
+}
+
+.hero-wheel-hub strong {
+  color: var(--script-orange);
+  font-family: var(--script);
+  font-size: clamp(2.15rem, 3.1vw, 4.4rem);
+  font-weight: 500;
+  line-height: 0.82;
+}
+
+.hero-wheel-hub span {
+  color: var(--text-primary);
+  font-family: var(--serif);
+  font-size: clamp(0.72rem, 0.88vw, 1.08rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 900px) {
+  .hero-preview-item.preview-slot-0 {
+    width: 72%;
+  }
+
+  .hero-wheel-hub {
+    width: 45%;
+  }
+}
