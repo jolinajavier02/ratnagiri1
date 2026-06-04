@@ -6934,7 +6934,7 @@ body {
   content: '';
   position: absolute;
   inset: 5.25rem 4.8% 3.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 0;
   box-shadow: 0 34px 80px rgba(9, 47, 43, 0.34);
   pointer-events: none;
   z-index: 2;

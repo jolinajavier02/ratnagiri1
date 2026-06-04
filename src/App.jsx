@@ -801,7 +801,6 @@ function App() {
                       />
                       <div className="carousel-card-overlay">
                         <span className="carousel-card-location">{card.category}</span>
-                        <h4 className="carousel-card-title">{card.title}</h4>
                         <p className="carousel-card-desc">{card.previewText}</p>
                       </div>
                     </div>
