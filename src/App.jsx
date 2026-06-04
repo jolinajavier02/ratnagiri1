@@ -735,7 +735,6 @@ function App() {
               <div className="hero-browse-cue" aria-hidden="true">
                 <span>Browse Categories</span>
               </div>
-              <div className="hero-wheel-pointer" aria-hidden="true" />
               <div className="carousel-cards-container">
                 {previewSlides.map((card) => (
                   <div className={`hero-preview-item preview-slot-${card.relativeSlot}`} key={card.id}>
