@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -30,13 +32,27 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Build all Ratnagiri variants
+        run: |
+          npm run build
+          mkdir -p pages
+          cp -R dist/. pages/
+
+          for variant in ratnagiri2 ratnagiri3 ratnagiri4; do
+            git worktree add "../${variant}" "origin/${variant}"
+            (
+              cd "../${variant}"
+              npm ci
+              npm run build -- --base "/ratnagiri1/${variant}/"
+            )
+            mkdir -p "pages/${variant}"
+            cp -R "../${variant}/dist/." "pages/${variant}/"
+          done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: dist
+          path: pages
 
   deploy:
     environment:
