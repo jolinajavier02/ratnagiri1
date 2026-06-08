@@ -289,11 +289,21 @@ body {
   top: 0;
   left: 0;
   opacity: 0;
-  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.45s ease;
+  background: #050816;
 }
 
 .hero-video.active {
   opacity: 1;
+}
+
+.hero-preload-video {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  clip-path: inset(50%);
 }
 
 .hero-overlay {
@@ -3810,6 +3820,10 @@ body {
 
 .carousel-card:hover .carousel-card-img {
   transform: scale(1.08);
+}
+
+.carousel-card.is-previewing {
+  box-shadow: 0 30px 72px rgba(5, 16, 32, 0.34), 0 0 0 2px rgba(249, 115, 22, 0.72);
 }
 
 .carousel-card-overlay {

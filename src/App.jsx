@@ -187,7 +187,22 @@ const slides = [
   }
 ];
 
-const HERO_PREVIEW_INTERVAL_MS = 7000;
+const HERO_PREVIEW_INTERVAL_MS = 40000;
+const PREVIEW_CARD_ROTATION_MS = 5000;
+
+function playVideo(video) {
+  if (!video) return;
+  video.muted = true;
+  video.play().catch(() => {});
+}
+
+function setPreviewVideoFrame(video, offset) {
+  if (!Number.isFinite(video.duration) || video.duration <= 1) return;
+  const targetTime = Math.min(video.duration - 0.2, 0.5 + offset * 5);
+  if (Math.abs(video.currentTime - targetTime) > 0.75) {
+    video.currentTime = targetTime;
+  }
+}
 
 const indiaRegionLabels = [
   { label: 'North India', x: 198, y: 122 },
@@ -571,6 +586,8 @@ function App() {
 
   // Hero Carousel State
   const [activeSlide, setActiveSlide] = useState(0);
+  const [activePreviewSlot, setActivePreviewSlot] = useState(0);
+  const previewVideoRefs = useRef(new Map());
 
   const [activeIndiaPlace, setActiveIndiaPlace] = useState(ratnagiriRegionFeature.id);
 
@@ -618,6 +635,14 @@ function App() {
     return () => clearTimeout(timer);
   }, [activeSlide]);
 
+  useEffect(() => {
+    if (routePath !== '#/') return undefined;
+    const interval = setInterval(() => {
+      setActivePreviewSlot((slot) => (slot + 1) % slides.length);
+    }, PREVIEW_CARD_ROTATION_MS);
+    return () => clearInterval(interval);
+  }, [routePath]);
+
   const selectSlide = (index) => {
     setActiveSlide(index);
   };
@@ -627,6 +652,19 @@ function App() {
     const relativeSlot = (index - activeSlide + wheelSlides.length) % wheelSlides.length;
     return { ...slide, relativeSlot };
   });
+  const activePreviewCard = previewSlides[activePreviewSlot % previewSlides.length];
+  const nextSlide = slides[(activeSlide + 1) % slides.length];
+
+  useEffect(() => {
+    if (routePath !== '#/' || !activePreviewCard) return;
+    previewVideoRefs.current.forEach((video, id) => {
+      if (id === activePreviewCard.id) {
+        playVideo(video);
+      } else {
+        video.pause();
+      }
+    });
+  }, [routePath, activePreviewCard, activeSlide]);
 
   const activeRegionFeature = activeIndiaPlace === ratnagiriRegionFeature.id
     ? ratnagiriRegionFeature
@@ -722,10 +760,21 @@ function App() {
                 className="hero-video active"
                 autoPlay
                 muted
-                loop
                 playsInline
                 preload="auto"
+                onCanPlay={(event) => playVideo(event.currentTarget)}
+                onEnded={() => selectSlide((activeSlide + 1) % slides.length)}
                 aria-label={`${slides[activeSlide].title} tourism preview video`}
+              />
+              <video
+                key={`preload-${nextSlide.id}`}
+                src={nextSlide.videoUrl}
+                className="hero-preload-video"
+                muted
+                playsInline
+                preload="auto"
+                aria-hidden="true"
+                tabIndex={-1}
               />
             </div>
 
@@ -741,7 +790,7 @@ function App() {
                 {previewSlides.map((card) => (
                   <div className={`hero-preview-item preview-slot-${card.relativeSlot}`} key={card.id}>
                     <div
-                      className="carousel-card"
+                      className={`carousel-card ${activePreviewCard?.id === card.id ? 'is-previewing' : ''}`}
                       onClick={() => selectSlide(card.originalIndex)}
                       role="button"
                       tabIndex={0}
@@ -754,23 +803,37 @@ function App() {
                       aria-label={`Preview ${card.category}`}
                     >
                       <video
+                        ref={(element) => {
+                          if (element) {
+                            previewVideoRefs.current.set(card.id, element);
+                          } else {
+                            previewVideoRefs.current.delete(card.id);
+                          }
+                        }}
                         src={card.videoUrl}
                         className="carousel-card-img"
                         muted
                         loop
                         playsInline
                         preload="metadata"
+                        onLoadedMetadata={(event) => {
+                          setPreviewVideoFrame(event.currentTarget, card.originalIndex);
+                        }}
                         onMouseEnter={(event) => {
-                          event.currentTarget.play().catch(() => {});
+                          playVideo(event.currentTarget);
                         }}
                         onMouseLeave={(event) => {
-                          event.currentTarget.pause();
+                          if (activePreviewCard?.id !== card.id) {
+                            event.currentTarget.pause();
+                          }
                         }}
                         onFocus={(event) => {
-                          event.currentTarget.play().catch(() => {});
+                          playVideo(event.currentTarget);
                         }}
                         onBlur={(event) => {
-                          event.currentTarget.pause();
+                          if (activePreviewCard?.id !== card.id) {
+                            event.currentTarget.pause();
+                          }
                         }}
                         aria-label={`${card.category} preview video`}
                       />
