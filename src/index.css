@@ -6382,3 +6382,114 @@ body {
     padding-top: 8.5rem;
   }
 }
+
+/* Landing video performance and phone layout fixes */
+.hero-video {
+  background: #0f766e;
+}
+
+.plan-trip-video-frame::after {
+  content: none !important;
+  display: none !important;
+}
+
+.plan-trip-video-frame video {
+  background: #1c3b36;
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    height: auto;
+    min-height: 100svh;
+    padding: 8.2rem 5% 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.25rem;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 520px;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .hero-title {
+    max-width: 9.5ch;
+    font-size: clamp(2.45rem, 11vw, 4.1rem);
+  }
+
+  .hero-description {
+    max-width: 34ch;
+    font-size: 0.86rem;
+  }
+
+  .hero-carousel-panel {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    margin-top: auto;
+    transform: none !important;
+    pointer-events: auto;
+  }
+
+  .carousel-cards-container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    height: clamp(150px, 42vw, 190px) !important;
+    gap: 0.65rem !important;
+    padding: 0 0 0.3rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .carousel-cards-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero-preview-item:nth-child(n) {
+    position: static !important;
+    flex: 0 0 clamp(104px, 29vw, 132px) !important;
+    width: clamp(104px, 29vw, 132px) !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    pointer-events: auto !important;
+  }
+
+  .hero-preview-item:nth-child(n) .carousel-card,
+  .carousel-card {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
+  }
+
+  .carousel-card-img,
+  .carousel-card-overlay {
+    border-radius: inherit;
+  }
+
+  .carousel-card-desc {
+    display: none;
+  }
+
+  .hero-bottom-controls {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 0;
+    justify-content: flex-start;
+  }
+}
