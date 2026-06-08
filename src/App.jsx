@@ -716,19 +716,18 @@ function App() {
           {/* HERO SECTION CONTAINER */}
           <section className="hero-container">
             <div className="hero-video-wrapper">
-              {slides.map((slide, idx) => (
-                <video
-                  key={slide.id}
-                  src={slide.videoUrl}
-                  className={`hero-video ${idx === activeSlide ? 'active' : ''}`}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  aria-label={`${slide.title} tourism preview video`}
-                />
-              ))}
+              <video
+                key={slides[activeSlide].id}
+                src={slides[activeSlide].videoUrl}
+                poster={slides[activeSlide].imageUrl}
+                className="hero-video active"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                aria-label={`${slides[activeSlide].title} tourism preview video`}
+              />
             </div>
 
             <div className="hero-overlay" />
@@ -755,15 +754,12 @@ function App() {
                       }}
                       aria-label={`Preview ${card.category}`}
                     >
-                      <video
-                        src={card.videoUrl}
+                      <img
+                        src={card.thumbnail}
                         className="carousel-card-img"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="auto"
-                        aria-label={`${card.category} preview video`}
+                        alt={`${card.category} preview`}
+                        loading="eager"
+                        decoding="async"
                       />
                       <div className="carousel-card-overlay">
                         <div className="carousel-card-copy">
@@ -989,11 +985,12 @@ function App() {
               <div className="plan-trip-video-frame" aria-label="Maharashtra destination preview video">
                 <video
                   src={sectionVideos.destinations}
+                  poster={sectionImages.destinations}
                   autoPlay
                   muted
                   loop
                   playsInline
-                  preload="metadata"
+                  preload="auto"
                 />
               </div>
 
