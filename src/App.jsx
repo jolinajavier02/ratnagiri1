@@ -9,12 +9,12 @@ import {
   Search, Globe, Check
 } from 'lucide-react';
 import brandLogo from './assets/logo.png';
-import welcomeVideo from './assets/welcome-deploy.mp4';
-import destinationVideo from './assets/Destination.mp4';
-import tourVideo from './assets/Tour.mp4';
-import bookingVideo from './assets/Booking.mp4';
-import foodVideo from './assets/Food.mp4';
-import traditionsVideo from './assets/Traditions.mp4';
+import welcomeVideo from './assets/welcome.mov';
+import destinationVideo from './assets/Destination.mov';
+import tourVideo from './assets/Tour.mov';
+import bookingVideo from './assets/Booking.mov';
+import foodVideo from './assets/Food.mov';
+import traditionsVideo from './assets/Traditions.mov';
 import fortBrochure1 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-01.jpg';
 import fortBrochure2 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-02.jpg';
 import fortBrochure3 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-03.jpg';
@@ -575,7 +575,6 @@ function App() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [previewVideosReady, setPreviewVideosReady] = useState(false);
 
   const [activeIndiaPlace, setActiveIndiaPlace] = useState(ratnagiriRegionFeature.id);
 
@@ -613,12 +612,6 @@ function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    setPreviewVideosReady(false);
-    const timer = window.setTimeout(() => setPreviewVideosReady(true), 1400);
-    return () => window.clearTimeout(timer);
-  }, [routePath]);
 
   // Ratnagiri1 keeps the original landing carousel controls and progress.
   useEffect(() => {
@@ -780,7 +773,7 @@ function App() {
 
             <div className="hero-carousel-panel">
               <div className="carousel-cards-container">
-                {previewSlides.map((card, cardIndex) => (
+                {previewSlides.map((card) => (
                   <div className="hero-preview-item" key={card.id}>
                     <div
                       className="carousel-card"
@@ -795,27 +788,17 @@ function App() {
                       }}
                       aria-label={`Show ${card.title}`}
                     >
-                      {previewVideosReady && cardIndex < 3 ? (
-                        <video
-                          src={card.videoUrl}
-                          poster={card.thumbnail}
-                          className="carousel-card-img"
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          preload="metadata"
-                          aria-label={`${card.category} preview video`}
-                        />
-                      ) : (
-                        <img
-                          src={card.thumbnail}
-                          className="carousel-card-img"
-                          alt={`${card.category} preview`}
-                          loading="eager"
-                          decoding="async"
-                        />
-                      )}
+                      <video
+                        src={card.videoUrl}
+                        poster={card.thumbnail}
+                        className="carousel-card-img"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-label={`${card.category} preview video`}
+                      />
                       <div className="carousel-card-overlay">
                         <span className="carousel-card-location">{card.category}</span>
                         <p className="carousel-card-desc">{card.previewText}</p>
