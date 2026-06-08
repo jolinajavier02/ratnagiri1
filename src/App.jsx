@@ -719,7 +719,6 @@ function App() {
               <video
                 key={slides[activeSlide].id}
                 src={slides[activeSlide].videoUrl}
-                poster={slides[activeSlide].imageUrl}
                 className="hero-video active"
                 autoPlay
                 muted
@@ -756,13 +755,23 @@ function App() {
                     >
                       <video
                         src={card.videoUrl}
-                        poster={card.thumbnail}
                         className="carousel-card-img"
-                        autoPlay
                         muted
                         loop
                         playsInline
                         preload="metadata"
+                        onMouseEnter={(event) => {
+                          event.currentTarget.play().catch(() => {});
+                        }}
+                        onMouseLeave={(event) => {
+                          event.currentTarget.pause();
+                        }}
+                        onFocus={(event) => {
+                          event.currentTarget.play().catch(() => {});
+                        }}
+                        onBlur={(event) => {
+                          event.currentTarget.pause();
+                        }}
                         aria-label={`${card.category} preview video`}
                       />
                       <div className="carousel-card-overlay">
@@ -989,12 +998,11 @@ function App() {
               <div className="plan-trip-video-frame" aria-label="Maharashtra destination preview video">
                 <video
                   src={sectionVideos.destinations}
-                  poster={sectionImages.destinations}
                   autoPlay
                   muted
                   loop
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                 />
               </div>
 
