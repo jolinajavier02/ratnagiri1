@@ -39,13 +39,13 @@ jobs:
         run: |
           mkdir -p pages
 
-          git worktree add "../ratnagiri1" "origin/ratnagiri1"
+          git worktree add "../ratnagiri1-root" "origin/ratnagiri1"
           (
-            cd "../ratnagiri1"
+            cd "../ratnagiri1-root"
             npm ci
             npm run build -- --base "/ratnagiri1/"
           )
-          cp -R "../ratnagiri1/dist/." "pages/"
+          cp -R "../ratnagiri1-root/dist/." "pages/"
 
           for variant in ratnagiri2 ratnagiri3 ratnagiri4; do
             git worktree add "../${variant}" "origin/${variant}"
