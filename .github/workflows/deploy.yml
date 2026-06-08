@@ -34,9 +34,15 @@ jobs:
 
       - name: Build all Ratnagiri variants
         run: |
-          npm run build
           mkdir -p pages
-          cp -R dist/. pages/
+
+          git worktree add "../ratnagiri1" "origin/ratnagiri1"
+          (
+            cd "../ratnagiri1"
+            npm ci
+            npm run build -- --base "/ratnagiri1/"
+          )
+          cp -R "../ratnagiri1/dist/." "pages/"
 
           for variant in ratnagiri2 ratnagiri3 ratnagiri4; do
             git worktree add "../${variant}" "origin/${variant}"
