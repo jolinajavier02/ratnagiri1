@@ -7,11 +7,11 @@ import {
   Search, Globe, Check
 } from 'lucide-react';
 import brandLogo from './assets/logo.png';
-import destinationVideo from './assets/Destination.mp4';
-import tourVideo from './assets/Tour.mp4';
-import bookingVideo from './assets/Booking.mp4';
-import foodVideo from './assets/Food.mp4';
-import traditionsVideo from './assets/Traditions.mp4';
+import destinationVideo from './assets/Destination.mov';
+import tourVideo from './assets/Tour.mov';
+import bookingVideo from './assets/Booking.mov';
+import foodVideo from './assets/Food.mov';
+import traditionsVideo from './assets/Traditions.mov';
 import fortBrochure1 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-01.jpg';
 import fortBrochure2 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-02.jpg';
 import fortBrochure3 from './assets/Brochures/Guardians of History/MH-Digital-Standee-Forts-03.jpg';
@@ -746,12 +746,16 @@ function App() {
                       }}
                       aria-label={`Preview ${card.category}`}
                     >
-                      <img
-                        src={card.thumbnail}
+                      <video
+                        src={card.videoUrl}
+                        poster={card.thumbnail}
                         className="carousel-card-img"
-                        alt={`${card.category} preview`}
-                        loading="eager"
-                        decoding="async"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-label={`${card.category} preview video`}
                       />
                       <div className="carousel-card-overlay">
                         <div className="carousel-card-copy">
