@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Fetch variant branches
+        run: git fetch origin '+refs/heads/ratnagiri*:refs/remotes/origin/ratnagiri*'
+
       - name: Build all Ratnagiri variants
         run: |
           mkdir -p pages
