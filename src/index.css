@@ -290,6 +290,7 @@ body {
   left: 0;
   opacity: 0;
   transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #0f766e;
 }
 
 .hero-video.active {
@@ -4919,15 +4920,7 @@ body {
 }
 
 .plan-trip-video-frame::after {
-  content: '';
-  position: absolute;
-  right: -24%;
-  top: 40%;
-  width: 52%;
-  height: 28%;
-  border-radius: 50%;
-  background: #fff;
-  z-index: 2;
+  content: none;
 }
 
 .plan-trip-video-frame video {
@@ -4935,6 +4928,7 @@ body {
   height: 100%;
   display: block;
   object-fit: cover;
+  background: #1c3b36;
 }
 
 .plan-trip-copy {
@@ -7250,7 +7244,9 @@ body {
 @media (max-width: 1024px) {
   .hero-container.ratnagiri1-landing {
     height: auto;
+    min-height: 820px;
     padding: 9rem 6% 3rem;
+    align-items: flex-start;
   }
 
   .hero-container.ratnagiri1-landing::before {
@@ -7272,6 +7268,7 @@ body {
 
   .ratnagiri1-landing .hero-content {
     width: min(520px, 50%);
+    margin-top: 0;
   }
 
   .ratnagiri1-landing .hero-preview-item:nth-child(n) {
@@ -7293,6 +7290,11 @@ body {
 @media (max-width: 768px) {
   .hero-container.ratnagiri1-landing {
     min-height: 100svh;
+    padding: 8.2rem 5% 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1.25rem;
   }
 
   .hero-container.ratnagiri1-landing::before {
@@ -7300,46 +7302,106 @@ body {
   }
 
   .ratnagiri1-landing .hero-title {
-    font-size: clamp(2.7rem, 12vw, 4.4rem);
+    max-width: 9.5ch;
+    font-size: clamp(2.45rem, 11vw, 4.1rem);
   }
 
   .ratnagiri1-landing .hero-active-place {
     font-size: 1.25rem;
   }
 
-  .ratnagiri1-landing .carousel-cards-container {
-    display: flex !important;
-    justify-content: flex-end !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    width: 100%;
-    height: 185px;
-    gap: 0 !important;
-    column-gap: 0 !important;
-    row-gap: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: visible;
-  }
-
-  .ratnagiri1-landing .hero-carousel-panel {
-    left: 18%;
-    right: 0;
-    bottom: 4.8rem;
-  }
-
-  .ratnagiri1-landing .hero-preview-item:nth-child(n) {
-    flex-basis: 108px;
-    width: 108px;
-    height: 185px;
-  }
-
   .ratnagiri1-landing .hero-content {
-    width: min(320px, 46%);
+    width: 100%;
+    max-width: 520px;
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .ratnagiri1-landing .hero-description {
-    max-width: 28ch;
-    font-size: 0.78rem;
+    max-width: 34ch;
+    font-size: 0.86rem;
+  }
+
+  .ratnagiri1-landing .hero-explore-btn {
+    padding: 0.78rem 1.1rem;
+    font-size: 0.84rem;
+  }
+
+  .ratnagiri1-landing .carousel-cards-container {
+    display: flex !important;
+    justify-content: flex-start !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    width: 100%;
+    height: clamp(150px, 42vw, 190px);
+    gap: 0.65rem !important;
+    column-gap: 0.65rem !important;
+    row-gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 0 0.3rem !important;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ratnagiri1-landing .carousel-cards-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ratnagiri1-landing .hero-carousel-panel {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: auto;
+    transform: none;
+  }
+
+  .ratnagiri1-landing .hero-preview-item:nth-child(n) {
+    flex: 0 0 clamp(104px, 29vw, 132px);
+    width: clamp(104px, 29vw, 132px);
+    height: 100%;
+  }
+
+  .ratnagiri1-landing .carousel-card,
+  .ratnagiri1-landing .hero-preview-item:nth-child(n) .carousel-card {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
+  }
+
+  .ratnagiri1-landing .carousel-card-desc {
+    display: none;
+  }
+
+  .ratnagiri1-landing .carousel-card-location {
+    font-size: 1.05rem;
+  }
+
+  .ratnagiri1-landing .hero-bottom-controls {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 0;
+    justify-content: flex-start;
+  }
+
+  .ratnagiri1-landing .social-links {
+    gap: 0.65rem;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+    scrollbar-width: none;
+  }
+
+  .ratnagiri1-landing .social-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ratnagiri1-landing .social-brand {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
   }
 }
