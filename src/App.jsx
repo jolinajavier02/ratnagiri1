@@ -575,6 +575,7 @@ function App() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [previewVideosReady, setPreviewVideosReady] = useState(false);
 
   const [activeIndiaPlace, setActiveIndiaPlace] = useState(ratnagiriRegionFeature.id);
 
@@ -612,6 +613,12 @@ function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    setPreviewVideosReady(false);
+    const timer = window.setTimeout(() => setPreviewVideosReady(true), 1400);
+    return () => window.clearTimeout(timer);
+  }, [routePath]);
 
   // Ratnagiri1 keeps the original landing carousel controls and progress.
   useEffect(() => {
@@ -773,7 +780,7 @@ function App() {
 
             <div className="hero-carousel-panel">
               <div className="carousel-cards-container">
-                {previewSlides.map((card) => (
+                {previewSlides.map((card, cardIndex) => (
                   <div className="hero-preview-item" key={card.id}>
                     <div
                       className="carousel-card"
@@ -788,13 +795,27 @@ function App() {
                       }}
                       aria-label={`Show ${card.title}`}
                     >
-                      <img
-                        src={card.thumbnail}
-                        className="carousel-card-img"
-                        alt={`${card.category} preview`}
-                        loading="eager"
-                        decoding="async"
-                      />
+                      {previewVideosReady && cardIndex < 3 ? (
+                        <video
+                          src={card.videoUrl}
+                          poster={card.thumbnail}
+                          className="carousel-card-img"
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                          aria-label={`${card.category} preview video`}
+                        />
+                      ) : (
+                        <img
+                          src={card.thumbnail}
+                          className="carousel-card-img"
+                          alt={`${card.category} preview`}
+                          loading="eager"
+                          decoding="async"
+                        />
+                      )}
                       <div className="carousel-card-overlay">
                         <span className="carousel-card-location">{card.category}</span>
                         <p className="carousel-card-desc">{card.previewText}</p>
